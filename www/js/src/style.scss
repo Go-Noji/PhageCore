@@ -1,0 +1,83 @@
+/**
+ * @copyright oddcodes All Rights Reserved
+ * @license https://opensource.org/licenses/mit-license.html MIT License
+ * @author Go Noji <gisosyadfe@gmail.com>
+ */
+
+$black: #023437;
+$white: #fafafa;
+$gray: #999;
+$keyColor: #0099a2;
+$ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+
+@mixin resetMarginAndPadding{
+  margin: 0;
+  padding: 0;
+}
+@mixin flexBetween{
+  display: flex;
+  justify-content: space-between;
+}
+@mixin input{
+  padding: 10px;
+  border: $gray solid 1px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px 3px transparent;
+  transition: box-shadow 100ms ease-in;
+  &:focus{
+    box-shadow: 0 0 3px 3px $keyColor;
+  }
+}
+@mixin btn{
+  padding: 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pc-body{
+  font-size: 16px;
+  font-family: $ja;
+  background-color: $white;
+}
+.pc-wrapper{
+}
+.pc-footer{
+  text-align: center;
+}
+
+.pc-between{
+  @include flexBetween;
+}
+.pc-image_back{
+  padding: 30px;
+  background-color: $black;
+  color: $white
+}
+.pc-form_wrapper{
+  padding: 30px;
+}
+.pc-submit-wrapper{
+  margin: 30px;
+  text-align: center;
+}
+
+.pc-paragraph{
+  @include resetMarginAndPadding;
+}
+.pc-input{
+  @include input;
+}
+.pc-submit{
+  @include btn;
+  border: $keyColor solid 1px;
+  background-color: $white;
+  color: $keyColor;
+  transition: background-color, color 300ms ease-in;
+  &:hover{
+    background: $keyColor;
+    color: $white;
+  }
+}
