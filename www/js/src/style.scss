@@ -8,6 +8,7 @@ $black: #023437;
 $white: #fafafa;
 $gray: #999;
 $keyColor: #0099a2;
+$errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
 
 @mixin resetMarginAndPadding{
@@ -67,8 +68,14 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 .pc-paragraph{
   @include resetMarginAndPadding;
 }
+.pc-paragraph_error{
+  color: $errorColor;
+}
 .pc-input{
   @include input;
+}
+.pc-input_error{
+  box-shadow: 0 0 3px 3px $errorColor;
 }
 .pc-submit{
   @include btn;

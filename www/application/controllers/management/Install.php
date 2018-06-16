@@ -22,6 +22,36 @@ class Install extends CI_Controller
   private $error = '';
 
   /**
+   * 管理者名用バリデーション設定
+   * @var array
+   */
+  private $validation_admin;
+
+  /**
+   * メールアドレス用バリデーション設定
+   * @var array
+   */
+  private $validation_mail;
+
+  /**
+   * パスワード用バリデーション設定
+   * @var array
+   */
+  private $validation_password;
+
+  /**
+   * パスワード（再入力）用バリデーション設定
+   * @var array
+   */
+  private $validation_passconf;
+
+  /**
+   * DBプレフィックス用バリデーション設定
+   * @var array
+   */
+  private $validation_db_prefix;
+
+  /**
    * Install constructor.
    */
   public function __construct()
@@ -45,61 +75,94 @@ class Install extends CI_Controller
 
     //インストールモデルのロード
     $this->load->model('install_model');
+
+    //バリデーション設定
+    $this->validation_admin = array(
+      'field' => 'admin',
+      'label' => '管理者名',
+      'rules' => 'required|max_length[256]',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'max_length' => '{field}が長すぎます'
+      )
+    );
+    $this->validation_mail = array(
+      'field' => 'mail',
+      'label' => '管理者メールアドレス',
+      'rules' => 'required|valid_email',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'valid_email' => '{field}が正しくありません'
+      )
+    );
+    $this->validation_password = array(
+      'field' => 'password',
+      'label' => 'パスワード',
+      'rules' => 'required|max_length[1024]',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'max_length' => '{field}は{param}文字以下で入力してください'
+      )
+    );
+    $this->validation_passconf = array(
+      'field' => 'passconf',
+      'label' => 'パスワード（再入力）',
+      'rules' => 'match[password]',
+      'errors' => array(
+        'required' => '{field}が一致しません'
+      )
+    );
+    $this->validation_db_prefix = array(
+      'field' => 'db_prefix',
+      'label' => 'データベースプレフィックス',
+      'rules' => 'required|max_length[50]|alpha',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'max_length' => '{field}は{param}文字以下で入力してください',
+        'alpha' => '{field}は半角アルファベットのみ入力できます'
+      )
+    );
   }
 
   /**
    * バリデーションを行う
+   * $targetが空の場合、定義されているバリデーション全てが実行される
+   * $targetが指定されていた場合、そのfieldに対するバリデーションのみが行われる
+   * @param string $target
    * @return bool
    */
-  private function _validation()
+  private function _validation($target = '')
   {
-    $this->form_validation->set_rules(array(
-      array(
-        'field' => 'user',
-        'label' => '管理者名',
-        'rules' => 'required|max_length[256]',
-        'errors' => array(
-          'required' => '{field}は必須です',
-          'max_length' => '{field}は{param}文字以下で入力してください'
-        )
-      ),
-      array(
-        'field' => 'mail',
-        'label' => '管理者メールアドレス',
-        'rules' => 'required|valid_email',
-        'errors' => array(
-          'required' => '{field}は必須です',
-          'valid_email' => '{field}が正しくありません'
-        )
-      ),
-      array(
-        'field' => 'password',
-        'label' => 'パスワード',
-        'rules' => 'required|max_length[1024]',
-        'errors' => array(
-          'required' => '{field}は必須です',
-          'max_length' => '{field}は{param}文字以下で入力してください'
-        )
-      ),
-      array(
-        'field' => 'passconf',
-        'label' => 'パスワード（再入力）',
-        'rules' => 'match[password]',
-        'errors' => array(
-          'required' => '{field}が一致しません'
-        )
-      ),
-      array(
-        'field' => 'db_prefix',
-        'label' => 'データベースプレフィックス',
-        'rules' => 'required|max_length[50]|alpha',
-        'errors' => array(
-          'required' => '{field}は必須です',
-          'max_length' => '{field}は{param}文字以下で入力してください',
-          'alpha' => '{field}は半角アルファベットのみ入力できます'
-        )
-      )
-    ));
+    //バリデーションの内容を決める
+    switch ($target)
+    {
+      case 'admin':
+        $this->form_validation->set_rules(array($this->validation_admin));
+        return $this->form_validation->run();
+        break;
+      case 'mail':
+        $this->form_validation->set_rules(array($this->validation_mail));
+        return $this->form_validation->run();
+        break;
+      case 'password':
+        $this->form_validation->set_rules(array($this->validation_password));
+        return $this->form_validation->run();
+        break;
+      case 'passconf':
+        $this->form_validation->set_rules(array($this->validation_passconf));
+        return $this->form_validation->run();
+        break;
+      case 'db_prefix':
+        $this->form_validation->set_rules(array($this->validation_db_prefix));
+        return $this->form_validation->run();
+        break;
+      default:
+        $this->form_validation->set_rules(array($this->validation_admin, $this->validation_mail, $this->validation_password, $this->validation_passconf, $this->validation_db_prefix));
+        return $this->form_validation->run();
+        break;
+    }
+
+    //実行
     return $this->form_validation->run();
   }
 
@@ -139,14 +202,23 @@ class Install extends CI_Controller
   }
 
   /**
-   * バリデーションを実行し、通ればデータベースを更新する
+   * バリデーションを行う
    * JSONを出力する
+   * $targetが空の場合、定義されているバリデーション全てが実行され、通過した際はDBが更新される
+   * $targetが指定されていた場合、そのfieldに対するバリデーションのみが行われる
+   * @param string $target
    */
-  public function validation()
+  public function validation($target = '')
   {
-    $this->_outPutJson($this->_validation() && $this->_install() ? 200 : 400, array(
-      'validation' => validation_errors(),
-      'error' => $this->error
+    //バリデーション実行
+    $result = $this->_validation($target);
+
+    //$targetが空だったら_install()を実行し結果を上書きする
+    $result = $target === '' && $this->_install() ? TRUE : $result;
+
+    //JSONの出力
+    $this->_outPutJson($result ? 200 : 400, array(
+      'validation' => $this->error ? $this->error : validation_errors(NULL, NULL),
     ));
   }
 
@@ -156,7 +228,8 @@ class Install extends CI_Controller
    */
   public function index()
   {
-    $this->link_files->add_file('dist/bundle.js');
+    $this->link_files->enable_develop_mode();
+    $this->link_files->add_file('dist/install.bundle.js');
     $this->load->view('admin/install');
   }
 
