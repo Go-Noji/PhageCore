@@ -1,9 +1,11 @@
 const MODE = 'development';
-const enabledSourceMap = (MODE === 'development');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    install: './js/src/install/main.ts'
+  },
   mode: MODE,
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -15,46 +17,50 @@ module.exports = {
             options: {
               url: false,
               minimize: true,
-              sourceMap: enabledSourceMap,
               importLoaders: 2
             },
           },
           {
-            loader: 'sass-loader',
+            loader: 'postcss-loader',
             options: {
-              sourceMap: enabledSourceMap
+              plugin: [require('autoprefixer')({grid: true})]
             }
+          },
+          {
+            loader: 'sass-loader'
           }
         ],
       },
       {
         test: /\.css/,
-        // ローダー名
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               url: false,
-              minimize: true,
-              sourceMap: enabledSourceMap
+              minimize: true
             },
           },
           {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: enabledSourceMap
-            }
+            loader: 'sass-loader'
           }
         ],
       },
+      {
+        test: /\.ts$/,
+        use: 'ts-loader'
+      }
     ]
-
+  },
+  resolve: {
+    extensions: ['.js', '.ts', '.scss', '.css'],
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
   },
   output: {
-    // 出力先のファイル名
-    filename: 'bundle.js',
-    // 出力先のファイルパス
-    path: `${__dirname}/dist`
+    filename: '[name].bundle.js',
+    path: `${__dirname}/js/dist`
   }
 }
