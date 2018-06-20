@@ -12,5 +12,8 @@
     ],
     "moduleResolution": "node",
     "experimentalDecorators": true
-  }
+  },
+  "include": [
+    "./sfc.d.ts"
+  ]
 }

@@ -1,7 +1,6 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
-import axios from 'axios';
 import {Installer} from "./installer";
+import Install_input from './Install_input.vue';
 
 //CodeIgniterが提供する変数
 declare var csrf_key: string;
@@ -23,6 +22,7 @@ interface Validation_data{
   const fullHeightClassNames: Array<string> = ['pc-js-full_height'];
 
   //各Vueインスタンスの作成
+  /*
   const admin = new Vue({
     el: '#admin',
     data: {
@@ -68,6 +68,12 @@ interface Validation_data{
       }
     }
   });
+  */
+  const admin = new Vue({el: '#admin', components: {Install_input}});
+  const mail = new Vue({el: '#mail', components: {Install_input}});
+  const password = new Vue({el: '#password', components: {Install_input}});
+  const passconf = new Vue({el: '#passconf', components: {Install_input}});
+  const db_prefix = new Vue({el: '#db_prefix', components: {Install_input}});
 
   window.onload = () =>
   {

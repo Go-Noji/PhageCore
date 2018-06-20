@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhostとかIPアドレスとか',
-	'username' => 'ここにユーザーネームを入力',
-	'password' => 'ここにパスワードを入力',
+	'hostname' => 'localhost',
+	'username' => 'phage_core',
+	'password' => 'pc_password',
 	'database' => 'phage_core',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'phage_',

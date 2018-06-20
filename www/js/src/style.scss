@@ -71,6 +71,9 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 .pc-paragraph_error{
   color: $errorColor;
 }
+.pc-message{
+  white-space: pre;
+}
 .pc-input{
   @include input;
 }

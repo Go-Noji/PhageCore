@@ -1,3 +1,4 @@
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MODE = 'development';
 
 module.exports = {
@@ -9,8 +10,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            'scss': 'vue-style-loader!css-loader!sass-loader',
+            'ts': 'ts-loader'
+          }
+        }
+      },
+      {
         test: /\.scss/,
         use: [
+          'vue-style-loader',
           'style-loader',
           {
             loader: 'css-loader',
@@ -34,6 +46,7 @@ module.exports = {
       {
         test: /\.css/,
         use: [
+          'vue-style-loader',
           'style-loader',
           {
             loader: 'css-loader',
@@ -49,12 +62,16 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        use: 'ts-loader'
+        exclude: /node_modules|vue\/src/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts', '.scss', '.css'],
+    extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
     alias: {
       vue: 'vue/dist/vue.js'
     }
@@ -62,5 +79,6 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: `${__dirname}/js/dist`
-  }
+  },
+  plugins: [new VueLoaderPlugin()]
 }

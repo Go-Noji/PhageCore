@@ -34,77 +34,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <h2>必要情報入力</h2>
       <?php echo form_open('', array('v-on:submit.prevent' => 'onSubmit')) ?>
       <ul>
-        <li id="admin">
-          <div>
-            <h3 class="pc-sub_title">管理者名</h3>
-            <p v-bind:class="message_class">{{message}}</p>
-          </div>
-          <div><?php echo form_input(array(
-              'name' => 'admin',
-              'value' => '',
-              'required' => 'required',
-              'placeholder' => '管理者名',
-              'v-bind:class' => 'form_class',
-              'v-model' => 'value'
-            )); ?></div>
-        </li>
-        <li>
-          <div>
-            <h3 class="pc-sub_title">管理者メールアドレス</h3>
-            <p class="pc-paragraph">Phage Coreの様々な通知に使われるメールアドレスです</p>
-            <p class="pc-error"></p>
-          </div>
-          <div><?php echo form_input(array(
-              'name' => 'mail',
-              'value' => '',
-              'required' => 'required',
-              'placeholder' => 'mail@example.com',
-              'id' => 'mail',
-              'class' => 'pc-input'
-            )); ?></div>
-        </li>
-        <li>
-          <div>
-            <h3 class="pc-sub_title">パスワード</h3>
-            <p class="pc-paragraph">Phage Coreはパスワードについて1024文字以下という制約以外を排しています。是非パスワードのベストプラクティスを理解し、かつあなたが使用しやすいパスワードを使用してください。</p>
-            <p class="pc-error"></p>
-          </div>
-          <div><?php echo form_password(array(
-              'name' => 'password',
-              'value' => '',
-              'required' => 'required',
-              'placeholder' => '',
-              'class' => 'pc-input'
-            )); ?></div>
-        </li>
-        <li>
-          <div>
-            <h3 class="pc-sub_title">パスワード（再入力）</h3>
-            <p class="pc-paragraph">上記のパスワードを再入力してください。</p>
-            <p class="pc-error"></p>
-          </div>
-          <div><?php echo form_input(array(
-              'name' => 'passconf',
-              'value' => '',
-              'required' => 'required',
-              'placeholder' => '',
-              'class' => 'pc-input'
-            )); ?></div>
-        </li>
-        <li>
-          <div>
-            <h3 class="pc-sub_title">データベースプレフィックス</h3>
-            <p class="pc-paragraph">多くの場合は初期設定で問題ないですが、もしあなたが複数のサイトを運営しようとしているならこの値を変更すべきです。また、入力できる文字は半角アルファベット50文字以下に制限されます。</p>
-            <p class="pc-error"></p>
-          </div>
-          <div><?php echo form_input(array(
-              'name' => 'db_prefix',
-              'value' => 'pc',
-              'required' => 'required',
-              'placeholder' => 'pc',
-              'class' => 'pc-input'
-            )); ?>_</div>
-        </li>
+        <li id="admin"><Install_input name="admin" message="Phage Core上で表示される管理者名です。" title="管理者名" placeholder="Go Noji"></Install_input></li>
+        <li id="mail"><Install_input name="mail" message="Phage Coreの様々な通知に使われるメールアドレスです" title="管理者メールアドレス" placeholder="mail@example.com"></Install_input></li>
+        <li id="password"><Install_input name="password" message="Phage Coreはパスワードについて1024文字以下という制約以外を排しています。是非パスワードのベストプラクティスを理解し、かつあなたが使用しやすいパスワードを使用してください。" title="パスワード" placeholder=""></Install_input></li>
+        <li id="passconf"><Install_input name="passconf" message="上記のパスワードを再入力してください。" title="パスワード（再入力）" placeholder="" include="password"></Install_input></li>
+        <li id="db_prefix"><Install_input name="db_prefix" message="多くの場合は初期設定で問題ないですが、もしあなたが複数のサイトを運営しようとしているならこの値を変更すべきです。また、入力できる文字は半角アルファベット50文字以下に制限されます。" title="データベースプレフィックス" placeholder="" value="pc"></Install_input></li>
       </ul>
       <div class="pc-submit-wrapper">
         <?php echo form_submit(array(

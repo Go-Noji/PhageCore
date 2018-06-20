@@ -107,9 +107,10 @@ class Install extends CI_Controller
     $this->validation_passconf = array(
       'field' => 'passconf',
       'label' => 'パスワード（再入力）',
-      'rules' => 'match[password]',
+      'rules' => 'required|matches[password]',
       'errors' => array(
-        'required' => '{field}が一致しません'
+        'required' => '{field}は必須です',
+        'matches' => '{field}が一致しません'
       )
     );
     $this->validation_db_prefix = array(
@@ -149,7 +150,7 @@ class Install extends CI_Controller
         return $this->form_validation->run();
         break;
       case 'passconf':
-        $this->form_validation->set_rules(array($this->validation_passconf));
+        $this->form_validation->set_rules(array($this->validation_passconf, $this->validation_password));
         return $this->form_validation->run();
         break;
       case 'db_prefix':
