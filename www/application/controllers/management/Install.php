@@ -127,12 +127,12 @@ class Install extends CI_Controller
 
   /**
    * バリデーションを行う
-   * $targetが空の場合、定義されているバリデーション全てが実行される
+   * $targetが'all'の場合、定義されているバリデーション全てが実行される
    * $targetが指定されていた場合、そのfieldに対するバリデーションのみが行われる
    * @param string $target
    * @return bool
    */
-  private function _validation($target = '')
+  private function _validation($target = 'all')
   {
     //バリデーションの内容を決める
     switch ($target)
@@ -205,21 +205,28 @@ class Install extends CI_Controller
   /**
    * バリデーションを行う
    * JSONを出力する
-   * $targetが空の場合、定義されているバリデーション全てが実行され、通過した際はDBが更新される
+   * $targetが'all'の場合、定義されているバリデーション全てが実行され、通過した際はDBが更新される
    * $targetが指定されていた場合、そのfieldに対するバリデーションのみが行われる
    * @param string $target
    */
-  public function validation($target = '')
+  public function validation($target = 'all')
   {
     //バリデーション実行
     $result = $this->_validation($target);
 
-    //$targetが空だったら_install()を実行し結果を上書きする
-    $result = $target === '' && $this->_install() ? TRUE : $result;
+    //エラーメッセージ配列の作成
+    $errors = array();
+    foreach ($target === 'all' ? array('admin', 'mail', 'password', 'passconf', 'db_prefix') : array($target) as $field)
+    {
+      $errors[$field] = form_error($field, NULL, NULL);
+    }
+
+    //$targetが'all'だったら_install()を実行し結果を上書きする
+    //$result = $target === 'all' && $this->_install() ? TRUE : $result;
 
     //JSONの出力
     $this->_outPutJson($result ? 200 : 400, array(
-      'validation' => $this->error ? $this->error : validation_errors(NULL, NULL),
+      'validation' => $this->error ? array('db_error' => $this->error) : $errors,
     ));
   }
 

@@ -37,6 +37,26 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   text-align: center;
   cursor: pointer;
 }
+@mixin link($color){
+  color: $color;
+  &:hover{
+    color: $color;
+  }
+  &:active{
+    color: $color;
+  }
+  &:visited{
+    color: $color;
+  }
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+li{
+  list-style-type: none;
+}
 
 .pc-body{
   font-size: 16px;
@@ -45,39 +65,44 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 .pc-wrapper{
 }
-.pc-footer{
-  text-align: center;
-}
 
 .pc-between{
   @include flexBetween;
 }
-.pc-image_back{
+.pc-logoBack{
   padding: 30px;
   background-color: $black;
   color: $white
 }
-.pc-form_wrapper{
+.pc-logoBackLink{
+  @include link($white);
+}
+.ps-installLogo{
+  margin: auto;
+  max-width: 300px;
+  display: block;
+}
+.pc-formWrapper{
   padding: 30px;
 }
-.pc-submit-wrapper{
+.pc-submitWrapper{
   margin: 30px;
   text-align: center;
 }
 
+.pc-subTitle{
+  margin: 30px 0 0 0;
+}
 .pc-paragraph{
   @include resetMarginAndPadding;
 }
-.pc-paragraph_error{
+.pc-paragraphError{
   color: $errorColor;
-}
-.pc-message{
-  white-space: pre;
 }
 .pc-input{
   @include input;
 }
-.pc-input_error{
+.pc-inputError{
   box-shadow: 0 0 3px 3px $errorColor;
 }
 .pc-submit{
