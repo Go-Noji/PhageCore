@@ -181,7 +181,7 @@ declare var site_url: string;
               //各コンポーネントの表示
               else if(this.$refs[key] !== undefined)
               {
-                this.$refs[key].showError(messages[key], returnSeconds);
+                this.$refs[key].renderMessage(false, messages[key], messages[key] ? 'pc-input pc-inputError' : 'pc-input');
               }
             });
           });

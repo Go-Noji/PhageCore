@@ -105,6 +105,12 @@ li{
 .pc-inputError{
   box-shadow: 0 0 3px 3px $errorColor;
 }
+.pc-icon{
+  color: $keyColor;
+}
+.pc-button{
+  @include btn;
+}
 .pc-submit{
   @include btn;
   border: $keyColor solid 1px;
