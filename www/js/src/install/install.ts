@@ -123,7 +123,8 @@ declare var site_url: string;
     el: '#installForm',
     store,
     data: {
-      dbError: '　'
+      dbError: '　',
+      showLoader: false
     },
     components:{
       'install-input': InstallInput
@@ -135,9 +136,11 @@ declare var site_url: string;
        */
       install: function (event: HTMLElementEvent<HTMLInputElement>)
       {
+        //ローダーを表示する
+        this.toggleLoader();
+
         //全ての入力情報を入手
         const values = this.$store.state.values;
-        console.log(values);
 
         //POSTに渡すパラメータ
         let params: URLSearchParams = new URLSearchParams();
@@ -156,10 +159,16 @@ declare var site_url: string;
         })
           .then((response) =>
           {
+            //ローダーを非表示する
+            this.toggleLoader(false);
+
             console.log(response);
           })
           .catch((error) =>
           {
+            //ローダーを非表示する
+            this.toggleLoader(false);
+
             //エラーメッセージから通常メッセージに戻すまでの秒数
             const returnSeconds: number = 3000;
 
@@ -181,10 +190,19 @@ declare var site_url: string;
               //各コンポーネントの表示
               else if(this.$refs[key] !== undefined)
               {
-                this.$refs[key].renderMessage(false, messages[key], messages[key] ? 'pc-input pc-inputError' : 'pc-input');
+                this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'pc-input pc-inputError' : 'pc-input');
               }
             });
           });
+      },
+      /**
+       * いわゆるローダーの表示・非表示を切り替える
+       * showをtrue(デフォルト)にすると表示・逆で非表示にする
+       * @param {boolean} show
+       */
+      toggleLoader: function (show: boolean = true)
+      {
+        this.showLoader = show;
       }
     }
   });

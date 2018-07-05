@@ -5,8 +5,9 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  *
  * @property CI_Loader $load
- * @property CI_DB
+ * @property CI_Input $input
  * @property CI_DB $db
+ * @property CI_DB_utility $dbutil
  */
 class Install_model extends CI_Model
 {
@@ -66,6 +67,8 @@ class Install_model extends CI_Model
   /**
    * テーブルを作成する
    * 外部キー設定があるので参照先テーブルから先に記述
+   * db->queryの結果を格納した配列を返す
+   * @return array
    */
   private function _create()
   {
@@ -362,6 +365,53 @@ class Install_model extends CI_Model
       CONSTRAINT `desktop_icon_id` FOREIGN KEY (`desktop_id`) REFERENCES `{$this->db->dbprefix}desktop` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '管理画面のデスクトップ';
     ");
+
+    return $results;
+  }
+
+  /**
+   * 権限データ・管理者を初期化する
+   * DBエラーが発生したらFALSEを返す
+   * @return bool
+   */
+  private function _initAdmin()
+  {
+    //テーブルが存在しなかったらエラーを返す
+    $query = $this->db->query("
+    SHOW TABLES LIKE '{$this->db->dbprefix}role'
+    ");
+    if ( ! $query->row())
+    {
+      return FALSE;
+    }
+    $query = $this->db->query("
+    SHOW TABLES LIKE '{$this->db->dbprefix}admin'
+    ");
+    if ( ! $query->row())
+    {
+      return FALSE;
+    }
+
+    //テーブルに情報をINSERT
+    if ( ! $this->db->insert($this->db->dbprefix.'role', array(
+      'name' => 'administrator'
+    )))
+    {
+      return FALSE;
+    }
+    if ( ! $this->db->insert($this->db->dbprefix.'admin', array(
+      'role_id' => 1,
+      'slug' => $this->input->post('slug'),
+      'name' => $this->input->post('name'),
+      'mail' => $this->input->post('mail'),
+      'password' => hash('sha256', $this->input->post('mail')),
+    )))
+    {
+      return FALSE;
+    }
+
+    //全て正常に終了
+    return TRUE;
   }
 
   /**
@@ -425,9 +475,6 @@ class Install_model extends CI_Model
    */
   public function install($truncate = FALSE)
   {
-    //SQLが成功したか判断する結果の配列
-    $results = array();
-
     //既にあるテーブルを消す
     if ($truncate)
     {
@@ -435,7 +482,8 @@ class Install_model extends CI_Model
     }
 
     //CREATE文実行
-    $this->_create();
+    //同時にSQLが成功したか判断する結果の配列を取得する
+    $results = $this->_create();
 
     //初期化ファイルの削除
     $this->_delete_resetDB();
@@ -448,8 +496,8 @@ class Install_model extends CI_Model
       }
     }
 
-    //エラーが無ければTRUEを返す
-    return TRUE;
+    //POSTで送られてきたデータを格納する
+    return $this->_initAdmin();
   }
 
 }

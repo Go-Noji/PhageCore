@@ -25,7 +25,13 @@ class Install extends CI_Controller
    * 管理者名用バリデーション設定
    * @var array
    */
-  private $validation_admin;
+  private $validation_name;
+
+  /**
+   * スラッグ用バリデーション設定
+   * @var array
+   */
+  private $validation_slug;
 
   /**
    * メールアドレス用バリデーション設定
@@ -44,12 +50,6 @@ class Install extends CI_Controller
    * @var array
    */
   private $validation_passconf;
-
-  /**
-   * DBプレフィックス用バリデーション設定
-   * @var array
-   */
-  private $validation_db_prefix;
 
   /**
    * Install constructor.
@@ -77,13 +77,23 @@ class Install extends CI_Controller
     $this->load->model('install_model');
 
     //バリデーション設定
-    $this->validation_admin = array(
-      'field' => 'admin',
+    $this->validation_name = array(
+      'field' => 'name',
       'label' => '管理者名',
       'rules' => 'required|max_length[256]',
       'errors' => array(
         'required' => '{field}は必須です',
         'max_length' => '{field}が長すぎます'
+      )
+    );
+    $this->validation_slug = array(
+      'field' => 'slug',
+      'label' => 'スラッグ',
+      'rules' => 'required|max_length[256]|alpha_dash',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'max_length' => '{field}が長すぎます',
+        'alpha_dash' => '{field}に半角英数字、_、-、以外が含まれています'
       )
     );
     $this->validation_mail = array(
@@ -113,16 +123,6 @@ class Install extends CI_Controller
         'matches' => '{field}が一致しません'
       )
     );
-    $this->validation_db_prefix = array(
-      'field' => 'db_prefix',
-      'label' => 'データベースプレフィックス',
-      'rules' => 'required|max_length[50]|alpha',
-      'errors' => array(
-        'required' => '{field}は必須です',
-        'max_length' => '{field}は{param}文字以下で入力してください',
-        'alpha' => '{field}は半角アルファベットのみ入力できます'
-      )
-    );
   }
 
   /**
@@ -137,8 +137,12 @@ class Install extends CI_Controller
     //バリデーションの内容を決める
     switch ($target)
     {
-      case 'admin':
-        $this->form_validation->set_rules(array($this->validation_admin));
+      case 'name':
+        $this->form_validation->set_rules(array($this->validation_name));
+        return $this->form_validation->run();
+        break;
+      case 'slug':
+        $this->form_validation->set_rules(array($this->validation_slug));
         return $this->form_validation->run();
         break;
       case 'mail':
@@ -153,12 +157,8 @@ class Install extends CI_Controller
         $this->form_validation->set_rules(array($this->validation_passconf, $this->validation_password));
         return $this->form_validation->run();
         break;
-      case 'db_prefix':
-        $this->form_validation->set_rules(array($this->validation_db_prefix));
-        return $this->form_validation->run();
-        break;
       default:
-        $this->form_validation->set_rules(array($this->validation_admin, $this->validation_mail, $this->validation_password, $this->validation_passconf, $this->validation_db_prefix));
+        $this->form_validation->set_rules(array($this->validation_name, $this->validation_slug, $this->validation_mail, $this->validation_password, $this->validation_passconf));
         return $this->form_validation->run();
         break;
     }
@@ -174,7 +174,7 @@ class Install extends CI_Controller
   private function _install()
   {
     //DBをイニシャライズする
-    if ($this->install_model->install(TRUE))
+    if ( ! $this->install_model->install(TRUE))
     {
       $this->error = 'データベースエラーが発生しました';
       return FALSE;
@@ -216,13 +216,16 @@ class Install extends CI_Controller
 
     //エラーメッセージ配列の作成
     $errors = array();
-    foreach ($target === 'all' ? array('admin', 'mail', 'password', 'passconf', 'db_prefix') : array($target) as $field)
+    foreach ($target === 'all' ? array('name', 'slug', 'mail', 'password', 'passconf') : array($target) as $field)
     {
       $errors[$field] = form_error($field, NULL, NULL);
     }
 
-    //$targetが'all'だったら_install()を実行し結果を上書きする
-    //$result = $target === 'all' && $this->_install() ? TRUE : $result;
+    //この時点で$resultがTRUEかつ、$targetが'all'だったら_install()を実行し結果を上書きする
+    if ($result)
+    {
+      $result = $target === 'all' && $this->_install() ? TRUE : $result;
+    }
 
     //JSONの出力
     $this->_outPutJson($result ? 200 : 400, array(
