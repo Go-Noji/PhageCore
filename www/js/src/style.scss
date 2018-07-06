@@ -86,8 +86,10 @@ li{
   padding: 30px;
 }
 .pc-submitWrapper{
-  margin: 30px;
-  text-align: center;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pc-subTitle{

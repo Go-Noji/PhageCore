@@ -28,6 +28,12 @@ class Install extends CI_Controller
   private $validation_name;
 
   /**
+   * サイト名用バリデーション設定
+   * @var array
+   */
+  private $validation_site;
+
+  /**
    * スラッグ用バリデーション設定
    * @var array
    */
@@ -77,6 +83,15 @@ class Install extends CI_Controller
     $this->load->model('install_model');
 
     //バリデーション設定
+    $this->validation_site = array(
+      'field' => 'site',
+      'label' => 'サイト名',
+      'rules' => 'required|max_length[256]',
+      'errors' => array(
+        'required' => '{field}は必須です',
+        'max_length' => '{field}が長すぎます'
+      )
+    );
     $this->validation_name = array(
       'field' => 'name',
       'label' => '管理者名',
@@ -137,6 +152,10 @@ class Install extends CI_Controller
     //バリデーションの内容を決める
     switch ($target)
     {
+      case 'site':
+        $this->form_validation->set_rules(array($this->validation_site));
+        return $this->form_validation->run();
+        break;
       case 'name':
         $this->form_validation->set_rules(array($this->validation_name));
         return $this->form_validation->run();
@@ -158,7 +177,7 @@ class Install extends CI_Controller
         return $this->form_validation->run();
         break;
       default:
-        $this->form_validation->set_rules(array($this->validation_name, $this->validation_slug, $this->validation_mail, $this->validation_password, $this->validation_passconf));
+        $this->form_validation->set_rules(array($this->validation_site, $this->validation_name, $this->validation_slug, $this->validation_mail, $this->validation_password, $this->validation_passconf));
         return $this->form_validation->run();
         break;
     }
@@ -216,7 +235,7 @@ class Install extends CI_Controller
 
     //エラーメッセージ配列の作成
     $errors = array();
-    foreach ($target === 'all' ? array('name', 'slug', 'mail', 'password', 'passconf') : array($target) as $field)
+    foreach ($target === 'all' ? array('site', 'name', 'slug', 'mail', 'password', 'passconf') : array($target) as $field)
     {
       $errors[$field] = form_error($field, NULL, NULL);
     }
@@ -239,6 +258,13 @@ class Install extends CI_Controller
    */
   public function index()
   {
+    //インストールの必要があるか判定、必要なければ管理TOPへリダイレクト
+    if ( ! $this->install_model->is_need_install())
+    {
+      redirect(site_url('admin'));
+    }
+
+    //リソースをロードしつつ画面を表示
     $this->link_files->enable_develop_mode();
     $this->link_files->add_file('dist/install.bundle.js');
     $this->load->view('admin/install');

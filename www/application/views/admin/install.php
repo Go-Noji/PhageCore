@@ -39,6 +39,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ul>
         <li>
           <install-input
+            ref="site"
+            name="site"
+            description="サイトの名前です。"
+            title="サイト名"
+            placeholder="Phage Core"></install-input>
+        </li>
+        <li>
+          <install-input
             ref="name"
             name="name"
             description="Phage Core上で表示される管理者名です。"
@@ -84,20 +92,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </ul>
       <div class="pc-submitWrapper">
         <p class="pc-paragraph pc-message pc-paragraphError">{{dbError}}</p>
-        <?php echo form_submit(array(
-          'name' => 'submit',
-          'value' => 'この設定で始める',
-          'required' => 'required',
-          'placeholder' => '',
-          'class' => 'pc-submit pc-noAction'
-        )); ?>
+        <transition name="loader-fade">
+          <div class="pc-loaderWrap" v-if="showLoader">
+            <div class="pc-loaderBox"></div>
+            <p class="pc-loaderMessage">Connecting...</p>
+          </div>
+          <div v-else>
+            <input name="submit" value="この設定で始める" required="required" placeholder="" class="pc-submit pc-noAction" type="submit">
+          </div>
+        </transition>
       </div>
-      <transition name="loader-fade">
-        <div class="pc-loaderWrap" v-if="showLoader">
-          <div class="pc-loaderBox"></div>
-          <p class="pc-loaderMessage">Connecting...</p>
-        </div>
-      </transition>
       <?php echo form_close(); ?>
     </section>
   </div>

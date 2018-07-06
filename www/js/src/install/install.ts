@@ -162,7 +162,8 @@ declare var site_url: string;
             //ローダーを非表示する
             this.toggleLoader(false);
 
-            console.log(response);
+            //ログイン画面にリダイレクトする
+            window.location.href = site_url+'management/login';
           })
           .catch((error) =>
           {

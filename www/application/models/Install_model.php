@@ -19,6 +19,18 @@ class Install_model extends CI_Model
   private $tables;
 
   /**
+   * 最高権限者のrole名
+   * @var string
+   */
+  private $adminstrator = 'administrator';
+
+  /**
+   * サイト名を表すoptionテーブルでのkey_name
+   * @var string
+   */
+  private $site = 'site';
+
+  /**
    * Install_model constructor.
    * @return void
    */
@@ -34,7 +46,7 @@ class Install_model extends CI_Model
 
     //テーブル名配列のセット
     //削除時に外部キー設定に引っかかるので、_createで定義する逆順で記載
-    $this->tables = array('desktop_icon', 'desktop', 'task', 'resource', 'option', 'contact_meta', 'contact', 'comment_meta', 'comment', 'user_relationship', 'user', 'attribute_relationship', 'attribute', 'content_meta', 'content', 'directory', 'admin', 'role_ng_method', 'role');
+    $this->tables = array('desktop_icon', 'desktop', 'task', 'resource', 'options', 'contact_meta', 'contact', 'comment_meta', 'comment', 'user_relationship', 'user', 'attribute_relationship', 'attribute', 'content_meta', 'content', 'directory', 'admin', 'role_ng_method', 'role');
   }
 
   /**
@@ -290,9 +302,9 @@ class Install_model extends CI_Model
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'contactに対しての実データ';
     ");
 
-    $results['option'] = $this->db->query("
+    $results['options'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}option` 
+    `{$this->db->dbprefix}options` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `key_name` VARCHAR(50) NOT NULL COMMENT 'キー' , 
@@ -370,7 +382,7 @@ class Install_model extends CI_Model
   }
 
   /**
-   * 権限データ・管理者を初期化する
+   * 権限データ・管理者・サイト名を初期化する
    * DBエラーが発生したらFALSEを返す
    * @return bool
    */
@@ -391,6 +403,13 @@ class Install_model extends CI_Model
     {
       return FALSE;
     }
+    $query = $this->db->query("
+    SHOW TABLES LIKE '{$this->db->dbprefix}options'
+    ");
+    if ( ! $query->row())
+    {
+      return FALSE;
+    }
 
     //テーブルに情報をINSERT
     if ( ! $this->db->insert($this->db->dbprefix.'role', array(
@@ -404,7 +423,14 @@ class Install_model extends CI_Model
       'slug' => $this->input->post('slug'),
       'name' => $this->input->post('name'),
       'mail' => $this->input->post('mail'),
-      'password' => hash('sha256', $this->input->post('mail')),
+      'password' => hash('sha256', $this->input->post('mail'))
+    )))
+    {
+      return FALSE;
+    }
+    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+      'key_name' => $this->site,
+      'value' => $this->input->post('site')
     )))
     {
       return FALSE;
@@ -440,13 +466,21 @@ class Install_model extends CI_Model
 
   /**
    * 初期化が必要かどうかを判断する
-   * 以下の条件のうちどちらかに該当した場合にTRUEを返す
-   * PhageCore初期テーブル（prefixを考慮）がなにかしら足らない
+   * 以下の条件のうちどれかに該当した場合にTRUEを返す
    * トップディレクトリに'.resetdb'というファイルが存在する
+   * PhageCore初期テーブルがなにかしら足らない
+   * サイト名が未設定
+   * 最高権限の管理者データが一つもない
    * @return bool
    */
   public function is_need_install()
   {
+    //初期化ファイルがあるかどうかの判断
+    if (file_exists('./\.resetdb'))
+    {
+      return TRUE;
+    }
+
     //必要なテーブルが揃っているか検査
     foreach ($this->tables as $table)
     {
@@ -457,14 +491,28 @@ class Install_model extends CI_Model
       }
     }
 
-    //初期化ファイルがあるかどうかの判断
-    if (file_exists('.resetdb'))
+    //DBにサイト名が存在するか
+    $query = $this->db->query("
+    SELECT {$this->db->dbprefix}options.id 
+    FROM {$this->db->dbprefix}options 
+    WHERE {$this->db->dbprefix}options.key_name = ? 
+    LIMIT 1
+    ", array($this->site));
+    if ( ! $query->row())
     {
       return TRUE;
     }
 
-    //初期化の必要無し
-    return FALSE;
+    //DBに最高権限の管理者がいるかどうか
+    $query = $this->db->query("
+    SELECT {$this->db->dbprefix}admin.id 
+    FROM {$this->db->dbprefix}admin 
+    LEFT JOIN {$this->db->dbprefix}role 
+    ON {$this->db->dbprefix}admin.role_id = {$this->db->dbprefix}role.id 
+    WHERE {$this->db->dbprefix}role.name = ? 
+    LIMIT 1
+    ", array($this->adminstrator));
+    return $query->row() ? FALSE : TRUE;
   }
 
   /**
