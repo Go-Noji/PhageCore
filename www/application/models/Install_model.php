@@ -7,7 +7,6 @@
  * @property CI_Loader $load
  * @property CI_Input $input
  * @property CI_DB $db
- * @property CI_DB_utility $dbutil
  */
 class Install_model extends CI_Model
 {
@@ -423,7 +422,7 @@ class Install_model extends CI_Model
       'slug' => $this->input->post('slug'),
       'name' => $this->input->post('name'),
       'mail' => $this->input->post('mail'),
-      'password' => hash('sha256', $this->input->post('mail'))
+      'password' => hash('sha256', $this->input->post('password'))
     )))
     {
       return FALSE;
