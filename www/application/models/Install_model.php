@@ -24,12 +24,6 @@ class Install_model extends CI_Model
   private $adminstrator = 'administrator';
 
   /**
-   * サイト名を表すoptionテーブルでのkey_name
-   * @var string
-   */
-  private $site = 'site';
-
-  /**
    * Install_model constructor.
    * @return void
    */
@@ -381,6 +375,23 @@ class Install_model extends CI_Model
   }
 
   /**
+   * Phage Coreが初期インストールするテーブルが全て揃っているか判定する
+   * @return bool
+   */
+  private function _is_tables_exists()
+  {
+    foreach ($this->tables as $table)
+    {
+      if ( ! $this->db->table_exists($this->db->dbprefix.$table))
+      {
+        return FALSE;
+      }
+    }
+
+    return TRUE;
+  }
+
+  /**
    * 権限データ・管理者・サイト名を初期化する
    * DBエラーが発生したらFALSEを返す
    * @return bool
@@ -388,24 +399,7 @@ class Install_model extends CI_Model
   private function _initAdmin()
   {
     //テーブルが存在しなかったらエラーを返す
-    $query = $this->db->query("
-    SHOW TABLES LIKE '{$this->db->dbprefix}role'
-    ");
-    if ( ! $query->row())
-    {
-      return FALSE;
-    }
-    $query = $this->db->query("
-    SHOW TABLES LIKE '{$this->db->dbprefix}admin'
-    ");
-    if ( ! $query->row())
-    {
-      return FALSE;
-    }
-    $query = $this->db->query("
-    SHOW TABLES LIKE '{$this->db->dbprefix}options'
-    ");
-    if ( ! $query->row())
+    if ( ! $this->_is_tables_exists())
     {
       return FALSE;
     }
@@ -428,7 +422,7 @@ class Install_model extends CI_Model
       return FALSE;
     }
     if ( ! $this->db->insert($this->db->dbprefix.'options', array(
-      'key_name' => $this->site,
+      'key_name' => 'site_name',
       'value' => $this->input->post('site')
     )))
     {
@@ -475,29 +469,13 @@ class Install_model extends CI_Model
   public function is_need_install()
   {
     //初期化ファイルがあるかどうかの判断
-    if (file_exists('./\.resetdb'))
+    if (file_exists('.resetdb'))
     {
       return TRUE;
     }
 
     //必要なテーブルが揃っているか検査
-    foreach ($this->tables as $table)
-    {
-      if ( ! $this->db->table_exists($this->db->dbprefix.$table))
-      {
-        return TRUE;
-        break;
-      }
-    }
-
-    //DBにサイト名が存在するか
-    $query = $this->db->query("
-    SELECT {$this->db->dbprefix}options.id 
-    FROM {$this->db->dbprefix}options 
-    WHERE {$this->db->dbprefix}options.key_name = ? 
-    LIMIT 1
-    ", array($this->site));
-    if ( ! $query->row())
+    if ( ! $this->_is_tables_exists())
     {
       return TRUE;
     }
