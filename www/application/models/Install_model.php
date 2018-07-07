@@ -428,6 +428,13 @@ class Install_model extends CI_Model
     {
       return FALSE;
     }
+    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+      'key_name' => 'init_timestamp',
+      'value' => time()
+    )))
+    {
+      return FALSE;
+    }
 
     //全て正常に終了
     return TRUE;
