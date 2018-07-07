@@ -12,6 +12,7 @@
  * @property Login_tool $login_tool
  * @property Install_model $install_model
  * @property Admin_model $admin_model
+ * @property Options_Model $options_model
  */
 class Login extends CI_Controller
 {
@@ -50,8 +51,12 @@ class Login extends CI_Controller
       redirect(site_url('admin'));
     }
 
-    //Admin_modelのロード
+    //Admin_model, Options_modelのロード
     $this->load->model('admin_model');
+    $this->load->model('options_model');
+
+    //Link_filesライブラリーのロード
+    $this->load->library('link_files');
   }
 
   /**
@@ -103,8 +108,13 @@ class Login extends CI_Controller
     $limit = ! $ban && $this->input->post('submit') ? $this->login_tool->get_limit() : 0;
     $release = $ban ? $this->login_tool->get_release() : 0;
 
+    //サイト名の取得
+    $site_name = $this->options_model->get('site_name', 'Phage Core');
+
     //viewを読み込む
-    $this->load->view('admin/login', compact('ban', 'limit', 'release'));
+    $this->link_files->enable_develop_mode();
+    $this->link_files->add_file('dist/login.bundle.js');
+    $this->load->view('admin/login', compact('ban', 'limit', 'release', 'site_name'));
   }
 
 }
