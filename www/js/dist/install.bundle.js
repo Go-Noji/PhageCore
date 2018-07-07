@@ -292,10 +292,8 @@ __webpack_require__.r(__webpack_exports__);
                     }
                 })
                     .then(function (response) {
-                    //ローダーを非表示する
-                    _this.toggleLoader(false);
                     //ログイン画面にリダイレクトする
-                    window.location.href = site_url + 'management/login';
+                    window.location.href = site_url + 'management/login?first=1';
                 })
                     .catch(function (error) {
                     //ローダーを非表示する

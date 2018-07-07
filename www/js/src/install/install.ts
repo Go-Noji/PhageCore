@@ -159,11 +159,8 @@ declare var site_url: string;
         })
           .then((response) =>
           {
-            //ローダーを非表示する
-            this.toggleLoader(false);
-
             //ログイン画面にリダイレクトする
-            window.location.href = site_url+'management/login';
+            window.location.href = site_url+'management/login?first=1';
           })
           .catch((error) =>
           {
