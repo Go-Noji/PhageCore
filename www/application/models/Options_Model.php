@@ -40,7 +40,7 @@ class Options_Model extends CI_Model
     //SQL文の発行
     $query = $this->db->query("
     SELECT *  
-    FROM options 
+    FROM {$this->db->dbprefix}options 
     WHERE key_name = ? 
     LIMIT 1
     ", array($key_name));
