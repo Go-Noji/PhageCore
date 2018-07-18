@@ -1,4 +1,5 @@
 import '../style.scss';
+import '../login.scss';
 import 'sanitize.css';
 import './login.ts';
 import '@fortawesome/fontawesome';

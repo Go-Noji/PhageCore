@@ -1,0 +1,51 @@
+/**
+ * @copyright oddcodes All Rights Reserved
+ * @license https://opensource.org/licenses/mit-license.html MIT License
+ * @author Go Noji <gisosyadfe@gmail.com>
+ */
+
+$black: #023437;
+$white: #fafafa;
+$gray: #999;
+$keyColor: #0099a2;
+$errorColor: #ea1213;
+$ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+
+.pc-loginArea{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pc-loginBox{
+  background: rgba($keyColor, 0.1);
+  padding: 30px;
+  position: relative;
+  top: 0;
+}
+.pc-loginHead{
+  width: 350px;
+  max-height: 600px;
+  text-align: center;
+}
+.pc-loginLogo{
+  display: block;
+  max-width: 100px;
+  margin: 0 auto;
+}
+.pc-loginMessage{
+  text-align: center;
+}
+.pc-loginInput{
+  width: 100%;
+}
+.pc-loginSubmitBox{
+  text-align: center;
+}
+
+.login-enter-active, .login-leave-active {
+  transition: opacity .5s ease-in-out, top .5s ease;
+}
+.login-enter, .login-leave-to{
+  opacity: 0;
+  top: 30px;
+}
