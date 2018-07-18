@@ -25,6 +25,7 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   border-radius: 3px;
   box-shadow: 0 0 3px 3px transparent;
   transition: box-shadow 100ms ease-in;
+  background-color: $white;
   &:focus{
     box-shadow: 0 0 3px 3px $keyColor;
   }
