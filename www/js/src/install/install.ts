@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Installer} from "./installer";
-import InstallInput from './InstallInput.vue';
+import {AmdinStyler} from "../AmdinStyler";
+import InstallInput from './InstallInput';
 import axios from 'axios';
 
 /**
@@ -47,7 +47,7 @@ declare var site_url: string;
 (() =>
 {
   //インストール用クラス
-  const installer = new Installer();
+  const adminStyler = new AmdinStyler();
 
   //高さを合わせたいクラス名(複数)
   const fullHeightClassNames: Array<string> = ['pc-js-full_height'];
@@ -208,12 +208,12 @@ declare var site_url: string;
   window.onload = () =>
   {
     //height合わせ
-    installer.initHeightStyle(fullHeightClassNames);
+    adminStyler.initHeightStyle(fullHeightClassNames);
   }
 
   //画面リサイズによるheight合わせ
   window.addEventListener('resize', () =>
   {
-    installer.initHeightStyle(fullHeightClassNames);
+    adminStyler.initHeightStyle(fullHeightClassNames);
   });
 })();

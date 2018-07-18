@@ -1,4 +1,7 @@
-export class Installer{
+/**
+ * 管理画面のスタイルをJSで制御する時の汎用クラス
+ */
+export class AmdinStyler{
 
   constructor()
   {}
