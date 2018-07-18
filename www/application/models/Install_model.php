@@ -429,6 +429,13 @@ class Install_model extends CI_Model
       return FALSE;
     }
     if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+      'key_name' => 'site_logo',
+      'value' => site_url('images/logo.png')
+    )))
+    {
+      return FALSE;
+    }
+    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
       'key_name' => 'init_timestamp',
       'value' => time()
     )))

@@ -111,10 +111,13 @@ class Login extends CI_Controller
     //サイト名の取得
     $site_name = $this->options_model->get('site_name', 'Phage Core');
 
+    //サイトロゴの取得
+    $site_logo = $this->options_model->get('site_logo', site_url('images/logo.png'));
+
     //viewを読み込む
     $this->link_files->enable_develop_mode();
     $this->link_files->add_file('dist/login.bundle.js');
-    $this->load->view('admin/login', compact('ban', 'limit', 'release', 'site_name'));
+    $this->load->view('admin/login', compact('ban', 'limit', 'release', 'site_name', 'site_logo'));
   }
 
 }
