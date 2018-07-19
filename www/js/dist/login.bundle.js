@@ -7553,7 +7553,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".pc-loginArea{display:flex;justify-content:center;align-items:center}.pc-loginBox{background:rgba(0,153,162,.1);padding:30px;position:relative;top:0}.pc-loginHead{min-width:400px;max-height:600px;text-align:center}.pc-loginLogo{display:block;max-width:100px;margin:0 auto}.pc-loginMessage{text-align:center}.pc-loginInput{width:100%}.pc-loginSubmitBox{text-align:center}.login-enter-active,.login-leave-active{transition:opacity .5s ease-in-out,top .5s ease}.login-enter,.login-leave-to{opacity:0;top:30px}", ""]);
+exports.push([module.i, ".pc-login{background-size:cover}.pc-loginArea{display:flex;justify-content:center;align-items:center}.pc-loginBox{background:hsla(0,0%,98%,.9);padding:30px;position:relative;top:0;box-shadow:0 0 5px 5px rgba(0,153,162,.4)}.pc-loginHead{min-width:320px;max-height:600px;text-align:center}.pc-loginLogo{display:block;max-width:100px;margin:0 auto}.pc-loginMessage{text-align:center}.pc-loginInput{width:100%}.pc-loginSubmitBox{text-align:center;margin:30px 0}.login-enter-active,.login-leave-active{transition:opacity .5s ease-in-out,top .5s ease}.login-enter,.login-leave-to{opacity:0;top:30px}", ""]);
 
 // exports
 

@@ -93,7 +93,7 @@ class Login extends CI_Controller
 
     //制限中と制限前でエラーエッセージを変化させる
     return $this->login_tool->is_limit()
-        ? '現在ログイン制限中です。あと'.$this->login_tool->get_release().'秒お待ちください。'
+        ? '現在ログイン制限中です。<br>あと'.$this->login_tool->get_release().'秒お待ち下さい。'
         : 'あと'.$this->login_tool->get_limit().'回でログイン制限されます';
   }
 
