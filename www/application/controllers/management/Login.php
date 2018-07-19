@@ -9,6 +9,7 @@
  * @property CI_Session $session
  * @property CI_Config $config
  * @property CI_Form_validation $form_validation
+ * @property CI_Output $output
  * @property Login_tool $login_tool
  * @property Install_model $install_model
  * @property Admin_model $admin_model
@@ -45,7 +46,7 @@ class Login extends CI_Controller
     //ログインライブラリーのロード
     $this->load->library('login_tool', array('admin', 5, 10));
 
-    //ログインしていたら管理画面へリダイレクト
+    //既にログインしていたら管理画面へリダイレクト
     if ($this->login_tool->is_login())
     {
       redirect(site_url('admin'));
@@ -60,27 +61,69 @@ class Login extends CI_Controller
   }
 
   /**
-   * ログイン処理を試みるか判断&ログイン処理をする
-   * ログインに成功した時のみTRUEを返す
-   * @return bool
+   * JSONを吐き出してスクリプトを終了させる
+   * @param int $status
+   * @param array $data
+   * @return void
    */
-  private function _login()
+  private function _outPutJson($status = 200, $data = array())
   {
-    //そもそもログインする意思がない(初回アクセス時等)場合はFALSEを返す
-    if ( ! $this->input->post('submit'))
+    //ステータスコードを仕込んで出力、スクリプト終了
+    if ($status !== 200)
     {
-      return FALSE;
+      $this->output->set_status_header($status);
+    }
+    $this->output->set_content_type('application/json');
+    $this->output->set_output(json_encode($data));
+    $this->output->_display();
+    exit();
+  }
+
+  /**
+   * ログイン制限中のメッセージを取得する
+   * @return string
+   */
+  private function _getLimitMessage()
+  {
+    //そもそもログイン制限設定がされていなかったら半角スペースを返す
+    if ( ! $this->login_tool->is_limiter() || $this->login_tool->is_no_failure())
+    {
+      return '';
     }
 
+    //制限中と制限前でエラーエッセージを変化させる
+    return $this->login_tool->is_limit()
+        ? '現在ログイン制限中です。あと'.$this->login_tool->get_release().'秒お待ちください。'
+        : 'あと'.$this->login_tool->get_limit().'回でログイン制限されます';
+  }
+
+  /**
+   * _getLimitMessage()の内容をJSONで返す
+   * エラーメッセージはmessageというキーに格納される
+   * ステータスコードは必ず200で返る
+   */
+  public function getLimitMessage()
+  {
+    $this->_outPutJson(200, array('message' => $this->_getLimitMessage()));
+  }
+
+  /**
+   * ログイン処理を試みるか判断&ログイン処理をする
+   * 成功時はステータスコード200, 失敗時は400でJSONを返す
+   * 成功時はadminの各フィールド情報とmessageキーに空文字が入って返却する
+   * 失敗時はmessageキーにエラーメッセージが格納されて返却される
+   */
+  public function login()
+  {
     //adminテーブルから該当する情報の取得を試みる
-    $admin = $this->admin_model->get_admin_by_mail_and_password((string)$this->input->post('mail'), (string)$this->input->post('password'));
+    $admin = $this->admin_model->get_admin_in_login((string)$this->input->post('id'), (string)$this->input->post('password'));
 
     //ログイン成功処理
     if (isset($admin['id']))
     {
       $this->login_tool->login($admin['id']);
 
-      return TRUE;
+      $this->_outPutJson(200, array_merge($admin, array('message' => '')));
     }
 
 
@@ -88,8 +131,10 @@ class Login extends CI_Controller
     //(この行をコメントアウトすると回数制限をしない)
     $this->login_tool->set_failure();
 
-    //失敗としてFALSEを返す
-    return FALSE;
+    //失敗を返す
+    $this->_outPutJson(400, array(
+      'message' => $this->_getLimitMessage()
+    ));
   }
 
   /**
@@ -97,17 +142,6 @@ class Login extends CI_Controller
    */
   public function index()
   {
-    //ログインが確定したらリダイレクト先に飛ぶ
-    if ($this->_login())
-    {
-      redirect(site_url('admin'));
-    }
-
-    //ログイン制限中フラグ・ログイン制限残り回数・ログイン制限開放時間
-    $ban = $this->login_tool->is_limit();
-    $limit = ! $ban && $this->input->post('submit') ? $this->login_tool->get_limit() : 0;
-    $release = $ban ? $this->login_tool->get_release() : 0;
-
     //サイト名の取得
     $site_name = $this->options_model->get('site_name', 'Phage Core');
 
@@ -117,7 +151,7 @@ class Login extends CI_Controller
     //viewを読み込む
     $this->link_files->enable_develop_mode();
     $this->link_files->add_file('dist/login.bundle.js');
-    $this->load->view('admin/login', compact('ban', 'limit', 'release', 'site_name', 'site_logo'));
+    $this->load->view('admin/login', compact('site_name', 'site_logo'));
   }
 
 }

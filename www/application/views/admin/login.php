@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-  <meta name="description" content="Phage Core ログイン">
-  <title>Phage Core ログイン</title>
+  <meta name="description" content="<?php echo html_escape($site_name); ?> ログイン">
+  <title><?php echo html_escape($site_name); ?>ログイン</title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" sizes="180x180">
   <meta name="msapplication-TileColor" content="#da532c">
@@ -24,36 +24,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <span><?php echo html_escape($site_name); ?></span>
           </h1>
           <p class="pc-loginMessage"><?php echo $this->input->get('first') ? 'ようこそ': ''; ?></p>
-          <?php if ($ban) : ?>
-            <p class="pc-error">現在ログイン制限中です。あと<?php echo $release < 60 ? 1 : floor($release / 60); ?>分お待ちください。</p>
-          <?php else : ?>
-            <?php echo $limit ? '<p class="pc-error">あと'.$limit.'回でログイン制限されます</p>' : ''; ?>
-            <?php echo form_open('', array(
-              'id' => 'loginForm',
-              'class' => 'pc-loginForm',
-              '@submit.prevent' => 'submit'
-            )); ?>
-            <p>
-              <label for="mail">ID</label>
-              <br>
-              <input name="mail" value="" id="mail" class="pc-loginInput pc-input" type="text" v-model="id">
-            </p>
-            <p>
-              <label for="password">パスワード</label>
-              <br>
-              <input name="password" value="" id="password" class="pc-loginInput pc-input" type="text" v-model="password">
-            </p>
-            <p class="pc-loginSubmitBox">
+          <?php echo form_open('', array(
+            'id' => 'loginForm',
+            'class' => 'pc-loginForm',
+            '@submit.prevent' => 'submit'
+          )); ?>
+          <p>
+            <label for="id">メールアドレス もしくはユーザースラッグ</label>
+            <br>
+            <input name="id" value="" id="id" class="pc-loginInput pc-input" type="text" v-model="id">
+          </p>
+          <p>
+            <label for="password">パスワード</label>
+            <br>
+            <input name="password" value="" id="password" class="pc-loginInput pc-input" type="password" v-model="password">
+          </p>
+          <transition name="loader-fade">
+            <div class="pc-loaderWrap" v-if="showLoader">
+              <div class="pc-loaderBox"></div>
+              <p class="pc-loaderMessage">Connecting...</p>
+            </div>
+            <div class="pc-loginSubmitBox" v-else>
+              <p class="pc-paragraphError" v-html="error">&nbsp;</p>
               <input name="submit" value="ログイン" class="pc-loginSubmit pc-submit" type="submit">
-            </p>
-            <?php echo form_close(); ?>
-          <?php endif; ?>
+            </div>
+          </transition>
+          <?php echo form_close(); ?>
         </section>
       </transition>
     </div>
   </main>
-  <footer></footer>
 </div>
+<script>
+  var csrf_value = '<?php echo $this->security->get_csrf_hash(); ?>';
+  var csrf_key = '<?php echo $this->security->get_csrf_token_name(); ?>';
+  var site_url = '<?php echo site_url(); ?>';
+</script>
 <?php foreach ($this->link_files->get_script() as $script) : ?>
   <script src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>

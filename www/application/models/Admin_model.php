@@ -27,16 +27,16 @@ class Admin_model extends CI_Model
   }
 
   /**
-   * メールアドレスとパスワードから管理者データを取得する
+   * メールアドレス or ユーザースラッグとパスワードから管理者データを取得する
    * adminテーブルの該当レコードが配列になって返ってくる
    * 存在しなかった場合は空配列が返る
-   * @param string $mail
+   * @param string $id
    * @param string $password
    * @return array
    */
-  public function get_admin_by_mail_and_password($mail, $password)
+  public function get_admin_in_login($id, $password)
   {
-    //SQL文を作成
+    //$idをメールアドレスとして探すSQL文を作成
     $query = $this->db->query("
     SELECT * 
     FROM {$this->db->dbprefix}admin 
@@ -44,7 +44,26 @@ class Admin_model extends CI_Model
     AND mail = ? 
     AND password = ? 
     LIMIT 1
-    ", array($mail, hash('sha256', $password)));
+    ", array($id, hash('sha256', $password)));
+
+    //取得
+    $result = $query->row_array();
+
+    //検索に引っかかったら返却
+    if (isset($result['id']))
+    {
+      return $result;
+    }
+
+    //$idをユーザースラッグとして探すSQL文を作成
+    $query = $this->db->query("
+    SELECT * 
+    FROM {$this->db->dbprefix}admin 
+    WHERE act = 1 
+    AND slug = ? 
+    AND password = ? 
+    LIMIT 1
+    ", array($id, hash('sha256', $password)));
 
     //取得
     $result = $query->row_array();

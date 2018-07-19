@@ -158,6 +158,15 @@ class Login_tool
   }
 
   /**
+   * ログイン制限設定が有効か無効かを返す
+   * @return bool
+   */
+  public function is_limiter()
+  {
+    return (bool)$this->limit_num;
+  }
+
+  /**
    * ログイン制限中だったらTRUE,それ以外はFALSEを返す
    * @return bool
    */
@@ -180,6 +189,15 @@ class Login_tool
     }
 
     return $reverse ? $_SESSION[$this->count_key] : $this->limit_num - $_SESSION[$this->count_key];
+  }
+
+  /**
+   * 現在一回も失敗していないかどうかを返す
+   * @return bool
+   */
+  public function is_no_failure()
+  {
+    return $this->get_limit() === $this->limit_num && ! $this->is_limit();
   }
 
   /**
