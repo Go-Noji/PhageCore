@@ -14,13 +14,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="theme-color" content="#007386">
 </head>
 <body>
-<div class="pc-wrapper pc-login">
+<div class="pc-wrapper pc-login" style="background-color: <?php echo html_escape($theme_color); ?>;background-image: <?php echo html_escape($admin_background_image); ?>;">
   <main role="main">
     <div id="pc-loginArea" class="pc-loginArea pc-js-fullHeight">
       <transition name="login">
         <section class="pc-loginBox" v-show="show" style="display: none;">
           <h1 class="pc-loginHead">
-            <img class="pc-loginLogo" src="<?php echo html_escape($site_logo); ?>" alt="ロゴ">
+            <a href="<?php echo site_url(); ?>">
+              <img class="pc-loginLogo" src="<?php echo html_escape($site_logo); ?>" alt="ロゴ">
+            </a>
             <span><?php echo html_escape($site_name); ?></span>
           </h1>
           <p class="pc-loginMessage"><?php echo $this->input->get('first') ? 'ようこそ': ''; ?></p>

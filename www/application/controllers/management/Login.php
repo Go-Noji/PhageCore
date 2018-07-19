@@ -148,10 +148,17 @@ class Login extends CI_Controller
     //サイトロゴの取得
     $site_logo = $this->options_model->get('site_logo', site_url('images/logo.png'));
 
+    //テーマカラーの取得
+    $theme_color = $this->options_model->get('theme_color', '#0099a2');
+
+    //背景画像の取得
+    $admin_background_image = $this->options_model->get('admin_background_image', '');
+    $admin_background_image = $admin_background_image ? "url('".$admin_background_image."')" : 'none';
+
     //viewを読み込む
     $this->link_files->enable_develop_mode();
     $this->link_files->add_file('dist/login.bundle.js');
-    $this->load->view('admin/login', compact('site_name', 'site_logo'));
+    $this->load->view('admin/login', compact('site_name', 'site_logo', 'theme_color', 'admin_background_image'));
   }
 
 }
