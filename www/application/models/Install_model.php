@@ -65,7 +65,7 @@ class Install_model extends CI_Model
       $results['drop_'.$table] =  $this->db->query('
         DROP TABLE 
         IF EXISTS 
-        '.$this->db->dbprefix.$table);
+        '.$this->db->dbprefix($table));
     }
   }
 
@@ -79,7 +79,7 @@ class Install_model extends CI_Model
   {
     $results['role'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}role` 
+    `{$this->db->dbprefix('role')}` 
     ( 
       `id` INT(3) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `name` VARCHAR(255) NOT NULL COMMENT '管理権限名', 
@@ -89,19 +89,19 @@ class Install_model extends CI_Model
 
     $results['role_ng_method'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}role_ng_method` 
+    `{$this->db->dbprefix('role_ng_method')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `role_id` INT(3) NOT NULL COMMENT '管理権限ID' , 
-      `ng_definition` VARCHAR(255) NOT NULL COMMENT '実行を禁止するController名/メソッド名', 
+      `ng_definition` VARCHAR(255) NOT NULL COMMENT '実行を禁止するModel名/メソッド名', 
       PRIMARY KEY (`id`), 
-      CONSTRAINT `role_ng_method_id` FOREIGN KEY (`role_id`) REFERENCES `{$this->db->dbprefix}role` (`id`) 
+      CONSTRAINT `role_ng_method_id` FOREIGN KEY (`role_id`) REFERENCES `{$this->db->dbprefix('role')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '管理権限ごとに禁止するメソッド';
     ");
 
     $results['admin'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}admin` 
+    `{$this->db->dbprefix('admin')}` 
     ( 
       `id` INT(6) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `role_id` INT(3) NOT NULL COMMENT '権限ID' , 
@@ -112,13 +112,13 @@ class Install_model extends CI_Model
       `act` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '有効/無効' , 
       PRIMARY KEY (`id`), 
       UNIQUE (`slug`), 
-      CONSTRAINT `admin_role_id` FOREIGN KEY (`role_id`) REFERENCES `{$this->db->dbprefix}role` (`id`) 
+      CONSTRAINT `admin_role_id` FOREIGN KEY (`role_id`) REFERENCES `{$this->db->dbprefix('role')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '管理者のテーブル';
     ");
 
     $results['directory'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}directory` 
+    `{$this->db->dbprefix('directory')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `slug` VARCHAR(50) NOT NULL COMMENT 'スラッグ' , 
@@ -136,7 +136,7 @@ class Install_model extends CI_Model
 
     $results['content'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}content` 
+    `{$this->db->dbprefix('content')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `status` VARCHAR(50) NOT NULL COMMENT 'ステータス' , 
@@ -157,14 +157,14 @@ class Install_model extends CI_Model
       INDEX `queue` (`queue`),
       INDEX `depth` (`depth`,`queue`),
       FULLTEXT (`search`), 
-      CONSTRAINT `content_directory_id` FOREIGN KEY (`directory_id`) REFERENCES `{$this->db->dbprefix}directory` (`id`), 
-      CONSTRAINT `content_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$this->db->dbprefix}admin` (`id`) 
+      CONSTRAINT `content_directory_id` FOREIGN KEY (`directory_id`) REFERENCES `{$this->db->dbprefix('directory')}` (`id`), 
+      CONSTRAINT `content_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$this->db->dbprefix('admin')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '投稿';
     ");
 
     $results['content_meta'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}content_meta` 
+    `{$this->db->dbprefix('content_meta')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `content_id` INT(9) NOT NULL COMMENT 'contentのid' , 
@@ -172,13 +172,13 @@ class Install_model extends CI_Model
       `value` TEXT NOT NULL COMMENT '値' , 
       PRIMARY KEY (`id`), 
       INDEX `key_name` (`key_name`), 
-      CONSTRAINT `content_meta_id` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix}content` (`id`) 
+      CONSTRAINT `content_meta_id` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix('content')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'contentに対しての実データ';
     ");
 
     $results['attribute'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}attribute` 
+    `{$this->db->dbprefix('attribute')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `type_index` INT(2) NOT NULL COMMENT '種類' , 
@@ -199,20 +199,20 @@ class Install_model extends CI_Model
 
     $results['attribute_relationship'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-     `{$this->db->dbprefix}attribute_relationship` 
+     `{$this->db->dbprefix('attribute_relationship')}` 
      (
       `attribute_id` INT(9) NOT NULL COMMENT 'attributeのID' , 
      `content_id` INT(9) NOT NULL COMMENT 'contentのID' , 
      PRIMARY KEY (`attribute_id`, `content_id`), 
      INDEX `content_id` (`content_id`), 
-      CONSTRAINT `attribute_id_relationship` FOREIGN KEY (`attribute_id`) REFERENCES `{$this->db->dbprefix}attribute` (`id`), 
-      CONSTRAINT `attribute_content_id_relationship` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix}content` (`id`)
+      CONSTRAINT `attribute_id_relationship` FOREIGN KEY (`attribute_id`) REFERENCES `{$this->db->dbprefix('attribute')}` (`id`), 
+      CONSTRAINT `attribute_content_id_relationship` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix('content')}` (`id`)
    ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'attributeテーブルとcontentテーブルの中間テーブル';
    ");
 
     $results['user'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}user` 
+    `{$this->db->dbprefix('user')}` 
     ( 
       `id` INT(6) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `name` BLOB NOT NULL COMMENT '名前' , 
@@ -225,21 +225,21 @@ class Install_model extends CI_Model
 
     $results['user_relationship'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-     `{$this->db->dbprefix}user_relationship` 
+     `{$this->db->dbprefix('user_relationship')}` 
      ( `user_id` INT(9) NOT NULL COMMENT 'userのID' , 
      `content_id` INT(9) NOT NULL COMMENT 'contentのID' , 
      `type_index` INT(2) NOT NULL COMMENT '関連種類' , 
      PRIMARY KEY (`user_id`, `content_id`), 
      INDEX `content_id` (`content_id`), 
      INDEX `type_index` (`type_index`), 
-      CONSTRAINT `user_id_relationship` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix}user` (`id`), 
-      CONSTRAINT `user_content_id_relationship` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix}content` (`id`)
+      CONSTRAINT `user_id_relationship` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix('user')}` (`id`), 
+      CONSTRAINT `user_content_id_relationship` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix('content')}` (`id`)
    ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'userテーブルとcontentテーブルの中間テーブル';
    ");
 
     $results['comment'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}comment` 
+    `{$this->db->dbprefix('comment')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `content_id` INT(9) NOT NULL COMMENT 'contentのid' , 
@@ -252,14 +252,14 @@ class Install_model extends CI_Model
       PRIMARY KEY (`id`), 
       INDEX `queue` (`queue`),
       INDEX `depth` (`depth`,`queue`),
-      CONSTRAINT `comment_content_id` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix}content` (`id`), 
-      CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix}user` (`id`) 
+      CONSTRAINT `comment_content_id` FOREIGN KEY (`content_id`) REFERENCES `{$this->db->dbprefix('content')}` (`id`), 
+      CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix('user')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'コメント用DB';
     ");
 
     $results['comment_meta'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}comment_meta` 
+    `{$this->db->dbprefix('comment_meta')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `comment_id` INT(9) NOT NULL COMMENT 'commentのid' , 
@@ -267,25 +267,25 @@ class Install_model extends CI_Model
       `value` TEXT NOT NULL COMMENT '値' , 
       PRIMARY KEY (`id`), 
       INDEX `key_name` (`key_name`), 
-      CONSTRAINT `comment_meta_id` FOREIGN KEY (`comment_id`) REFERENCES `{$this->db->dbprefix}comment` (`id`) 
+      CONSTRAINT `comment_meta_id` FOREIGN KEY (`comment_id`) REFERENCES `{$this->db->dbprefix('comment')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'commentに対しての実データ';
     ");
 
     $results['contact'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}contact` 
+    `{$this->db->dbprefix('contact')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `user_id` INT(9) COMMENT 'userのid' , 
       `ip` VARCHAR(40) NOT NULL COMMENT 'IPアドレス' , 
       PRIMARY KEY (`id`), 
-      CONSTRAINT `contact_user_id` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix}user` (`id`) 
+      CONSTRAINT `contact_user_id` FOREIGN KEY (`user_id`) REFERENCES `{$this->db->dbprefix('user')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'コメント用DB';
     ");
 
     $results['contact_meta'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}contact_meta` 
+    `{$this->db->dbprefix('contact_meta')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `contact_id` INT(9) NOT NULL COMMENT 'contactのid' , 
@@ -293,13 +293,13 @@ class Install_model extends CI_Model
       `value` TEXT NOT NULL COMMENT '値' , 
       PRIMARY KEY (`id`), 
       INDEX `key_name` (`key_name`), 
-      CONSTRAINT `contact_meta_id` FOREIGN KEY (`contact_id`) REFERENCES `{$this->db->dbprefix}contact` (`id`) 
+      CONSTRAINT `contact_meta_id` FOREIGN KEY (`contact_id`) REFERENCES `{$this->db->dbprefix('contact')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'contactに対しての実データ';
     ");
 
     $results['options'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}options` 
+    `{$this->db->dbprefix('options')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `key_name` VARCHAR(50) NOT NULL COMMENT 'キー' , 
@@ -311,7 +311,7 @@ class Install_model extends CI_Model
 
     $results['resource'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}resource` 
+    `{$this->db->dbprefix('resource')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `directory_id` INT(9) DEFAULT NULL COMMENT 'directoryのid' , 
@@ -326,14 +326,14 @@ class Install_model extends CI_Model
       `modify_datetime` DATETIME NOT NULL COMMENT '更新日' , 
       `act` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '有効か無効か' , 
       PRIMARY KEY (`id`), 
-      CONSTRAINT `resource_directory_id` FOREIGN KEY (`directory_id`) REFERENCES `{$this->db->dbprefix}directory` (`id`), 
-      CONSTRAINT `resource_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$this->db->dbprefix}admin` (`id`) 
+      CONSTRAINT `resource_directory_id` FOREIGN KEY (`directory_id`) REFERENCES `{$this->db->dbprefix('directory')}` (`id`), 
+      CONSTRAINT `resource_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$this->db->dbprefix('admin')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = 'メディアファイル用DB';
     ");
 
     $results['task'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}task` 
+    `{$this->db->dbprefix('task')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `model` VARCHAR(50) NOT NULL COMMENT '実行したいモデル名' , 
@@ -350,7 +350,7 @@ class Install_model extends CI_Model
 
     $results['desktop'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}desktop` 
+    `{$this->db->dbprefix('desktop')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `order_number` INT(9) NOT NULL COMMENT '順序' , 
@@ -360,7 +360,7 @@ class Install_model extends CI_Model
 
     $results['desktop_icon'] = $this->db->query("
     CREATE TABLE IF NOT EXISTS 
-    `{$this->db->dbprefix}desktop_icon` 
+    `{$this->db->dbprefix('desktop_icon')}` 
     ( 
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `desktop_id` INT(9) NOT NULL COMMENT 'デスクトップID' , 
@@ -369,7 +369,7 @@ class Install_model extends CI_Model
       `image` VARCHAR (255) NOT NULL COMMENT 'アイコン画像' , 
       `order_number` INT(3) NOT NULL COMMENT '順序' , 
       PRIMARY KEY (`id`), 
-      CONSTRAINT `desktop_icon_id` FOREIGN KEY (`desktop_id`) REFERENCES `{$this->db->dbprefix}desktop` (`id`) 
+      CONSTRAINT `desktop_icon_id` FOREIGN KEY (`desktop_id`) REFERENCES `{$this->db->dbprefix('desktop')}` (`id`) 
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '管理画面のデスクトップ';
     ");
 
@@ -384,7 +384,7 @@ class Install_model extends CI_Model
   {
     foreach ($this->tables as $table)
     {
-      if ( ! $this->db->table_exists($this->db->dbprefix.$table))
+      if ( ! $this->db->table_exists($this->db->dbprefix($table)))
       {
         return FALSE;
       }
@@ -407,13 +407,13 @@ class Install_model extends CI_Model
     }
 
     //テーブルに情報をINSERT
-    if ( ! $this->db->insert($this->db->dbprefix.'role', array(
+    if ( ! $this->db->insert($this->db->dbprefix('role'), array(
       'name' => 'administrator'
     )))
     {
       return FALSE;
     }
-    if ( ! $this->db->insert($this->db->dbprefix.'admin', array(
+    if ( ! $this->db->insert($this->db->dbprefix('admin'), array(
       'role_id' => 1,
       'slug' => $this->input->post('slug'),
       'name' => $this->input->post('name'),
@@ -423,21 +423,21 @@ class Install_model extends CI_Model
     {
       return FALSE;
     }
-    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+    if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'site_name',
       'value' => $this->input->post('site')
     )))
     {
       return FALSE;
     }
-    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+    if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'site_logo',
       'value' => site_url('images/logo.png')
     )))
     {
       return FALSE;
     }
-    if ( ! $this->db->insert($this->db->dbprefix.'options', array(
+    if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'init_timestamp',
       'value' => time()
     )))
@@ -463,7 +463,7 @@ class Install_model extends CI_Model
     //存在していたらテーブル名を$resultsへ格納
     foreach ($this->tables as $table)
     {
-      if ($this->db->table_exists($this->db->dbprefix.$table))
+      if ($this->db->table_exists($this->db->dbprefix($table)))
       {
         $results[] = $this->db->dbprefix.$table;
       }
@@ -498,11 +498,11 @@ class Install_model extends CI_Model
 
     //DBに最高権限の管理者がいるかどうか
     $query = $this->db->query("
-    SELECT {$this->db->dbprefix}admin.id 
-    FROM {$this->db->dbprefix}admin 
-    LEFT JOIN {$this->db->dbprefix}role 
-    ON {$this->db->dbprefix}admin.role_id = {$this->db->dbprefix}role.id 
-    WHERE {$this->db->dbprefix}role.name = ? 
+    SELECT {$this->db->dbprefix('admin')}.id 
+    FROM {$this->db->dbprefix('admin')} 
+    LEFT JOIN {$this->db->dbprefix('role')} 
+    ON {$this->db->dbprefix('admin')}.role_id = {$this->db->dbprefix('role')}.id 
+    WHERE {$this->db->dbprefix('role')}.name = ? 
     LIMIT 1
     ", array($this->adminstrator));
     return $query->row() ? FALSE : TRUE;
