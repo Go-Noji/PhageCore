@@ -72,4 +72,38 @@ class Admin_model extends CI_Model
     return isset($result['id']) && $result['id'] ? $result : array();
   }
 
+  /**
+   * $admin_idで指定された管理者が持つ権限で
+   * $model, $methodで指定されたModelのメソッドが実行できるか判定する
+   * $methodを指定した場合は$model名と同名のModelクラス内にある$methodと同名のメソッドをチェックする
+   * この場合、その$model自体が使用不可能な場合もFALSEを返す
+   * $methodを省略した場合はその$modelクラス自体が使用可能かどうかをチェックｓる
+   * @param int $admin_id
+   * @param string $model
+   * @param string $method
+   * @return bool
+   */
+  public function is_authority_model($admin_id, $model, $method = '')
+  {
+    //$methodが存在するかしないかで条件を変える
+    $whereSQL = $method === ''
+      ? " {$this->db->dbprefix('phage_role_ng_method')} = ".$this->db->escape($model)
+      : "({$this->db->dbprefix('phage_role_ng_method')} = ".$this->db->escape($model.'/'.$method)." OR {$this->db->dbprefix('phage_role_ng_method')} = ".$this->db->escape($model).')';
+
+    //SQLの発行
+    $query = $this->db->query("
+    SELECT {$this->db->dbprefix('phage_role_ng_method')}.id 
+    FROM {$this->db->dbprefix('phage_role_ng_method')} 
+    LEFT JOIN {$this->db->dbprefix('admin')} 
+    ON {$this->db->dbprefix('phage_role_ng_method')}.role_id = {$this->db->dbprefix('admin')}.role_id 
+    WHERE {$whereSQL} 
+    AND {$this->db->dbprefix('admin')}.id = ? 
+    LIMIT 1
+    ", array($admin_id));
+    $result = $query->row_array();
+
+    //存在したらFALSE, しなかったらTRUEを返す
+    return isset($result['id']) ? FALSE : TRUE;
+  }
+
 }
