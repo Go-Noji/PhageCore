@@ -3,7 +3,9 @@ const MODE = 'development';
 
 module.exports = {
   entry: {
-    install: './js/src/install/main.ts'
+    install: './js/src/install/main.ts',
+    login: './js/src/login/main.ts',
+    admin: './js/src/admin/main.ts'
   },
   mode: MODE,
   devtool: 'source-map',
@@ -62,7 +64,6 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        exclude: /node_modules|vue\/src/,
         loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue$/]
