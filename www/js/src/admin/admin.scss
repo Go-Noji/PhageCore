@@ -10,3 +10,83 @@ $gray: #999;
 $keyColor: #0099a2;
 $errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+
+.pc-admin{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.pc-adminHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+.pc-adminHeaderNav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.pc-adminHeaderNavBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pc-adminHeaderNavList{
+  padding: 0 30px;
+  &:first-child, &:last-child{
+    padding: 0;
+  }
+}
+
+.pc-adminBody{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pc-adminSidebar{
+  width: 210px;
+  padding: 0 0 30px 0;
+  background-color: $black;
+}
+.pc-adminSidebarBox{
+}
+.pc-adminSidebarList{
+  padding: 15px;
+  cursor: pointer;
+  &:hover{
+    background-color: $keyColor;
+  }
+}
+
+.pc-adminArea{
+  flex-grow: 1;
+}
+
+.pc-adminTrashArea{
+  display: none;
+  padding: 60px;
+}
+
+.pc-adminDesktopArea{
+}
+
+.pc-iconLink{
+  font-size: 24px;
+}
+
+.pc-iconReverse{
+  color: $white;
+}
+.pc-linkReverse{
+  color: $white;
+  &:hover{
+    color: $white;
+  }
+  &:active{
+    color: $white;
+  }
+  &:visited{
+    color: $white;
+  }
+}

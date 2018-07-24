@@ -100,34 +100,63 @@ __webpack_require__.r(__webpack_exports__);
  * 管理画面のスタイルをJSで制御する時の汎用クラス
  */
 var AmdinStyler = /** @class */ (function () {
+    /**
+     * 初期値のセット
+     */
     function AmdinStyler() {
+        this.pageHeight = null;
     }
     /**
      * 渡されたElement型がHTMLElement型のであることを保証するtype guard
      * @param element
      * @return {element is HTMLElement}
      */
-    AmdinStyler.prototype.isHTMLElement = function (element) {
+    AmdinStyler.prototype._isHTMLElement = function (element) {
         return element instanceof HTMLElement;
     };
     /**
-     * window or document の内、heightが大きいモノに合わせて
-     * targetClassNamesに存在するクラス名を持つ要素の高さを合わせる
-     * @param {Array<string>} targetClassNames
+     * window or document の内、heightが最大のものをpageHeightにセットする
+     * @private
      */
-    AmdinStyler.prototype.initHeightStyle = function (targetClassNames) {
+    AmdinStyler.prototype._setPageHeight = function () {
+        this.pageHeight = Math.max.apply(null, [document.body.clientHeight, document.body.scrollHeight, document.documentElement.scrollHeight, document.documentElement.clientHeight]);
+    };
+    /**
+     * 指定されたtargetClassNamesをclassに持つ要素のheightをheightにする
+     * @param {Array<string>} targetClassNames
+     * @param {number} height
+     * @private
+     */
+    AmdinStyler.prototype._setHeight = function (targetClassNames, height) {
         var _this = this;
-        var height = Math.max.apply(null, [document.body.clientHeight, document.body.scrollHeight, document.documentElement.scrollHeight, document.documentElement.clientHeight]);
+        //pxを付ける
         var heightPx = height + 'px';
+        //対象クラスに対してheightを適用
         targetClassNames.forEach(function (className) {
             var targets = document.getElementsByClassName(className);
             for (var i = 0; i < targets.length; i++) {
                 var target = targets.item(i);
-                if (_this.isHTMLElement(target)) {
+                if (_this._isHTMLElement(target)) {
                     target.style.height = heightPx;
                 }
             }
         });
+    };
+    /**
+     * window or document の内、heightが大きいモノに合わせて
+     * targetClassNamesに存在するクラス名を持つ要素の高さを合わせる
+     * adjustmentを指定すると適用されるheightがpageHeight+adjustmentとなる
+     * @param {Array<string>} targetClassNames
+     * @param {number} adjustment
+     */
+    AmdinStyler.prototype.initHeightStyle = function (targetClassNames, adjustment) {
+        if (adjustment === void 0) { adjustment = 0; }
+        //height値の算出
+        if (this.pageHeight === null) {
+            this._setPageHeight();
+        }
+        //適用
+        this._setHeight(targetClassNames, this.pageHeight + adjustment);
     };
     return AmdinStyler;
 }());
@@ -146,7 +175,7 @@ var AmdinStyler = /** @class */ (function () {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../../node_modules/style-loader!../../../node_modules/css-loader??ref--1-2!../../../node_modules/postcss-loader/lib??ref--1-3!../../../node_modules/sass-loader/lib/loader.js!./login.scss */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss");
+var content = __webpack_require__(/*! !../../../node_modules/style-loader!../../../node_modules/css-loader??ref--1-2!../../../node_modules/postcss-loader/lib??ref--1-3!../../../node_modules/sass-loader/lib/loader.js!./login.scss */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -300,7 +329,7 @@ __webpack_require__.r(__webpack_exports__);
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../../node_modules/style-loader!../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./style.scss */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss");
+var content = __webpack_require__(/*! !../../node_modules/style-loader!../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./style.scss */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -7541,7 +7570,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss":
 /*!**********************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss ***!
   \**********************************************************************************************************************************************************/
@@ -7560,7 +7589,7 @@ exports.push([module.i, ".pc-login{background-size:cover}.pc-loginArea{display:f
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss":
 /*!****************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss ***!
   \****************************************************************************************************************************************************/
@@ -7579,7 +7608,7 @@ exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.pc-body{
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css":
+/***/ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css":
 /*!*****************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css ***!
   \*****************************************************************************************************************************/
@@ -7922,7 +7951,7 @@ process.umask = function() { return 0; };
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(/*! !../style-loader!../css-loader??ref--2-2!../sass-loader/lib/loader.js!./sanitize.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css");
+var content = __webpack_require__(/*! !../style-loader!../css-loader??ref--2-2!../sass-loader/lib/loader.js!./sanitize.css */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -8131,7 +8160,7 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss":
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss":
 /*!**************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss ***!
   \**************************************************************************************************************************************************************************************/
@@ -8139,7 +8168,7 @@ if(false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--1-2!../../../node_modules/postcss-loader/lib??ref--1-3!../../../node_modules/sass-loader/lib/loader.js!./login.scss */ "./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--1-2!../../../node_modules/postcss-loader/lib??ref--1-3!../../../node_modules/sass-loader/lib/loader.js!./login.scss */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/login/login.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -8161,7 +8190,7 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss":
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss ***!
   \********************************************************************************************************************************************************************************/
@@ -8169,7 +8198,7 @@ if(false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./style.scss */ "./node_modules/css-loader/index.js??ref--1-2!./node_modules/postcss-loader/lib/index.js??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss");
+var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./style.scss */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/style.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -8191,7 +8220,7 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css":
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css":
 /*!*********************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css ***!
   \*********************************************************************************************************************************************************/
@@ -8199,7 +8228,7 @@ if(false) {}
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../css-loader??ref--2-2!../sass-loader/lib/loader.js!./sanitize.css */ "./node_modules/css-loader/index.js??ref--2-2!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css");
+var content = __webpack_require__(/*! !../css-loader??ref--2-2!../sass-loader/lib/loader.js!./sanitize.css */ "./node_modules/css-loader/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/sanitize.css/sanitize.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 

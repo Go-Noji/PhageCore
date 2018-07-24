@@ -15,16 +15,19 @@ declare var site_url: string;
 
   //高さを合わせたいクラス名(複数)
   const fullHeightClassNames: Array<string> = ['pc-js-fullHeight'];
+  const contentsClassNames: Array<string> = ['pc-js-adminSidebar', 'pc-js-adminArea'];
 
   window.onload = () =>
   {
     //height合わせ
     adminStyler.initHeightStyle(fullHeightClassNames);
+    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
   }
 
   //画面リサイズによるheight合わせ
   window.addEventListener('resize', () =>
   {
     adminStyler.initHeightStyle(fullHeightClassNames);
-  });
+    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
+  }, false);
 })();
