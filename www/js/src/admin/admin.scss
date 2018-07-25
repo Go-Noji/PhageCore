@@ -61,6 +61,7 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 
 .pc-adminArea{
   flex-grow: 1;
+  max-width: 90%;
 }
 
 .pc-adminTrashArea{
@@ -71,14 +72,39 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 .pc-adminDesktopArea{
 }
 
+.pc-adminWindow{
+  box-sizing: border-box;
+  margin: 15px;
+  padding: 15px;
+  width: 90%;
+  width: calc(100% - 30px);
+  background-color: $white;
+  box-shadow: 0 0 3px 3px $keyColor;
+}
+.pc-index{
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.pc-indexRow{
+  border-bottom: 1px solid $gray;
+}
+.pc-indexHeadRow{
+  background-color: $keyColor;
+}
+.pc-indexTh{
+  padding: 5px;
+  text-align: left;
+}
+.pc-indexTd{
+  padding: 5px;
+}
+
 .pc-iconLink{
   font-size: 24px;
 }
 
-.pc-iconReverse{
-  color: $white;
-}
-.pc-linkReverse{
+.pc-reverseColor{
   color: $white;
   &:hover{
     color: $white;

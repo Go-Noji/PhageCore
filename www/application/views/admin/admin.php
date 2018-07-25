@@ -23,12 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <header class="pc-adminHeader pc-js-adminHeader" style="background-color: <?php echo html_escape($theme_color); ?>;">
     <nav class="pc-adminHeaderNav">
       <ul class="pc-adminHeaderNavBox">
-        <li class="pc-adminHeaderNavList"><a class="pc-linkReverse" href="<?php echo site_url(); ?>" target="_blank"><?php echo html_escape($site_name); ?></a></li>
+        <li class="pc-adminHeaderNavList"><a class="pc-reverseColor" href="<?php echo site_url(); ?>" target="_blank"><?php echo html_escape($site_name); ?></a></li>
       </ul>
       <ul class="pc-adminHeaderNavBox">
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-iconReverse fas fa-bell"></i></a></li>
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-iconReverse fas fa-envelope"></i></a></li>
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="pc-icon pc-iconLink pc-iconReverse fas fa-user"></i></a></li>
+        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-bell"></i></a></li>
+        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-envelope"></i></a></li>
+        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-user"></i></a></li>
       </ul>
     </nav>
     <nav class="pc-adminHeaderTab">
@@ -41,43 +41,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-pencil-alt"></i>
-            <span class="pc-linkReverse">ページ</span>
+            <span class="pc-reverseColor">ページ</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-tags"></i>
-            <span class="pc-linkReverse">属性</span>
+            <span class="pc-reverseColor">属性</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-folder"></i>
-            <span class="pc-linkReverse">ディレクトリ</span>
+            <span class="pc-reverseColor">ディレクトリ</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-file"></i>
-            <span class="pc-linkReverse">リソース</span>
+            <span class="pc-reverseColor">リソース</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-user"></i>
-            <span class="pc-linkReverse">管理者</span>
+            <span class="pc-reverseColor">管理者</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-users"></i>
-            <span class="pc-linkReverse">ユーザー</span>
+            <span class="pc-reverseColor">ユーザー</span>
           </a>
         </li>
         <li class="pc-adminSidebarList">
           <a>
             <i class="pc-icon fas fa-cog"></i>
-            <span class="pc-linkReverse">設定</span>
+            <span class="pc-reverseColor">設定</span>
           </a>
         </li>
       </ul>
@@ -87,7 +87,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <main role="main">
         <div id="pc-adminDesktop" class="pc-adminDesktop">
           <div class="pc-adminDesktopBackground"></div>
-          <div class="pc-adminDesktopArea"></div>
+          <div class="pc-adminDesktopArea">
+            <div id="desktop">
+              <admin-window
+                ref="post"
+                api="api/select/call/content_model/multiple"></admin-window>
+            </div>
+          </div>
         </div>
         <div id="pc-adminWindows" class="pc-adminWindows"></div>
       </main>
