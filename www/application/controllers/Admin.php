@@ -44,8 +44,8 @@ class Admin extends CI_Controller
     }
 
     //各Modelの読み込み
-    $this->load->model('admin_model');
-    $this->load->model('options_model');
+    $this->load->model('database/admin_model');
+    $this->load->model('database/options_model');
 
     //Link_filesライブラリーのロード
     $this->load->library('link_files');

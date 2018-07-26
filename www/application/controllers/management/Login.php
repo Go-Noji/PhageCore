@@ -35,7 +35,7 @@ class Login extends CI_Controller
     $this->load->helper(array('url', 'form'));
 
     //Install_modelのロード
-    $this->load->model('install_model');
+    $this->load->model('database/install_model');
 
     //インストールの必要があればインストール画面へリダイレクト
     if ($this->install_model->is_need_install())
@@ -53,8 +53,8 @@ class Login extends CI_Controller
     }
 
     //Admin_model, Options_modelのロード
-    $this->load->model('admin_model');
-    $this->load->model('options_model');
+    $this->load->model('database/admin_model');
+    $this->load->model('database/options_model');
 
     //Link_filesライブラリーのロード
     $this->load->library('link_files');

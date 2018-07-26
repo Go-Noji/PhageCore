@@ -80,7 +80,7 @@ class Install extends CI_Controller
     $this->load->library('link_files');
 
     //インストールモデルのロード
-    $this->load->model('install_model');
+    $this->load->model('database/install_model');
 
     //バリデーション設定
     $this->validation_site = array(
