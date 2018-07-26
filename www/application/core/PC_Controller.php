@@ -46,11 +46,11 @@ class PC_Controller extends CI_Controller
    */
   public function call($model, $method)
   {
-    //対応するModelのロード
-    $this->load->model($model);
-
     //$modelの先頭文字を小文字にする
-    $model = lcfirst($model);
+    $model = lcfirst($model.'_station');
+
+    //対応するModelをmodels/stationからロード
+    $this->load->model('station/'.$model);
 
     //呼ぶ
     $result = call_user_func_array(array($this->$model, $method), (array)$this->input->post('argument'));

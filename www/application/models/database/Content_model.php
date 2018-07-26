@@ -8,7 +8,7 @@
  * @property CI_Input $input
  * @property CI_DB $db
  */
-class Content_model extends PC_Model
+class Content_model extends CI_Model
 {
 
   /**
