@@ -304,6 +304,7 @@ class Install_model extends CI_Model
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `key_name` VARCHAR(50) NOT NULL COMMENT 'キー' , 
       `value` TEXT NOT NULL COMMENT '値' , 
+      `control` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '管理画面で制御可能にするかどうか' , 
       PRIMARY KEY (`id`), 
       UNIQUE (`key_name`)
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '汎用設定データ';
