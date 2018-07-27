@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="theme-color" content="<?php echo $theme_color; ?>">
 </head>
 <body>
-<div class="pc-wrapper pc-admin pc-js-fullHeight" style="background-image: <?php echo html_escape($admin_background_image); ?>;">
+<div id="pc-admin" class="pc-wrapper pc-admin pc-js-fullHeight" style="background-image: <?php echo html_escape($admin_background_image); ?>;">
   <header class="pc-adminHeader pc-js-adminHeader" style="background-color: <?php echo html_escape($theme_color); ?>;">
     <nav class="pc-adminHeaderNav">
       <ul class="pc-adminHeaderNavBox">
@@ -38,48 +38,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="pc-adminBody">
     <nav id="pc-adminSidebar" class="pc-adminSidebar pc-js-adminSidebar">
       <ul class="pc-adminSidebarBox">
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-pencil-alt"></i>
-            <span class="pc-reverseColor">ページ</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-tags"></i>
-            <span class="pc-reverseColor">属性</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-folder"></i>
-            <span class="pc-reverseColor">ディレクトリ</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-file"></i>
-            <span class="pc-reverseColor">リソース</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-user"></i>
-            <span class="pc-reverseColor">管理者</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-users"></i>
-            <span class="pc-reverseColor">ユーザー</span>
-          </a>
-        </li>
-        <li class="pc-adminSidebarList">
-          <a>
-            <i class="pc-icon fas fa-cog"></i>
-            <span class="pc-reverseColor">設定</span>
-          </a>
-        </li>
+        <sidebar-list
+          ref="content"
+          title="コンテンツ"
+          to="/content"
+          icon="fa-pencil-alt"></sidebar-list>
+        <sidebar-list
+          ref="attribute"
+          title="属性"
+          to="/attribute"
+          icon="fa-tags"></sidebar-list>
+        <sidebar-list
+          ref="directory"
+          title="ディレクトリ"
+          to="/directory"
+          icon="fa-folder"></sidebar-list>
+        <sidebar-list
+          ref="resource"
+          title="リソース"
+          to="/resource"
+          icon="fa-file"></sidebar-list>
+        <sidebar-list
+          ref="admin"
+          title="管理者"
+          to="/admin"
+          icon="fa-user"></sidebar-list>
+        <sidebar-list
+          ref="user"
+          title="ユーザー"
+          to="/user"
+          icon="fa-users"></sidebar-list>
+        <sidebar-list
+          ref="option"
+          title="設定"
+          to="/option"
+          icon="fa-cog"></sidebar-list>
       </ul>
     </nav>
     <div class="pc-adminArea pc-js-adminArea">
@@ -88,11 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div id="pc-adminDesktop" class="pc-adminDesktop">
           <div class="pc-adminDesktopBackground"></div>
           <div class="pc-adminDesktopArea">
-            <div id="desktop">
-              <admin-window
-                ref="post"
-                api="api/select/call/content_model/multiple"></admin-window>
-            </div>
+            <router-view></router-view>
           </div>
         </div>
         <div id="pc-adminWindows" class="pc-adminWindows"></div>

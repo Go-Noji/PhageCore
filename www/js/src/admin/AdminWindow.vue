@@ -49,7 +49,7 @@
     mounted: function() {
       //データの入手
       this.getData()
-        .then((response) =>
+        .then((response: {data: {fields: {}, contents: {}}}) =>
         {
           this.fields = response.data.fields;
           this.contents = response.data.contents;

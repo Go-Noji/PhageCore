@@ -45,15 +45,15 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 
 .pc-adminSidebar{
-  width: 210px;
+  width: 15%;
   padding: 0 0 30px 0;
   background-color: $black;
 }
 .pc-adminSidebarBox{
 }
-.pc-adminSidebarList{
+.pc-adminSidebarLink{
   padding: 15px;
-  cursor: pointer;
+  display: block;
   &:hover{
     background-color: $keyColor;
   }
@@ -61,7 +61,7 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 
 .pc-adminArea{
   flex-grow: 1;
-  max-width: 90%;
+  width: 85%;
 }
 
 .pc-adminTrashArea{
@@ -102,6 +102,9 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 
 .pc-iconLink{
   font-size: 24px;
+}
+.pc-btnLink{
+  text-decoration: none;
 }
 
 .pc-reverseColor{
