@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {AmdinStyler} from "../AmdinStyler";
-import InstallInput from './InstallInput';
+import InstallInput from './InstallInput.vue';
 import axios from 'axios';
 
 /**
