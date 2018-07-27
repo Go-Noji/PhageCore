@@ -13,6 +13,7 @@
  * @property Login_tool $login_tool
  * @property Admin_model $admin_model
  * @property Options_Model $options_model
+ * @property Install_Model $install_model
  */
 class Admin extends CI_Controller
 {
@@ -46,6 +47,13 @@ class Admin extends CI_Controller
     //各Modelの読み込み
     $this->load->model('database/admin_model');
     $this->load->model('database/options_model');
+    $this->load->model('database/install_model');
+
+    //インストールの必要があるか判定、必要があればインストール画面へリダイレクト
+    if ($this->install_model->is_need_install())
+    {
+      redirect(site_url('management/install'));
+    }
 
     //Link_filesライブラリーのロード
     $this->load->library('link_files');
