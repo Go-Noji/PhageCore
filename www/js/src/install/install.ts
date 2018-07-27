@@ -50,7 +50,7 @@ declare var site_url: string;
   const adminStyler = new AmdinStyler();
 
   //高さを合わせたいクラス名(複数)
-  const fullHeightClassNames: Array<string> = ['pc-js-full_height'];
+  const fullHeightClassNames: Array<string> = ['ph-js-full_height'];
 
   //Vuexストアの作成
   Vue.use(Vuex);
@@ -188,7 +188,7 @@ declare var site_url: string;
               //各コンポーネントの表示
               else if(this.$refs[key] !== undefined)
               {
-                this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'pc-input pc-inputError' : 'pc-input');
+                this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'ph-input ph-inputError' : 'ph-input');
               }
             });
           });

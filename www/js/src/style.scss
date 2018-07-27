@@ -59,23 +59,23 @@ li{
   list-style-type: none;
 }
 
-.pc-body{
+.ph-body{
   font-size: 16px;
   font-family: $ja;
   background-color: $white;
 }
-.pc-wrapper{
+.ph-wrapper{
 }
 
-.pc-between{
+.ph-between{
   @include flexBetween;
 }
-.pc-logoBack{
+.ph-logoBack{
   padding: 30px;
   background-color: $black;
   color: $white
 }
-.pc-logoBackLink{
+.ph-logoBackLink{
   @include link($white);
 }
 .ps-installLogo{
@@ -83,38 +83,38 @@ li{
   max-width: 300px;
   display: block;
 }
-.pc-formWrapper{
+.ph-formWrapper{
   padding: 30px;
 }
-.pc-submitWrapper{
+.ph-submitWrapper{
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.pc-subTitle{
+.ph-subTitle{
   margin: 30px 0 0 0;
 }
-.pc-paragraph{
+.ph-paragraph{
   @include resetMarginAndPadding;
 }
-.pc-paragraphError{
+.ph-paragraphError{
   color: $errorColor;
 }
-.pc-input{
+.ph-input{
   @include input;
 }
-.pc-inputError{
+.ph-inputError{
   box-shadow: 0 0 3px 3px $errorColor;
 }
-.pc-icon{
+.ph-icon{
   color: $keyColor;
 }
-.pc-button{
+.ph-button{
   @include btn;
 }
-.pc-submit{
+.ph-submit{
   @include btn;
   border: $keyColor solid 1px;
   background-color: $white;
@@ -178,7 +178,7 @@ li{
   }
 }
 
-.pc-loaderWrap{
+.ph-loaderWrap{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,7 +187,7 @@ li{
   position: relative;
   margin: 30px auto;
 }
-.pc-loaderBox{
+.ph-loaderBox{
   border-radius: 100%;
   border: #0099a2 solid 6px;
   margin: 0;
@@ -197,7 +197,7 @@ li{
     loaderRotate 3s infinite ease-in-out,
     loaderSize .9s infinite ease-in-out;
 }
-.pc-loaderMessage{
+.ph-loaderMessage{
   font-size: 16px;
   font-weight: 700;
   color: #0099a2;

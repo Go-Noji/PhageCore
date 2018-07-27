@@ -19,25 +19,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="theme-color" content="<?php echo $theme_color; ?>">
 </head>
 <body>
-<div id="pc-admin" class="pc-wrapper pc-admin pc-js-fullHeight" style="background-image: <?php echo html_escape($admin_background_image); ?>;">
-  <header class="pc-adminHeader pc-js-adminHeader" style="background-color: <?php echo html_escape($theme_color); ?>;">
-    <nav class="pc-adminHeaderNav">
-      <ul class="pc-adminHeaderNavBox">
-        <li class="pc-adminHeaderNavList"><a class="pc-reverseColor" href="<?php echo site_url(); ?>" target="_blank"><?php echo html_escape($site_name); ?></a></li>
+<div id="ph-admin" class="ph-wrapper ph-admin ph-js-fullHeight" style="background-image: <?php echo html_escape($admin_background_image); ?>;">
+  <header class="ph-adminHeader ph-js-adminHeader" style="background-color: <?php echo html_escape($theme_color); ?>;">
+    <nav class="ph-adminHeaderNav">
+      <ul class="ph-adminHeaderNavBox">
+        <li class="ph-adminHeaderNavList"><a class="ph-reverseColor" href="<?php echo site_url(); ?>" target="_blank"><?php echo html_escape($site_name); ?></a></li>
       </ul>
-      <ul class="pc-adminHeaderNavBox">
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-bell"></i></a></li>
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-envelope"></i></a></li>
-        <li class="pc-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="pc-icon pc-iconLink pc-reverseColor fas fa-user"></i></a></li>
+      <ul class="ph-adminHeaderNavBox">
+        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-bell"></i></a></li>
+        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-envelope"></i></a></li>
+        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-user"></i></a></li>
       </ul>
     </nav>
-    <nav class="pc-adminHeaderTab">
-      <ul id="pc-adminHeaderTabBox" class="pc-adminHeaderTabBox"></ul>
+    <nav class="ph-adminHeaderTab">
+      <ul id="ph-adminHeaderTabBox" class="ph-adminHeaderTabBox"></ul>
     </nav>
   </header>
-  <div class="pc-adminBody">
-    <nav id="pc-adminSidebar" class="pc-adminSidebar pc-js-adminSidebar">
-      <ul class="pc-adminSidebarBox">
+  <div class="ph-adminBody">
+    <nav id="ph-adminSidebar" class="ph-adminSidebar ph-js-adminSidebar">
+      <ul class="ph-adminSidebarBox">
         <sidebar-list
           ref="content"
           title="コンテンツ"
@@ -75,16 +75,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           icon="fa-cog"></sidebar-list>
       </ul>
     </nav>
-    <div class="pc-adminArea pc-js-adminArea">
-      <div id="pc-adminTrashArea" class="pc-adminTrashArea">削除する</div>
+    <div class="ph-adminArea ph-js-adminArea">
+      <div id="ph-adminTrashArea" class="ph-adminTrashArea">削除する</div>
       <main role="main">
-        <div id="pc-adminDesktop" class="pc-adminDesktop">
-          <div class="pc-adminDesktopBackground"></div>
-          <div class="pc-adminDesktopArea">
+        <div id="ph-adminDesktop" class="ph-adminDesktop">
+          <div class="ph-adminDesktopBackground"></div>
+          <div class="ph-adminDesktopArea">
             <router-view></router-view>
           </div>
         </div>
-        <div id="pc-adminWindows" class="pc-adminWindows"></div>
+        <div id="ph-adminWindows" class="ph-adminWindows"></div>
       </main>
     </div>
   </div>

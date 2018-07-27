@@ -14,41 +14,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="theme-color" content="#007386">
 </head>
 <body>
-<div class="pc-wrapper pc-login" style="background-color: <?php echo html_escape($theme_color); ?>;background-image: <?php echo html_escape($admin_background_image); ?>;">
+<div class="ph-wrapper ph-login" style="background-color: <?php echo html_escape($theme_color); ?>;background-image: <?php echo html_escape($admin_background_image); ?>;">
   <main role="main">
-    <div id="pc-loginArea" class="pc-loginArea pc-js-fullHeight">
+    <div id="ph-loginArea" class="ph-loginArea ph-js-fullHeight">
       <transition name="login">
-        <section class="pc-loginBox" v-show="show" style="display: none;">
-          <h1 class="pc-loginHead">
+        <section class="ph-loginBox" v-show="show" style="display: none;">
+          <h1 class="ph-loginHead">
             <a href="<?php echo site_url(); ?>">
-              <img class="pc-loginLogo" src="<?php echo html_escape($site_logo); ?>" alt="ロゴ">
+              <img class="ph-loginLogo" src="<?php echo html_escape($site_logo); ?>" alt="ロゴ">
             </a>
             <span><?php echo html_escape($site_name); ?></span>
           </h1>
-          <p class="pc-loginMessage"><?php echo $this->input->get('first') ? 'ようこそ': ''; ?></p>
+          <p class="ph-loginMessage"><?php echo $this->input->get('first') ? 'ようこそ': ''; ?></p>
           <?php echo form_open('', array(
             'id' => 'loginForm',
-            'class' => 'pc-loginForm',
+            'class' => 'ph-loginForm',
             '@submit.prevent' => 'submit'
           )); ?>
           <p>
             <label for="id">メールアドレス もしくはユーザースラッグ</label>
             <br>
-            <input name="id" value="" id="id" class="pc-loginInput pc-input" type="text" v-model="id">
+            <input name="id" value="" id="id" class="ph-loginInput ph-input" type="text" v-model="id">
           </p>
           <p>
             <label for="password">パスワード</label>
             <br>
-            <input name="password" value="" id="password" class="pc-loginInput pc-input" type="password" v-model="password">
+            <input name="password" value="" id="password" class="ph-loginInput ph-input" type="password" v-model="password">
           </p>
           <transition name="loader-fade">
-            <div class="pc-loaderWrap" v-if="showLoader">
-              <div class="pc-loaderBox"></div>
-              <p class="pc-loaderMessage">Connecting...</p>
+            <div class="ph-loaderWrap" v-if="showLoader">
+              <div class="ph-loaderBox"></div>
+              <p class="ph-loaderMessage">Connecting...</p>
             </div>
-            <div class="pc-loginSubmitBox" v-else>
-              <p class="pc-paragraphError" v-html="error">&nbsp;</p>
-              <input name="submit" value="ログイン" class="pc-loginSubmit pc-submit" type="submit">
+            <div class="ph-loginSubmitBox" v-else>
+              <p class="ph-paragraphError" v-html="error">&nbsp;</p>
+              <input name="submit" value="ログイン" class="ph-loginSubmit ph-submit" type="submit">
             </div>
           </transition>
           <?php echo form_close(); ?>

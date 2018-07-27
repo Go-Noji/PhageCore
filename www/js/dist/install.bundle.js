@@ -277,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
     //インストール用クラス
     var adminStyler = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_2__["AmdinStyler"]();
     //高さを合わせたいクラス名(複数)
-    var fullHeightClassNames = ['pc-js-full_height'];
+    var fullHeightClassNames = ['ph-js-full_height'];
     //Vuexストアの作成
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
     var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
@@ -392,7 +392,7 @@ __webpack_require__.r(__webpack_exports__);
                         }
                         //各コンポーネントの表示
                         else if (_this.$refs[key] !== undefined) {
-                            _this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'pc-input pc-inputError' : 'pc-input');
+                            _this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'ph-input ph-inputError' : 'ph-input');
                         }
                     });
                 });
@@ -7713,7 +7713,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.pc-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.pc-between{display:flex;justify-content:space-between}.pc-logoBack{padding:30px;background-color:#023437}.pc-logoBack,.pc-logoBackLink,.pc-logoBackLink:active,.pc-logoBackLink:hover,.pc-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.pc-formWrapper{padding:30px}.pc-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.pc-subTitle{margin:30px 0 0}.pc-paragraph{margin:0;padding:0}.pc-paragraphError{color:#ea1213}.pc-input{padding:10px;border:1px solid #999;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fafafa}.pc-input:focus{box-shadow:0 0 3px 3px #0099a2}.pc-inputError{box-shadow:0 0 3px 3px #ea1213}.pc-icon{color:#0099a2}.pc-button{border-radius:6px;border:0}.pc-button,.pc-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.pc-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.pc-submit:hover{background:#0099a2;color:#fafafa}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRotate{0%{transform:rotate(0deg)}18%{transform:rotate(156deg)}21%{transform:rotate(10deg)}67%{transform:rotate(311deg)}89%{transform:rotate(26deg)}to{transform:rotate(0deg)}}.pc-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.pc-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.pc-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}", ""]);
+exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.ph-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.ph-between{display:flex;justify-content:space-between}.ph-logoBack{padding:30px;background-color:#023437}.ph-logoBack,.ph-logoBackLink,.ph-logoBackLink:active,.ph-logoBackLink:hover,.ph-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.ph-formWrapper{padding:30px}.ph-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.ph-subTitle{margin:30px 0 0}.ph-paragraph{margin:0;padding:0}.ph-paragraphError{color:#ea1213}.ph-input{padding:10px;border:1px solid #999;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fafafa}.ph-input:focus{box-shadow:0 0 3px 3px #0099a2}.ph-inputError{box-shadow:0 0 3px 3px #ea1213}.ph-icon{color:#0099a2}.ph-button{border-radius:6px;border:0}.ph-button,.ph-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.ph-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.ph-submit:hover{background:#0099a2;color:#fafafa}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRotate{0%{transform:rotate(0deg)}18%{transform:rotate(156deg)}21%{transform:rotate(10deg)}67%{transform:rotate(311deg)}89%{transform:rotate(26deg)}to{transform:rotate(0deg)}}.ph-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.ph-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.ph-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}", ""]);
 
 // exports
 
@@ -8963,7 +8963,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //デフォルトのフォームクラス
-var defaultFormClass = 'pc-input';
+var defaultFormClass = 'ph-input';
 //デフォルトのエラーメッセージ
 var defaultMessage = '&nbsp;';
 //通信中のaxiosキャンセルトークン
@@ -9134,14 +9134,14 @@ var source = null;
                     //エラーメッセージをpreMessageに格納
                     _this.setPreMessage(_this.createErrorMessage(error.response.data.validation));
                     //表示の変更
-                    _this.renderMessage(false, _this.preMessage, 'pc-input pc-inputError');
+                    _this.renderMessage(false, _this.preMessage, 'ph-input ph-inputError');
                     //this.preMessageの初期化
                     _this.setPreMessage();
                 });
                 return;
             }
             //表示の変更
-            this.renderMessage(false, this.preMessage, 'pc-input pc-inputError');
+            this.renderMessage(false, this.preMessage, 'ph-input ph-inputError');
         },
         /**
          * パスワードを表示するためにtype属性をpassword, textでトグルする
@@ -9175,13 +9175,13 @@ var render = function() {
     _c("div", [
       _c(
         "h3",
-        { staticClass: "pc-subTitle" },
+        { staticClass: "ph-subTitle" },
         [
           _vm._v("\n      " + _vm._s(_vm.title) + "\n      "),
           _c("transition", { attrs: { name: "icon-fade" } }, [
             _vm.success
               ? _c("span", [
-                  _c("i", { staticClass: "pc-icon fas fa-check-circle" })
+                  _c("i", { staticClass: "ph-icon fas fa-check-circle" })
                 ])
               : _vm._e()
           ])
@@ -9189,7 +9189,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("p", { staticClass: "pc-paragraph" }, [
+      _c("p", { staticClass: "ph-paragraph" }, [
         _vm._v(_vm._s(_vm.description))
       ])
     ]),
@@ -9298,7 +9298,7 @@ var render = function() {
         ? _c(
             "button",
             {
-              staticClass: "pc-button",
+              staticClass: "ph-button",
               attrs: { type: "button" },
               on: { click: _vm.toggleShowPassword }
             },
@@ -9337,7 +9337,7 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("p", {
-        staticClass: "pc-paragraph pc-message pc-paragraphError",
+        staticClass: "ph-paragraph ph-message ph-paragraphError",
         domProps: { innerHTML: _vm._s(_vm.formMessage) }
       })
     ])

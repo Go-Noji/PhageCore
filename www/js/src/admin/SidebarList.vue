@@ -1,8 +1,8 @@
 <template>
-  <li class="pc-adminSidebarList">
-    <router-link class="pc-adminSidebarLink pc-btnLink" :to="to">
-      <i class="pc-icon fas" :class="icon"></i>
-      <span class="pc-reverseColor">{{title}}</span>
+  <li class="ph-adminSidebarList">
+    <router-link class="ph-adminSidebarLink ph-btnLink" :to="to">
+      <i class="ph-icon fas" :class="icon"></i>
+      <span class="ph-reverseColor">{{title}}</span>
     </router-link>
   </li>
 </template>

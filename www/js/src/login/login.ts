@@ -20,7 +20,7 @@ declare var site_url: string;
 
   //フォームを括るVueインスタンスの作成
   const loginArea = new Vue({
-    el: '#pc-loginArea',
+    el: '#ph-loginArea',
     data: {
       show: false,
       showLoader: false,
@@ -96,7 +96,7 @@ declare var site_url: string;
   const adminStyler = new AmdinStyler();
 
   //高さを合わせたいクラス名(複数)
-  const fullHeightClassNames: Array<string> = ['pc-js-fullHeight'];
+  const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
 
   window.onload = () =>
   {

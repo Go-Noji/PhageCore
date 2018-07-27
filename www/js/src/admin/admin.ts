@@ -16,8 +16,8 @@ declare var site_url: string;
   const adminStyler = new AmdinStyler();
 
   //高さを合わせたいクラス名(複数)
-  const fullHeightClassNames: Array<string> = ['pc-js-fullHeight'];
-  const contentsClassNames: Array<string> = ['pc-js-adminSidebar', 'pc-js-adminArea'];
+  const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
+  const contentsClassNames: Array<string> = ['ph-js-adminSidebar', 'ph-js-adminArea'];
 
   //VueRouterの使用を宣言
   Vue.use(VueRouter);
@@ -37,7 +37,7 @@ declare var site_url: string;
 
   //全体を括るVueインスタンスの作成
   const admin = new Vue({
-    el: '#pc-admin',
+    el: '#ph-admin',
     router,
     components:{
       'admin-window': AdminWindow,
@@ -50,13 +50,13 @@ declare var site_url: string;
   {
     //height合わせ
     adminStyler.initHeightStyle(fullHeightClassNames);
-    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
+    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
   }
 
   //画面リサイズによるheight合わせ
   window.addEventListener('resize', () =>
   {
     adminStyler.initHeightStyle(fullHeightClassNames);
-    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
+    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
   }, false);
 }

@@ -11,47 +11,47 @@ $keyColor: #0099a2;
 $errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
 
-.pc-admin{
+.ph-admin{
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.pc-adminHeader{
+.ph-adminHeader{
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 30px;
 }
-.pc-adminHeaderNav{
+.ph-adminHeaderNav{
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.pc-adminHeaderNavBox{
+.ph-adminHeaderNavBox{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.pc-adminHeaderNavList{
+.ph-adminHeaderNavList{
   padding: 0 30px;
   &:first-child, &:last-child{
     padding: 0;
   }
 }
 
-.pc-adminBody{
+.ph-adminBody{
   display: flex;
   justify-content: space-between;
 }
 
-.pc-adminSidebar{
+.ph-adminSidebar{
   width: 15%;
   padding: 0 0 30px 0;
   background-color: $black;
 }
-.pc-adminSidebarBox{
+.ph-adminSidebarBox{
 }
-.pc-adminSidebarLink{
+.ph-adminSidebarLink{
   padding: 15px;
   display: block;
   &:hover{
@@ -59,20 +59,20 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   }
 }
 
-.pc-adminArea{
+.ph-adminArea{
   flex-grow: 1;
   width: 85%;
 }
 
-.pc-adminTrashArea{
+.ph-adminTrashArea{
   display: none;
   padding: 60px;
 }
 
-.pc-adminDesktopArea{
+.ph-adminDesktopArea{
 }
 
-.pc-adminWindow{
+.ph-adminWindow{
   box-sizing: border-box;
   margin: 15px;
   padding: 15px;
@@ -81,33 +81,33 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   background-color: $white;
   box-shadow: 0 0 3px 3px $keyColor;
 }
-.pc-index{
+.ph-index{
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
 }
-.pc-indexRow{
+.ph-indexRow{
   border-bottom: 1px solid $gray;
 }
-.pc-indexHeadRow{
+.ph-indexHeadRow{
   background-color: $keyColor;
 }
-.pc-indexTh{
+.ph-indexTh{
   padding: 5px;
   text-align: left;
 }
-.pc-indexTd{
+.ph-indexTd{
   padding: 5px;
 }
 
-.pc-iconLink{
+.ph-iconLink{
   font-size: 24px;
 }
-.pc-btnLink{
+.ph-btnLink{
   text-decoration: none;
 }
 
-.pc-reverseColor{
+.ph-reverseColor{
   color: $white;
   &:hover{
     color: $white;

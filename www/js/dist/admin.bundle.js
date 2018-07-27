@@ -384,8 +384,8 @@ __webpack_require__.r(__webpack_exports__);
     //スタイル調整クラスのインスタンス化
     var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_4__["AmdinStyler"]();
     //高さを合わせたいクラス名(複数)
-    var fullHeightClassNames_1 = ['pc-js-fullHeight'];
-    var contentsClassNames_1 = ['pc-js-adminSidebar', 'pc-js-adminArea'];
+    var fullHeightClassNames_1 = ['ph-js-fullHeight'];
+    var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
     //VueRouterの使用を宣言
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
     //サイドバー用のルート定義
@@ -402,7 +402,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     //全体を括るVueインスタンスの作成
     var admin = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-        el: '#pc-admin',
+        el: '#ph-admin',
         router: router,
         components: {
             'admin-window': _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -413,12 +413,12 @@ __webpack_require__.r(__webpack_exports__);
     window.onload = function () {
         //height合わせ
         adminStyler_1.initHeightStyle(fullHeightClassNames_1);
-        adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
+        adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
     };
     //画面リサイズによるheight合わせ
     window.addEventListener('resize', function () {
         adminStyler_1.initHeightStyle(fullHeightClassNames_1);
-        adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.pc-js-adminHeader').getBoundingClientRect().height);
+        adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
     }, false);
 }
 
@@ -7720,7 +7720,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".pc-admin{background-color:rgba(0,0,0,.1)}.pc-adminHeader{padding:30px}.pc-adminHeader,.pc-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.pc-adminHeaderNav{width:100%}.pc-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.pc-adminHeaderNavList{padding:0 30px}.pc-adminHeaderNavList:first-child,.pc-adminHeaderNavList:last-child{padding:0}.pc-adminBody{display:flex;justify-content:space-between}.pc-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.pc-adminSidebarLink{padding:15px;display:block}.pc-adminSidebarLink:hover{background-color:#0099a2}.pc-adminArea{flex-grow:1;width:85%}.pc-adminTrashArea{display:none;padding:60px}.pc-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.pc-index{width:100%;table-layout:fixed;border-collapse:collapse}.pc-indexRow{border-bottom:1px solid #999}.pc-indexHeadRow{background-color:#0099a2}.pc-indexTh{padding:5px;text-align:left}.pc-indexTd{padding:5px}.pc-iconLink{font-size:24px}.pc-btnLink{text-decoration:none}.pc-reverseColor,.pc-reverseColor:active,.pc-reverseColor:hover,.pc-reverseColor:visited{color:#fafafa}", ""]);
+exports.push([module.i, ".ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;table-layout:fixed;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:5px;text-align:left}.ph-indexTd{padding:5px}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}", ""]);
 
 // exports
 
@@ -7739,7 +7739,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.pc-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.pc-between{display:flex;justify-content:space-between}.pc-logoBack{padding:30px;background-color:#023437}.pc-logoBack,.pc-logoBackLink,.pc-logoBackLink:active,.pc-logoBackLink:hover,.pc-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.pc-formWrapper{padding:30px}.pc-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.pc-subTitle{margin:30px 0 0}.pc-paragraph{margin:0;padding:0}.pc-paragraphError{color:#ea1213}.pc-input{padding:10px;border:1px solid #999;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fafafa}.pc-input:focus{box-shadow:0 0 3px 3px #0099a2}.pc-inputError{box-shadow:0 0 3px 3px #ea1213}.pc-icon{color:#0099a2}.pc-button{border-radius:6px;border:0}.pc-button,.pc-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.pc-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.pc-submit:hover{background:#0099a2;color:#fafafa}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRotate{0%{transform:rotate(0deg)}18%{transform:rotate(156deg)}21%{transform:rotate(10deg)}67%{transform:rotate(311deg)}89%{transform:rotate(26deg)}to{transform:rotate(0deg)}}.pc-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.pc-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.pc-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}", ""]);
+exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.ph-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.ph-between{display:flex;justify-content:space-between}.ph-logoBack{padding:30px;background-color:#023437}.ph-logoBack,.ph-logoBackLink,.ph-logoBackLink:active,.ph-logoBackLink:hover,.ph-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.ph-formWrapper{padding:30px}.ph-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.ph-subTitle{margin:30px 0 0}.ph-paragraph{margin:0;padding:0}.ph-paragraphError{color:#ea1213}.ph-input{padding:10px;border:1px solid #999;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fafafa}.ph-input:focus{box-shadow:0 0 3px 3px #0099a2}.ph-inputError{box-shadow:0 0 3px 3px #ea1213}.ph-icon{color:#0099a2}.ph-button{border-radius:6px;border:0}.ph-button,.ph-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.ph-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.ph-submit:hover{background:#0099a2;color:#fafafa}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRotate{0%{transform:rotate(0deg)}18%{transform:rotate(156deg)}21%{transform:rotate(10deg)}67%{transform:rotate(311deg)}89%{transform:rotate(26deg)}to{transform:rotate(0deg)}}.ph-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.ph-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.ph-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}", ""]);
 
 // exports
 
@@ -9181,19 +9181,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "pc-adminWindow" }, [
-    _c("h2", { staticClass: "pc-adminWindowTitle" }, [_vm._v("コンテンツ")]),
+  return _c("section", { staticClass: "ph-adminWindow" }, [
+    _c("h2", { staticClass: "ph-adminWindowTitle" }, [_vm._v("コンテンツ")]),
     _vm._v(" "),
-    _c("section", { staticClass: "pc-innerWrapper" }, [
+    _c("section", { staticClass: "ph-innerWrapper" }, [
       _c("h3", [_vm._v("コンテンツ一覧")]),
       _vm._v(" "),
-      _c("table", { staticClass: "pc-index" }, [
-        _c("thead", { staticClass: "pc-indexHead" }, [
+      _c("table", { staticClass: "ph-index" }, [
+        _c("thead", { staticClass: "ph-indexHead" }, [
           _c(
             "tr",
-            { staticClass: "pc-indexRow pc-indexHeadRow" },
+            { staticClass: "ph-indexRow ph-indexHeadRow" },
             _vm._l(_vm.fields, function(field) {
-              return _c("th", { staticClass: "pc-indexTh pc-reverseColor" }, [
+              return _c("th", { staticClass: "ph-indexTh ph-reverseColor" }, [
                 _vm._v(_vm._s(field))
               ])
             })
@@ -9205,9 +9205,9 @@ var render = function() {
           _vm._l(_vm.contents, function(content) {
             return _c(
               "tr",
-              { staticClass: "pc-indexRow" },
+              { staticClass: "ph-indexRow" },
               _vm._l(content, function(column) {
-                return _c("td", { staticClass: "pc-indexTd" }, [
+                return _c("td", { staticClass: "ph-indexTd" }, [
                   _vm._v(_vm._s(column))
                 ])
               })
@@ -9242,18 +9242,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "li",
-    { staticClass: "pc-adminSidebarList" },
+    { staticClass: "ph-adminSidebarList" },
     [
       _c(
         "router-link",
         {
-          staticClass: "pc-adminSidebarLink pc-btnLink",
+          staticClass: "ph-adminSidebarLink ph-btnLink",
           attrs: { to: _vm.to }
         },
         [
-          _c("i", { staticClass: "pc-icon fas", class: _vm.icon }),
+          _c("i", { staticClass: "ph-icon fas", class: _vm.icon }),
           _vm._v(" "),
-          _c("span", { staticClass: "pc-reverseColor" }, [
+          _c("span", { staticClass: "ph-reverseColor" }, [
             _vm._v(_vm._s(_vm.title))
           ])
         ]

@@ -1,17 +1,17 @@
 <template>
-  <section class="pc-adminWindow">
-    <h2 class="pc-adminWindowTitle">コンテンツ</h2>
-    <section class="pc-innerWrapper">
+  <section class="ph-adminWindow">
+    <h2 class="ph-adminWindowTitle">コンテンツ</h2>
+    <section class="ph-innerWrapper">
       <h3>コンテンツ一覧</h3>
-      <table class="pc-index">
-        <thead class="pc-indexHead">
-        <tr class="pc-indexRow pc-indexHeadRow">
-          <th class="pc-indexTh pc-reverseColor" v-for="field in fields">{{field}}</th>
+      <table class="ph-index">
+        <thead class="ph-indexHead">
+        <tr class="ph-indexRow ph-indexHeadRow">
+          <th class="ph-indexTh ph-reverseColor" v-for="field in fields">{{field}}</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="pc-indexRow" v-for="content in contents">
-          <td v-for="column in content" class="pc-indexTd">{{column}}</td>
+        <tr class="ph-indexRow" v-for="content in contents">
+          <td v-for="column in content" class="ph-indexTd">{{column}}</td>
         </tr>
         </tbody>
       </table>

@@ -18,20 +18,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png">
   <meta name="theme-color" content="#007386">
 </head>
-<body class="pc-body">
-<div class="pc-wrapper">
+<body class="ph-body">
+<div class="ph-wrapper">
   <main role="main">
-    <div class="pc-between">
-      <section class="pc-logoBack pc-js-full_height">
-        <p class="pc-paragraph"><img class="ps-installLogo" src="<?php echo site_url('images/logo.png'); ?>" alt="Phage Core ロゴ"></p>
+    <div class="ph-between">
+      <section class="ph-logoBack ph-js-full_height">
+        <p class="ph-paragraph"><img class="ps-installLogo" src="<?php echo site_url('images/logo.png'); ?>" alt="Phage Core ロゴ"></p>
         <h1>Phage Core<br>インストール</h1>
-        <p class="pc-paragraph">Phage Codeのインストールを行います。</p>
-        <p class="pc-paragraph">必要情報を入力して「この設定で始める」ボタンを押して下さい。</p>
+        <p class="ph-paragraph">Phage Codeのインストールを行います。</p>
+        <p class="ph-paragraph">必要情報を入力して「この設定で始める」ボタンを押して下さい。</p>
         <footer>
-          <p class="pc-footer"><small class="pc-footerCaption">© 2018 Phage Core, proudly powered by <a class="pc-logoBackLink" href="https://github.com/Go-Noji/PhageCore" target="_blank">Phage Core</a></small></p>
+          <p class="ph-footer"><small class="ph-footerCaption">© 2018 Phage Core, proudly powered by <a class="ph-logoBackLink" href="https://github.com/Go-Noji/PhageCore" target="_blank">Phage Core</a></small></p>
         </footer>
       </section>
-      <section class="pc-formWrapper pc-js-fullHeight">
+      <section class="ph-formWrapper ph-js-fullHeight">
         <h2>必要情報入力</h2>
         <?php echo form_open('', array(
           'id' => 'installForm',
@@ -91,15 +91,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ></install-input>
           </li>
         </ul>
-        <div class="pc-submitWrapper">
-          <p class="pc-paragraph pc-message pc-paragraphError">{{dbError}}</p>
+        <div class="ph-submitWrapper">
+          <p class="ph-paragraph ph-message ph-paragraphError">{{dbError}}</p>
           <transition name="loader-fade">
-            <div class="pc-loaderWrap" v-if="showLoader">
-              <div class="pc-loaderBox"></div>
-              <p class="pc-loaderMessage">Connecting...</p>
+            <div class="ph-loaderWrap" v-if="showLoader">
+              <div class="ph-loaderBox"></div>
+              <p class="ph-loaderMessage">Connecting...</p>
             </div>
             <div v-else>
-              <input name="submit" value="この設定で始める" required="required" placeholder="" class="pc-submit pc-noAction" type="submit">
+              <input name="submit" value="この設定で始める" required="required" placeholder="" class="ph-submit ph-noAction" type="submit">
             </div>
           </transition>
         </div>

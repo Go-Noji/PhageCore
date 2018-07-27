@@ -11,38 +11,38 @@ $keyColor: #0099a2;
 $errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
 
-.pc-login{
+.ph-login{
   background-size: cover;
 }
-.pc-loginArea{
+.ph-loginArea{
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.pc-loginBox{
+.ph-loginBox{
   background: rgba($white, 0.9);
   padding: 30px;
   position: relative;
   top: 0;
   box-shadow: 0 0 5px 5px rgba($keyColor, 0.4);
 }
-.pc-loginHead{
+.ph-loginHead{
   min-width: 320px;
   max-height: 600px;
   text-align: center;
 }
-.pc-loginLogo{
+.ph-loginLogo{
   display: block;
   max-width: 100px;
   margin: 0 auto;
 }
-.pc-loginMessage{
+.ph-loginMessage{
   text-align: center;
 }
-.pc-loginInput{
+.ph-loginInput{
   width: 100%;
 }
-.pc-loginSubmitBox{
+.ph-loginSubmitBox{
   text-align: center;
   margin: 30px 0;
 }

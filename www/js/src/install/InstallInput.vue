@@ -1,21 +1,21 @@
 <template>
   <div>
     <div>
-      <h3 class="pc-subTitle">
+      <h3 class="ph-subTitle">
         {{title}}
         <transition name="icon-fade">
-          <span v-if="success"><i class="pc-icon fas fa-check-circle"></i></span>
+          <span v-if="success"><i class="ph-icon fas fa-check-circle"></i></span>
         </transition>
       </h3>
-      <p class="pc-paragraph">{{description}}</p>
+      <p class="ph-paragraph">{{description}}</p>
     </div>
     <div>
       <input :name="name" :value="formValue" :placeholder="placeholder" :class="formClass" v-model="formValue" :type="formType" @blur="showValidationResult">
-      <button type="button" class="pc-button" v-if="type === 'password'" @click="toggleShowPassword">
+      <button type="button" class="ph-button" v-if="type === 'password'" @click="toggleShowPassword">
         <span v-show="showPassword"><i class="fas fa-eye-slash"></i></span>
         <span v-show="!showPassword"><i class="fas fa-eye"></i></span>
       </button>
-      <p v-html="formMessage" class="pc-paragraph pc-message pc-paragraphError"></p>
+      <p v-html="formMessage" class="ph-paragraph ph-message ph-paragraphError"></p>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@
   declare var site_url: string;
 
   //デフォルトのフォームクラス
-  const defaultFormClass: string = 'pc-input';
+  const defaultFormClass: string = 'ph-input';
 
   //デフォルトのエラーメッセージ
   const defaultMessage: string = '&nbsp;';
@@ -218,7 +218,7 @@
               this.setPreMessage(this.createErrorMessage(error.response.data.validation));
 
               //表示の変更
-              this.renderMessage(false, this.preMessage, 'pc-input pc-inputError');
+              this.renderMessage(false, this.preMessage, 'ph-input ph-inputError');
 
               //this.preMessageの初期化
               this.setPreMessage();
@@ -227,7 +227,7 @@
         }
 
         //表示の変更
-        this.renderMessage(false, this.preMessage, 'pc-input pc-inputError');
+        this.renderMessage(false, this.preMessage, 'ph-input ph-inputError');
       },
       /**
        * パスワードを表示するためにtype属性をpassword, textでトグルする
