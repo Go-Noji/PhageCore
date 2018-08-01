@@ -29,7 +29,7 @@ declare var site_url: string;
         path: '/content',
         component: AdminWindow,
         props: {
-          api: 'api/select/call/content/multiple'
+          initApi: 'api/select/call/content/multiple'
         }
       }
     ]

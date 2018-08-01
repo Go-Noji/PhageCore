@@ -395,7 +395,7 @@ __webpack_require__.r(__webpack_exports__);
                 path: '/content',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
-                    api: 'api/select/call/content/multiple'
+                    initApi: 'api/select/call/content/multiple'
                 }
             }
         ]
@@ -7777,7 +7777,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "@keyframes dummyAnimation-data-v-6bd78c1c{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-dummyTH[data-v-6bd78c1c]{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyTD[data-v-6bd78c1c],.ph-dummyTH[data-v-6bd78c1c]{animation:dummyAnimation-data-v-6bd78c1c 1s ease-in infinite}.ph-dummyTD[data-v-6bd78c1c]{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
 
 // exports
 
@@ -9067,11 +9067,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
-//通信中のaxiosキャンセルトークン
-var source = null;
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
     props: {
-        api: {
+        initApi: {
             type: String,
             required: true,
             default: ''
@@ -9079,43 +9077,99 @@ var source = null;
     },
     data: function () {
         return {
+            loading: false,
+            source: null,
             contents: {},
             fields: {}
         };
     },
-    watch: {},
+    watch: {
+        '$route': 'getData'
+    },
+    computed: {
+        //ダミーリストの表示クラス
+        thClass: function () {
+            return {
+                'ph-dummyTH': this.loading
+            };
+        },
+        tdClass: function () {
+            return {
+                'ph-dummyTD': this.loading
+            };
+        },
+    },
     mounted: function () {
         var _this = this;
+        //loading中アイコンとダミーリストを表示する
+        this.loading = true;
+        //ダミーテーブルの描写
+        this.renderDummyList(10, 10);
         //データの入手
         this.getData()
             .then(function (response) {
+            //loading中アイコンとダミーリストを非表示にする
+            _this.loading = false;
             _this.fields = response.data.fields;
             _this.contents = response.data.contents;
         })
             .catch(function (data) {
+            //loading中アイコンとダミーリストを非表示にする
+            _this.loading = false;
             console.log(data);
         });
     },
     methods: {
-        getData: function () {
+        /**
+         * 通信中のAjax送信が存在したらそれをキャンセルし、新たなトークンを返す
+         * @return {CancelTokenSource}
+         */
+        abort: function () {
             //もし通信中だったらその通信をキャンセルする
-            if (source !== null) {
-                source.cancel();
-                source = null;
+            if (this.source !== null) {
+                this.source.cancel();
+                this.source = null;
             }
             //axiosのキャンセルトークンを登録
             var CancelToken = axios__WEBPACK_IMPORTED_MODULE_1___default.a.CancelToken;
-            source = CancelToken.source();
+            this.source = CancelToken.source();
+            return this.source.token;
+        },
+        /**
+         * 空データを描写する
+         * columnNumberが列、countが行の数
+         */
+        renderDummyList: function (columnNumber, count) {
+            //空ヘッダー情報の作成
+            var fields = new Array(columnNumber).fill('&nbsp;');
+            //空データ配列の一行分を作成
+            var content = {};
+            Array.prototype.forEach.call(fields, function (field, index) {
+                content[field + index] = '&nbsp;';
+            });
+            //空データの作成
+            var contents = new Array(count).fill(content);
+            console.log(fields);
+            console.log(contents);
+            this.fields = fields;
+            this.contents = contents;
+        },
+        /**
+         * initApiにセットされたURLを叩いて初期表示のためのデータを取得する
+         * 結果がAxiosPtomiseとして返る
+         * @return {AxiosPromise}
+         */
+        getData: function () {
             //POSTに渡すパラメータ
             var params = new URLSearchParams();
             params.append(csrf_key, csrf_value);
             //通信を試みる
-            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(site_url + this.$props.api, params, {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(site_url + this.$props.initApi, params, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                cancelToken: source.token
+                cancelToken: this.abort()
             });
         }
     }
@@ -9193,9 +9247,11 @@ var render = function() {
             "tr",
             { staticClass: "ph-indexRow ph-indexHeadRow" },
             _vm._l(_vm.fields, function(field) {
-              return _c("th", { staticClass: "ph-indexTh ph-reverseColor" }, [
-                _vm._v(_vm._s(field))
-              ])
+              return _c("th", {
+                staticClass: "ph-indexTh ph-reverseColor",
+                class: _vm.thClass,
+                domProps: { innerHTML: _vm._s(field) }
+              })
             })
           )
         ]),
@@ -9207,9 +9263,11 @@ var render = function() {
               "tr",
               { staticClass: "ph-indexRow" },
               _vm._l(content, function(column) {
-                return _c("td", { staticClass: "ph-indexTd" }, [
-                  _vm._v(_vm._s(column))
-                ])
+                return _c("td", {
+                  staticClass: "ph-indexTd",
+                  class: _vm.tdClass,
+                  domProps: { innerHTML: _vm._s(column) }
+                })
               })
             )
           })
