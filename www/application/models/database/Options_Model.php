@@ -5,10 +5,10 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  *
  * @property CI_Loader $load
- * @property CI_DB
+ * @property CI_Config $config
  * @property CI_DB $db
  */
-class Options_Model extends CI_Model
+class Options_Model extends PC_Model
 {
 
   /**
@@ -20,19 +20,45 @@ class Options_Model extends CI_Model
 
     //データベースライブラリのロード
     $this->load->database();
+
+    //config/options.phpによって上書きされるデータを取得
+    $this->config->load('options', TRUE);
+  }
+
+  /**
+   * $key_nameで設定された設定がconfig/options.phpによって上書きされているかを判定
+   * @param $key_name
+   * @return bool
+   */
+  private function _is_override($key_name)
+  {
+    return array_key_exists($key_name, $this->config->item('options'));
   }
 
   /**
    * $key_nameで取得した設定のレコードを返却する
    * もしDBに該当データが無ければ$fallback(デフォルト)をvalueとし、
-   * idは0, key_nameは$key_nameの疑似的なレコードが返却される
+   * idは0, key_nameは$key_name, controlは0の疑似的なレコードが返却される
    * $fallbackは文字列かNULLを許容する
+   * config/options.phpにデータが存在する場合はそちらが優先的に返される
+   * この場合もidは0, key_nameは$key_name, controlは0の疑似的なレコードが返却される
    * @param string $key_name
    * @param string|null $fallback
    * @return array
    */
   private function _get_option($key_name, $fallback)
   {
+    //config/options.phpに同名データが存在したら即返却
+    if ($this->_is_override($key_name))
+    {
+      return array(
+        'id' => '0',
+        'key_name' => $key_name,
+        'value' => $this->config->item($key_name, 'options'),
+        'control' => '0'
+      );
+    }
+
     //$key_nameと$fallbackの整形
     $key_name = (string)$key_name;
     $fallback = $fallback === NULL ? NULL : (string)$fallback;
@@ -40,7 +66,7 @@ class Options_Model extends CI_Model
     //SQL文の発行
     $query = $this->db->query("
     SELECT *  
-    FROM {$this->db->dbprefix}options 
+    FROM {$this->db->dbprefix('options')} 
     WHERE key_name = ? 
     LIMIT 1
     ", array($key_name));
@@ -52,14 +78,16 @@ class Options_Model extends CI_Model
     return isset($result['value']) ? $result : array(
       'id' => '0',
       'key_name' => $key_name,
-      'value' => $fallback
+      'value' => $fallback,
+      'control' => '0'
     );
   }
 
   /**
    * $key_nameで指定された設定のvalueのみを返却する
+   * 該当データが無かった場合は$fallbackの値がそのまま返る
    * @param $key_name
-   * @param null $fallback
+   * @param string|null $fallback
    * @return string|null
    */
   public function get($key_name, $fallback = NULL)
@@ -71,8 +99,10 @@ class Options_Model extends CI_Model
   /**
    * _get_option()をそのまま呼び出す
    * つまり、optionsテーブルの単一レコードを呼び出す
-   * @param $key_name
-   * @param null $fallback
+   * もしDBに該当データが無ければ$fallback(デフォルト)をvalueとし、
+   * idは0, key_nameは$key_nameの疑似的なレコードが返却される
+   * @param string $key_name
+   * @param string|null $fallback
    * @return array
    */
   public function get_row($key_name, $fallback = NULL)
@@ -81,11 +111,72 @@ class Options_Model extends CI_Model
   }
 
   /**
+   * optionsテーブルとconfig/options.phpに定義されている全ての設定を返す
+   * optionsテーブルのデータはconfig/options.phpの同名データで上書きされる
+   * @return array
+   */
+  public function get_data()
+  {
+    //データベースのデータを取得
+    $query = $this->db->query("
+    SELECT * 
+    FROM {$this->db->dbprefix('options')}
+    ");
+    $results = (array)$query->result_array();
+
+    //設定ファイルのデータ構造をデータベースのものと合わせて合成
+    foreach ($this->config->item('options') as $key_name => $value)
+    {
+      $results[$key_name] = $value;
+    }
+
+    //返す
+    return $results;
+  }
+
+  /**
+   * 管理画面でコントロール可能なoptionsデータを取得する
+   * コントロール不能のデータはcontrolフィールドの値が0、
+   * もしくはconfig/options.phpにて上書きされている値が該当する
+   * ただし、$ignoreControlがTRUEだった場合のみcontrolフィールドは無視される
+   * 結果配列にcontrolフィールドの値が含まれない点に注意
+   * @param bool $ignoreControl
+   * @return array
+   */
+  public function get_controllable_data($ignoreControl = FALSE)
+  {
+    //$ignoreControlがTRUEだった場合はcontrolフィールドを無視する
+    $whereSQL = $ignoreControl ? 'WHERE control = 1' : '';
+
+    //データベースのデータを取得
+    $query = $this->db->query("
+    SELECT id, key_name, value 
+    FROM {$this->db->dbprefix('options')} 
+    {$whereSQL}
+    ");
+    $results = (array)$query->result_array();
+
+    //config/options.phpに存在するデータは取得しない
+    foreach ($results as $index => $result)
+    {
+      if ($this->_is_override($result['key_name']))
+      {
+        unset($results[$index]);
+      }
+    }
+
+    //値を返却
+    return $results;
+  }
+
+  /**
    * $key_nameと$valueでoptionsテーブルへINSERT or UPDATEを行う
    * INSERTかUPDATEかは自動で判別され実行されるが、
    * $overrideをFALSEに設定し、かつ既に$key_nameで指定された設定が存在した場合は
    * DBへの変更が行われず、存在するレコードのIDが返却される
    * 返り値は操作したレコードのIDだが、DB操作に失敗した場合は0が返る
+   * config/options.phpの設定値には関係なくデータベースへの操作が行われるが、
+   * それはこのメソッドによる変更が必ずしもget系メソッドの結果にならないことを意味する
    * @param $key_name
    * @param $value
    * @param bool $override
@@ -128,6 +219,8 @@ class Options_Model extends CI_Model
 
   /**
    * $key_nameで指定したデータを物理削除する
+   * set()と同じく、config/options.phpの設定値には関係なくデータベースへの操作が行われる
+   * つまり、削除してもconfig/options.phpに設定が存在したらget系メソッドで取得できる
    * @param string $key_name
    */
   public function delete($key_name)
