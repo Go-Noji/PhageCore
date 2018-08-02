@@ -7720,7 +7720,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;table-layout:fixed;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:5px;text-align:left}.ph-indexTd{padding:5px}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}", ""]);
+exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;table-layout:fixed;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:5px;text-align:left}.ph-indexTd{padding:5px}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
 
 // exports
 
@@ -7777,7 +7777,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@keyframes dummyAnimation-data-v-6bd78c1c{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-dummyTH[data-v-6bd78c1c]{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyTD[data-v-6bd78c1c],.ph-dummyTH[data-v-6bd78c1c]{animation:dummyAnimation-data-v-6bd78c1c 1s ease-in infinite}.ph-dummyTD[data-v-6bd78c1c]{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -9086,19 +9086,6 @@ __webpack_require__.r(__webpack_exports__);
     watch: {
         '$route': 'getData'
     },
-    computed: {
-        //ダミーリストの表示クラス
-        thClass: function () {
-            return {
-                'ph-dummyTH': this.loading
-            };
-        },
-        tdClass: function () {
-            return {
-                'ph-dummyTD': this.loading
-            };
-        },
-    },
     mounted: function () {
         var _this = this;
         //loading中アイコンとダミーリストを表示する
@@ -9141,16 +9128,14 @@ __webpack_require__.r(__webpack_exports__);
          */
         renderDummyList: function (columnNumber, count) {
             //空ヘッダー情報の作成
-            var fields = new Array(columnNumber).fill('&nbsp;');
+            var fields = new Array(columnNumber).fill('<p class="ph-dummyHeaderParagraph">&nbsp;</p>');
             //空データ配列の一行分を作成
             var content = {};
             Array.prototype.forEach.call(fields, function (field, index) {
-                content[field + index] = '&nbsp;';
+                content[field + index] = '<p class="ph-dummyCellParagraph">&nbsp;</p>';
             });
             //空データの作成
             var contents = new Array(count).fill(content);
-            console.log(fields);
-            console.log(contents);
             this.fields = fields;
             this.contents = contents;
         },
@@ -9249,7 +9234,6 @@ var render = function() {
             _vm._l(_vm.fields, function(field) {
               return _c("th", {
                 staticClass: "ph-indexTh ph-reverseColor",
-                class: _vm.thClass,
                 domProps: { innerHTML: _vm._s(field) }
               })
             })
@@ -9265,7 +9249,6 @@ var render = function() {
               _vm._l(content, function(column) {
                 return _c("td", {
                   staticClass: "ph-indexTd",
-                  class: _vm.tdClass,
                   domProps: { innerHTML: _vm._s(column) }
                 })
               })

@@ -11,6 +11,23 @@ $keyColor: #0099a2;
 $errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
 
+//ローディング中に表示されるダミー表示用のアニメーション
+@keyframes dummyAnimation{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+//ローディング中に表示されるダミー表示用のミックスイン
+@mixin dummyCell{
+  border-radius: 15px;
+  width: 95%;
+  width: calc(100% - 10px);
+  margin: 5px;
+  background-size: 600% 600%;
+  animation: dummyAnimation 1s ease-in infinite;
+}
+
 .ph-admin{
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -118,4 +135,13 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   &:visited{
     color: $white;
   }
+}
+
+.ph-dummyHeaderParagraph{
+  background: linear-gradient(79deg, #0099a2, #e5e5e5, #0099a2);
+  @include dummyCell;
+}
+.ph-dummyCellParagraph{
+  background: linear-gradient(79deg, #aaa, #e5e5e5, #aaa);
+  @include dummyCell;
 }
