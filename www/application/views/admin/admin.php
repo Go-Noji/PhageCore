@@ -69,9 +69,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           to="/user"
           icon="fa-users"></sidebar-list>
         <sidebar-list
-          ref="option"
+          ref="options"
           title="設定"
-          to="/option"
+          to="/options"
           icon="fa-cog"></sidebar-list>
       </ul>
     </nav>

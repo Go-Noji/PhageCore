@@ -29,7 +29,16 @@ declare var site_url: string;
         path: '/content',
         component: AdminWindow,
         props: {
-          initApi: 'api/select/call/content/multiple'
+          initApi: 'api/select/call/content/multiple',
+          title: 'コンテンツ'
+        }
+      },
+      {
+        path: '/options',
+        component: AdminWindow,
+        props: {
+          initApi: 'api/select/call/options/multiple',
+          title: '設定'
         }
       }
     ]

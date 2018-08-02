@@ -1,8 +1,8 @@
 <template>
   <section class="ph-adminWindow">
-    <h2 class="ph-adminWindowTitle">コンテンツ</h2>
+    <h2 class="ph-adminWindowTitle">{{title}}</h2>
     <section class="ph-innerWrapper">
-      <h3>コンテンツ一覧</h3>
+      <h3>{{title}}一覧</h3>
       <table class="ph-index">
         <thead class="ph-indexHead">
         <tr class="ph-indexRow ph-indexHeadRow">
@@ -10,8 +10,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="ph-indexRow" v-for="content in contents">
-          <td class="ph-indexTd" v-for="column in content" v-html="column"></td>
+        <tr class="ph-indexRow" v-for="datum in data">
+          <td class="ph-indexTd" v-for="column in datum" v-html="column"></td>
         </tr>
         </tbody>
       </table>
@@ -30,6 +30,11 @@
 
   export default Vue.extend({
     props: {
+      title: {
+        type: String,
+        required: true,
+        default: ''
+      },
       initApi: {
         type: String,
         required: true,
@@ -40,7 +45,7 @@
       return {
         loading: false,
         source: null,
-        contents: {},
+        data: {},
         fields: {}
       }
     },
@@ -56,13 +61,13 @@
 
       //データの入手
       this.getData()
-        .then((response: {data: {fields: Array<string>, contents: Array<{[key: string]: string|null}>}}) =>
+        .then((response: {data: {fields: Array<string>, data: Array<{[key: string]: string|null}>}}) =>
         {
           //loading中アイコンとダミーリストを非表示にする
           this.loading = false;
 
           this.fields = response.data.fields;
-          this.contents = response.data.contents;
+          this.data = response.data.data;
         })
         .catch((data: AxiosError) =>
         {
@@ -101,17 +106,17 @@
         const fields: string[] = new Array<string>(columnNumber).fill('<p class="ph-dummyHeaderParagraph">&nbsp;</p>');
 
         //空データ配列の一行分を作成
-        const content: {[key: string]: string|null} = {};
+        const datum: {[key: string]: string|null} = {};
         Array.prototype.forEach.call(fields, (field: string, index: number) =>
         {
-          content[field+index] = '<p class="ph-dummyCellParagraph">&nbsp;</p>';
+          datum[field+index] = '<p class="ph-dummyCellParagraph">&nbsp;</p>';
         });
 
         //空データの作成
-        const contents: {[key: string]: string|null}[] = new Array<{[key: string]: string|null}>(count).fill(content);
+        const data: {[key: string]: string|null}[] = new Array<{[key: string]: string|null}>(count).fill(datum);
 
         this.fields = fields;
-        this.contents = contents;
+        this.data = data;
       },
       /**
        * initApiにセットされたURLを叩いて初期表示のためのデータを取得する

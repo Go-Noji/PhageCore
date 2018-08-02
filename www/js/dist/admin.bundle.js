@@ -395,7 +395,16 @@ __webpack_require__.r(__webpack_exports__);
                 path: '/content',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
-                    initApi: 'api/select/call/content/multiple'
+                    initApi: 'api/select/call/content/multiple',
+                    title: 'コンテンツ'
+                }
+            },
+            {
+                path: '/options',
+                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+                props: {
+                    initApi: 'api/select/call/options/multiple',
+                    title: '設定'
                 }
             }
         ]
@@ -9069,6 +9078,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
     props: {
+        title: {
+            type: String,
+            required: true,
+            default: ''
+        },
         initApi: {
             type: String,
             required: true,
@@ -9079,7 +9093,7 @@ __webpack_require__.r(__webpack_exports__);
         return {
             loading: false,
             source: null,
-            contents: {},
+            data: {},
             fields: {}
         };
     },
@@ -9098,7 +9112,7 @@ __webpack_require__.r(__webpack_exports__);
             //loading中アイコンとダミーリストを非表示にする
             _this.loading = false;
             _this.fields = response.data.fields;
-            _this.contents = response.data.contents;
+            _this.data = response.data.data;
         })
             .catch(function (data) {
             //loading中アイコンとダミーリストを非表示にする
@@ -9130,14 +9144,14 @@ __webpack_require__.r(__webpack_exports__);
             //空ヘッダー情報の作成
             var fields = new Array(columnNumber).fill('<p class="ph-dummyHeaderParagraph">&nbsp;</p>');
             //空データ配列の一行分を作成
-            var content = {};
+            var datum = {};
             Array.prototype.forEach.call(fields, function (field, index) {
-                content[field + index] = '<p class="ph-dummyCellParagraph">&nbsp;</p>';
+                datum[field + index] = '<p class="ph-dummyCellParagraph">&nbsp;</p>';
             });
             //空データの作成
-            var contents = new Array(count).fill(content);
+            var data = new Array(count).fill(datum);
             this.fields = fields;
-            this.contents = contents;
+            this.data = data;
         },
         /**
          * initApiにセットされたURLを叩いて初期表示のためのデータを取得する
@@ -9221,10 +9235,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "ph-adminWindow" }, [
-    _c("h2", { staticClass: "ph-adminWindowTitle" }, [_vm._v("コンテンツ")]),
+    _c("h2", { staticClass: "ph-adminWindowTitle" }, [
+      _vm._v(_vm._s(_vm.title))
+    ]),
     _vm._v(" "),
     _c("section", { staticClass: "ph-innerWrapper" }, [
-      _c("h3", [_vm._v("コンテンツ一覧")]),
+      _c("h3", [_vm._v(_vm._s(_vm.title) + "一覧")]),
       _vm._v(" "),
       _c("table", { staticClass: "ph-index" }, [
         _c("thead", { staticClass: "ph-indexHead" }, [
@@ -9242,11 +9258,11 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.contents, function(content) {
+          _vm._l(_vm.data, function(datum) {
             return _c(
               "tr",
               { staticClass: "ph-indexRow" },
-              _vm._l(content, function(column) {
+              _vm._l(datum, function(column) {
                 return _c("td", {
                   staticClass: "ph-indexTd",
                   domProps: { innerHTML: _vm._s(column) }
