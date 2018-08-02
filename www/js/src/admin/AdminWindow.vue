@@ -1,22 +1,24 @@
 <template>
-  <section class="ph-adminWindow">
-    <h2 class="ph-adminWindowTitle">{{title}}</h2>
-    <section class="ph-innerWrapper">
-      <h3>{{title}}一覧</h3>
-      <table class="ph-index">
-        <thead class="ph-indexHead">
-        <tr class="ph-indexRow ph-indexHeadRow">
-          <th class="ph-indexTh ph-reverseColor" v-for="field in fields" v-html="field"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="ph-indexRow" v-for="datum in data">
-          <td class="ph-indexTd" v-for="column in datum" v-html="column"></td>
-        </tr>
-        </tbody>
-      </table>
+  <transition name="list">
+    <section class="ph-adminWindow" :key="key">
+      <h2 class="ph-adminWindowTitle">{{title}}</h2>
+      <section class="ph-innerWrapper">
+        <h3>{{title}}一覧</h3>
+        <table class="ph-index">
+          <thead class="ph-indexHead">
+          <tr class="ph-indexRow ph-indexHeadRow">
+            <th class="ph-indexTh ph-reverseColor" v-for="field in fields" v-html="field"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="ph-indexRow" v-for="datum in data">
+            <td class="ph-indexTd" v-for="column in datum" v-html="column"></td>
+          </tr>
+          </tbody>
+        </table>
+      </section>
     </section>
-  </section>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -36,6 +38,11 @@
         default: ''
       },
       initApi: {
+        type: String,
+        required: true,
+        default: ''
+      },
+      key: {
         type: String,
         required: true,
         default: ''
@@ -152,4 +159,12 @@
   });
 </script>
 
-<style scoped type="text/scss"></style>
+<style scoped type="text/scss">
+  .list-enter-active, .list-leave-active {
+    transition: opacity .1s ease-in-out, top .1s ease;
+  }
+  .list-enter, .list-leave-to{
+    opacity: 0;
+    top: 30px;
+  }
+</style>

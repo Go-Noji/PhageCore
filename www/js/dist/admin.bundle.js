@@ -396,7 +396,8 @@ __webpack_require__.r(__webpack_exports__);
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
                     initApi: 'api/select/call/content/multiple',
-                    title: 'コンテンツ'
+                    title: 'コンテンツ',
+                    key: 'content'
                 }
             },
             {
@@ -404,7 +405,8 @@ __webpack_require__.r(__webpack_exports__);
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
                     initApi: 'api/select/call/options/multiple',
-                    title: '設定'
+                    title: '設定',
+                    key: 'options'
                 }
             }
         ]
@@ -7786,7 +7788,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".list-enter-active[data-v-6bd78c1c],.list-leave-active[data-v-6bd78c1c]{transition:opacity .1s ease-in-out,top .1s ease}.list-enter[data-v-6bd78c1c],.list-leave-to[data-v-6bd78c1c]{opacity:0;top:30px}", ""]);
 
 // exports
 
@@ -9087,6 +9089,11 @@ __webpack_require__.r(__webpack_exports__);
             type: String,
             required: true,
             default: ''
+        },
+        key: {
+            type: String,
+            required: true,
+            default: ''
         }
     },
     data: function () {
@@ -9242,43 +9249,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "ph-adminWindow" }, [
-    _c("h2", { staticClass: "ph-adminWindowTitle" }, [
-      _vm._v(_vm._s(_vm.title))
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "ph-innerWrapper" }, [
-      _c("h3", [_vm._v(_vm._s(_vm.title) + "一覧")]),
+  return _c("transition", { attrs: { name: "list" } }, [
+    _c("section", { key: _vm.key, staticClass: "ph-adminWindow" }, [
+      _c("h2", { staticClass: "ph-adminWindowTitle" }, [
+        _vm._v(_vm._s(_vm.title))
+      ]),
       _vm._v(" "),
-      _c("table", { staticClass: "ph-index" }, [
-        _c("thead", { staticClass: "ph-indexHead" }, [
-          _c(
-            "tr",
-            { staticClass: "ph-indexRow ph-indexHeadRow" },
-            _vm._l(_vm.fields, function(field) {
-              return _c("th", {
-                staticClass: "ph-indexTh ph-reverseColor",
-                domProps: { innerHTML: _vm._s(field) }
-              })
-            })
-          )
-        ]),
+      _c("section", { staticClass: "ph-innerWrapper" }, [
+        _c("h3", [_vm._v(_vm._s(_vm.title) + "一覧")]),
         _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.data, function(datum) {
-            return _c(
+        _c("table", { staticClass: "ph-index" }, [
+          _c("thead", { staticClass: "ph-indexHead" }, [
+            _c(
               "tr",
-              { staticClass: "ph-indexRow" },
-              _vm._l(datum, function(column) {
-                return _c("td", {
-                  staticClass: "ph-indexTd",
-                  domProps: { innerHTML: _vm._s(column) }
+              { staticClass: "ph-indexRow ph-indexHeadRow" },
+              _vm._l(_vm.fields, function(field) {
+                return _c("th", {
+                  staticClass: "ph-indexTh ph-reverseColor",
+                  domProps: { innerHTML: _vm._s(field) }
                 })
               })
             )
-          })
-        )
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.data, function(datum) {
+              return _c(
+                "tr",
+                { staticClass: "ph-indexRow" },
+                _vm._l(datum, function(column) {
+                  return _c("td", {
+                    staticClass: "ph-indexTd",
+                    domProps: { innerHTML: _vm._s(column) }
+                  })
+                })
+              )
+            })
+          )
+        ])
       ])
     ])
   ])
