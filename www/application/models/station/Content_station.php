@@ -29,7 +29,26 @@ class Content_station extends PC_Model
    */
   public function multiple()
   {
-    return $this->content_model->multiple();
+    return array(
+      'fields' => array('id', 'name', 'content'),
+      'data' => array(
+        array(
+          'id' => 1,
+          'name' => 'サンプル1',
+          'content' => '<h1>サンプル1</h1><p>やっほ</p>'
+        ),
+        array(
+          'id' => 2,
+          'name' => 'サンプル2',
+          'content' => '<h1>サンプル2</h1><p>やっほ</p>'
+        ),
+        array(
+          'id' => 3,
+          'name' => 'サンプル3',
+          'content' => '<h1>サンプル3</h1><p>やっほ</p>'
+        )
+      )
+    );
   }
 
 }

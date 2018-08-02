@@ -28,26 +28,6 @@ class Content_model extends CI_Model
 
   public function multiple()
   {
-    return array(
-      'fields' => array('id', 'name', 'content'),
-      'contents' => array(
-        array(
-          'id' => 1,
-          'name' => 'サンプル1',
-          'content' => '<h1>サンプル1</h1><p>やっほ</p>'
-        ),
-        array(
-          'id' => 2,
-          'name' => 'サンプル2',
-          'content' => '<h1>サンプル2</h1><p>やっほ</p>'
-        ),
-        array(
-          'id' => 3,
-          'name' => 'サンプル3',
-          'content' => '<h1>サンプル3</h1><p>やっほ</p>'
-        )
-      )
-    );
   }
 
 }
