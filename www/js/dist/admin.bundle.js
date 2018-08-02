@@ -9098,27 +9098,12 @@ __webpack_require__.r(__webpack_exports__);
         };
     },
     watch: {
-        '$route': 'getData'
+        '$route': function (to, from) {
+            this.renderData();
+        }
     },
     mounted: function () {
-        var _this = this;
-        //loading中アイコンとダミーリストを表示する
-        this.loading = true;
-        //ダミーテーブルの描写
-        this.renderDummyList(10, 10);
-        //データの入手
-        this.getData()
-            .then(function (response) {
-            //loading中アイコンとダミーリストを非表示にする
-            _this.loading = false;
-            _this.fields = response.data.fields;
-            _this.data = response.data.data;
-        })
-            .catch(function (data) {
-            //loading中アイコンとダミーリストを非表示にする
-            _this.loading = false;
-            console.log(data);
-        });
+        this.renderData();
     },
     methods: {
         /**
@@ -9169,6 +9154,29 @@ __webpack_require__.r(__webpack_exports__);
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 cancelToken: this.abort()
+            });
+        },
+        /**
+         * データを取得し、描写する
+         */
+        renderData: function () {
+            var _this = this;
+            //loading中アイコンとダミーリストを表示する
+            this.loading = true;
+            //ダミーテーブルの描写
+            this.renderDummyList(10, 10);
+            //データの入手
+            this.getData()
+                .then(function (response) {
+                //loading中アイコンとダミーリストを非表示にする
+                _this.loading = false;
+                _this.fields = response.data.fields;
+                _this.data = response.data.data;
+            })
+                .catch(function (data) {
+                //loading中アイコンとダミーリストを非表示にする
+                _this.loading = false;
+                console.log(data);
             });
         }
     }

@@ -50,32 +50,13 @@
       }
     },
     watch: {
-      '$route': 'getData'
+      '$route' (to, from)
+      {
+        this.renderData();
+      }
     },
     mounted: function() {
-      //loading中アイコンとダミーリストを表示する
-      this.loading = true;
-
-      //ダミーテーブルの描写
-      this.renderDummyList(10, 10);
-
-      //データの入手
-      this.getData()
-        .then((response: {data: {fields: Array<string>, data: Array<{[key: string]: string|null}>}}) =>
-        {
-          //loading中アイコンとダミーリストを非表示にする
-          this.loading = false;
-
-          this.fields = response.data.fields;
-          this.data = response.data.data;
-        })
-        .catch((data: AxiosError) =>
-        {
-          //loading中アイコンとダミーリストを非表示にする
-          this.loading = false;
-
-          console.log(data);
-        });
+      this.renderData();
     },
     methods: {
       /**
@@ -137,6 +118,35 @@
           },
           cancelToken: this.abort()
         });
+      },
+      /**
+       * データを取得し、描写する
+       */
+      renderData: function()
+      {
+        //loading中アイコンとダミーリストを表示する
+        this.loading = true;
+
+        //ダミーテーブルの描写
+        this.renderDummyList(10, 10);
+
+        //データの入手
+        this.getData()
+          .then((response: {data: {fields: Array<string>, data: Array<{[key: string]: string|null}>}}) =>
+          {
+            //loading中アイコンとダミーリストを非表示にする
+            this.loading = false;
+
+            this.fields = response.data.fields;
+            this.data = response.data.data;
+          })
+          .catch((data: AxiosError) =>
+          {
+            //loading中アイコンとダミーリストを非表示にする
+            this.loading = false;
+
+            console.log(data);
+          });
       }
     }
   });
