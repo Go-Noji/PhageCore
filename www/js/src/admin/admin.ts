@@ -29,7 +29,7 @@ declare var site_url: string;
         path: '/content',
         component: AdminWindow,
         props: {
-          initApi: 'api/select/call/content/multiple',
+          initApi: 'api/admin/call/content/multiple',
           title: 'コンテンツ',
           key: 'content'
         }
@@ -38,7 +38,7 @@ declare var site_url: string;
         path: '/options',
         component: AdminWindow,
         props: {
-          initApi: 'api/select/call/options/multiple',
+          initApi: 'api/admin/call/options/multiple',
           title: '設定',
           key: 'options'
         }

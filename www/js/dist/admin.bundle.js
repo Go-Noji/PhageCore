@@ -395,7 +395,7 @@ __webpack_require__.r(__webpack_exports__);
                 path: '/content',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
-                    initApi: 'api/select/call/content/multiple',
+                    initApi: 'api/admin/call/content/multiple',
                     title: 'コンテンツ',
                     key: 'content'
                 }
@@ -404,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
                 path: '/options',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
-                    initApi: 'api/select/call/options/multiple',
+                    initApi: 'api/admin/call/options/multiple',
                     title: '設定',
                     key: 'options'
                 }
