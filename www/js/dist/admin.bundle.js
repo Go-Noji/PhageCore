@@ -456,6 +456,7 @@ __webpack_require__.r(__webpack_exports__);
         routes: [
             {
                 path: '/content',
+                name: 'content',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
                     initApi: 'api/admin/call/content/multiple',
@@ -465,12 +466,20 @@ __webpack_require__.r(__webpack_exports__);
             },
             {
                 path: '/options',
+                name: 'options',
                 component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
                 props: {
                     initApi: 'api/admin/call/options/multiple',
                     title: '設定',
                     name: 'options'
-                }
+                },
+                children: [
+                    {
+                        path: ':id',
+                        name: 'options-edit',
+                        component: { template: '<section class="ph-innerWrapper">{{$route.params.id}}</section>' }
+                    }
+                ]
             }
         ]
     });
@@ -7797,7 +7806,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:15px;text-align:left}.ph-indexTh:first-child{max-width:15px}.ph-indexTd{padding:15px}.ph-checkLabel{position:relative;display:flex;justify-content:center;align-items:center;border:1px solid #999;border-radius:1px;width:30px;height:30px;cursor:pointer}.ph-checkInput{display:none}.ph-checkPseudo{visibility:hidden}.ph-checkPseudo:before{content:\"\";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}.ph-checkInput:checked~.ph-checkPseudo{visibility:visible}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
+exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-outerWrapper{display:flex;justify-content:space-between}.ph-innerWrapper{flex-grow:1}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:15px;text-align:left}.ph-indexTh:first-child{max-width:15px}.ph-indexTd{padding:15px}.ph-checkLabel{position:relative;display:flex;justify-content:center;align-items:center;border:1px solid #999;border-radius:1px;width:30px;height:30px;cursor:pointer}.ph-checkInput{display:none}.ph-checkPseudo{visibility:hidden}.ph-checkPseudo:before{content:\"\";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}.ph-checkInput:checked~.ph-checkPseudo{visibility:visible}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-linkColor{color:#0099a2;text-decoration:underline}.ph-linkColor:active,.ph-linkColor:hover,.ph-linkColor:visited{color:#0099a2}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
 
 // exports
 
@@ -9166,17 +9175,23 @@ __webpack_require__.r(__webpack_exports__);
         return {
             loading: false,
             source: null,
+            idField: '',
+            linkField: '',
             data: {},
             fields: {}
         };
     },
     watch: {
         '$route': function (to, from) {
-            this.renderData();
+            //一覧ページを描画した状態で編集ページを呼び出した際は一覧を再取得しない
+            if (from.name.replace(/\-edit/, '') === this.name && to.name === this.name + '-edit') {
+                return;
+            }
+            this.renderList();
         }
     },
     mounted: function () {
-        this.renderData();
+        this.renderList();
     },
     methods: {
         /**
@@ -9216,7 +9231,7 @@ __webpack_require__.r(__webpack_exports__);
          * 結果がAxiosPtomiseとして返る
          * @return {AxiosPromise}
          */
-        getData: function () {
+        getList: function () {
             //POSTに渡すパラメータ
             var params = new URLSearchParams();
             params.append(csrf_key, csrf_value);
@@ -9232,18 +9247,20 @@ __webpack_require__.r(__webpack_exports__);
         /**
          * データを取得し、描写する
          */
-        renderData: function () {
+        renderList: function () {
             var _this = this;
             //loading中アイコンとダミーリストを表示する
             this.loading = true;
             //ダミーテーブルの描写
             this.renderDummyList(10, 10);
             //データの入手
-            this.getData()
+            this.getList()
                 .then(function (response) {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
                 _this.fields = response.data.fields;
+                _this.idField = response.data.id;
+                _this.linkField = response.data.link;
                 _this.data = response.data.data;
             })
                 .catch(function (data) {
@@ -9290,11 +9307,7 @@ __webpack_require__.r(__webpack_exports__);
             contents: {},
             fields: {}
         };
-    },
-    watch: {},
-    mounted: function () {
-    },
-    methods: {}
+    }
 }));
 
 
@@ -9321,64 +9334,97 @@ var render = function() {
         _vm._v(_vm._s(_vm.title))
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "ph-innerWrapper" }, [
-        _c("h3", [_vm._v(_vm._s(_vm.title) + "一覧")]),
-        _vm._v(" "),
-        _c("table", { staticClass: "ph-index" }, [
-          _c("thead", { staticClass: "ph-indexHead" }, [
-            _c(
-              "tr",
-              { staticClass: "ph-indexRow ph-indexHeadRow" },
-              _vm._l(_vm.fields, function(field, index) {
-                return _c("th", { staticClass: "ph-indexTh ph-reverseColor" }, [
-                  index === 0
-                    ? _c("label", { staticClass: "ph-checkLabel" }, [
-                        _c("input", {
-                          staticClass: "ph-checkInput ph-js-checkAll",
-                          attrs: { type: "checkbox" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "ph-checkPseudo" }, [
-                          _c("span", {
-                            staticClass:
-                              "ph-iconRe ph-reverseColor fas fa-check"
-                          })
-                        ])
-                      ])
-                    : _c("div", { domProps: { innerHTML: _vm._s(field) } })
-                ])
-              })
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.data, function(datum) {
-              return _c(
-                "tr",
-                { staticClass: "ph-indexRow" },
-                _vm._l(datum, function(value, key, index) {
-                  return _c("td", { staticClass: "ph-indexTd" }, [
-                    index === 0
-                      ? _c("label", { staticClass: "ph-checkLabel" }, [
-                          _c("input", {
-                            staticClass: "ph-checkInput ph-js-checkId",
-                            attrs: { type: "checkbox" },
-                            domProps: { value: value }
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "ph-checkPseudo" }, [
-                            _c("span", { staticClass: "ph-icon fas fa-check" })
-                          ])
-                        ])
-                      : _c("div", { domProps: { innerHTML: _vm._s(value) } })
-                  ])
+      _c(
+        "div",
+        { staticClass: "ph-outerWrapper" },
+        [
+          _c("section", { staticClass: "ph-innerWrapper" }, [
+            _c("h3", [_vm._v(_vm._s(_vm.title) + "一覧")]),
+            _vm._v(" "),
+            _c("table", { staticClass: "ph-index" }, [
+              _c("thead", { staticClass: "ph-indexHead" }, [
+                _c(
+                  "tr",
+                  { staticClass: "ph-indexRow ph-indexHeadRow" },
+                  _vm._l(_vm.fields, function(field) {
+                    return _c(
+                      "th",
+                      { staticClass: "ph-indexTh ph-reverseColor" },
+                      [
+                        field === _vm.idField
+                          ? _c("label", { staticClass: "ph-checkLabel" }, [
+                              _c("input", {
+                                staticClass: "ph-checkInput ph-js-checkAll",
+                                attrs: { type: "checkbox" }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "ph-checkPseudo" }, [
+                                _c("span", {
+                                  staticClass:
+                                    "ph-iconRe ph-reverseColor fas fa-check"
+                                })
+                              ])
+                            ])
+                          : _c("div", {
+                              domProps: { innerHTML: _vm._s(field) }
+                            })
+                      ]
+                    )
+                  })
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.data, function(datum) {
+                  return _c(
+                    "tr",
+                    { staticClass: "ph-indexRow" },
+                    _vm._l(datum, function(value, key) {
+                      return _c(
+                        "td",
+                        { staticClass: "ph-indexTd" },
+                        [
+                          key === _vm.idField
+                            ? _c("label", { staticClass: "ph-checkLabel" }, [
+                                _c("input", {
+                                  staticClass: "ph-checkInput ph-js-checkId",
+                                  attrs: { type: "checkbox" },
+                                  domProps: { value: value }
+                                }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "ph-checkPseudo" }, [
+                                  _c("span", {
+                                    staticClass: "ph-icon fas fa-check"
+                                  })
+                                ])
+                              ])
+                            : key === _vm.linkField
+                              ? _c("router-link", {
+                                  staticClass: "ph-linkColor",
+                                  attrs: {
+                                    to:
+                                      "/" + _vm.name + "/" + datum[_vm.idField]
+                                  },
+                                  domProps: { innerHTML: _vm._s(value) }
+                                })
+                              : _c("div", {
+                                  domProps: { innerHTML: _vm._s(value) }
+                                })
+                        ],
+                        1
+                      )
+                    })
+                  )
                 })
               )
-            })
-          )
-        ])
-      ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("router-view")
+        ],
+        1
+      )
     ])
   ])
 }

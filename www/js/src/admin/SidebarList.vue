@@ -33,13 +33,6 @@
         contents: {},
         fields: {}
       }
-    },
-    watch: {},
-    mounted: function() {
-
-    },
-    methods: {
-
     }
   });
 </script>

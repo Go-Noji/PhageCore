@@ -89,6 +89,14 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 .ph-adminDesktopArea{
 }
 
+.ph-outerWrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.ph-innerWrapper{
+  flex-grow: 1;
+}
+
 .ph-adminWindow{
   box-sizing: border-box;
   margin: 15px;
@@ -156,6 +164,19 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   text-decoration: none;
 }
 
+.ph-linkColor{
+  color: $keyColor;
+  text-decoration: underline;
+  &:hover{
+    color: $keyColor;
+  }
+  &:active{
+    color: $keyColor;
+  }
+  &:visited{
+    color: $keyColor;
+  }
+}
 .ph-reverseColor{
   color: $white;
   &:hover{

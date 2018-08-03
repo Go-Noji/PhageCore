@@ -2,33 +2,37 @@
   <transition name="list">
     <section class="ph-adminWindow" :key="name">
       <h2 class="ph-adminWindowTitle">{{title}}</h2>
-      <section class="ph-innerWrapper">
-        <h3>{{title}}一覧</h3>
-        <table class="ph-index">
-          <thead class="ph-indexHead">
-          <tr class="ph-indexRow ph-indexHeadRow">
-            <th class="ph-indexTh ph-reverseColor" v-for="(field, index) in fields">
-              <label class="ph-checkLabel" v-if="index === 0">
-                <input class="ph-checkInput ph-js-checkAll" type="checkbox">
-                <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
-              </label>
-              <div v-else v-html="field"></div>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="ph-indexRow" v-for="datum in data">
-            <td class="ph-indexTd" v-for="(value, key, index) in datum">
-              <label class="ph-checkLabel" v-if="index === 0">
-                <input class="ph-checkInput ph-js-checkId" type="checkbox" :value="value">
-                <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
-              </label>
-              <div v-else v-html="value"></div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </section>
+      <div class="ph-outerWrapper">
+        <section class="ph-innerWrapper">
+          <h3>{{title}}一覧</h3>
+          <table class="ph-index">
+            <thead class="ph-indexHead">
+            <tr class="ph-indexRow ph-indexHeadRow">
+              <th class="ph-indexTh ph-reverseColor" v-for="field in fields">
+                <label class="ph-checkLabel" v-if="field === idField">
+                  <input class="ph-checkInput ph-js-checkAll" type="checkbox">
+                  <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
+                </label>
+                <div v-else v-html="field"></div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="ph-indexRow" v-for="datum in data">
+              <td class="ph-indexTd" v-for="(value, key) in datum">
+                <label class="ph-checkLabel" v-if="key === idField">
+                  <input class="ph-checkInput ph-js-checkId" type="checkbox" :value="value">
+                  <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
+                </label>
+                <router-link class="ph-linkColor" v-else-if="key === linkField" :to="'/'+name+'/'+datum[idField]" v-html="value"></router-link>
+                <div v-else v-html="value"></div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <router-view></router-view>
+      </div>
     </section>
   </transition>
 </template>
@@ -64,6 +68,8 @@
       return {
         loading: false,
         source: null,
+        idField: '',
+        linkField: '',
         data: {},
         fields: {}
       }
@@ -71,11 +77,17 @@
     watch: {
       '$route' (to, from)
       {
-        this.renderData();
+        //一覧ページを描画した状態で編集ページを呼び出した際は一覧を再取得しない
+        if (from.name.replace(/\-edit/, '') === this.name && to.name === this.name+'-edit')
+        {
+          return;
+        }
+
+        this.renderList();
       }
     },
     mounted: function() {
-      this.renderData();
+      this.renderList();
     },
     methods: {
       /**
@@ -123,7 +135,7 @@
        * 結果がAxiosPtomiseとして返る
        * @return {AxiosPromise}
        */
-      getData: function (): AxiosPromise
+      getList: function (): AxiosPromise
       {
         //POSTに渡すパラメータ
         let params: URLSearchParams = new URLSearchParams();
@@ -141,7 +153,7 @@
       /**
        * データを取得し、描写する
        */
-      renderData: function()
+      renderList: function()
       {
         //loading中アイコンとダミーリストを表示する
         this.loading = true;
@@ -150,13 +162,15 @@
         this.renderDummyList(10, 10);
 
         //データの入手
-        this.getData()
-          .then((response: {data: {fields: Array<string>, data: Array<{[key: string]: string|null}>}}) =>
+        this.getList()
+          .then((response: {data: {fields: Array<string>, id: string, link: string, data: Array<{[key: string]: string|null}>}}) =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
             this.fields = response.data.fields;
+            this.idField = response.data.id;
+            this.linkField = response.data.link;
             this.data = response.data.data;
           })
           .catch((data: AxiosError) =>

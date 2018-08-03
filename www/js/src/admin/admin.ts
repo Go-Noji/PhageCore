@@ -31,6 +31,7 @@ declare var site_url: string;
     routes: [
       {
         path: '/content',
+        name: 'content',
         component: AdminWindow,
         props: {
           initApi: 'api/admin/call/content/multiple',
@@ -40,12 +41,20 @@ declare var site_url: string;
       },
       {
         path: '/options',
+        name: 'options',
         component: AdminWindow,
         props: {
           initApi: 'api/admin/call/options/multiple',
           title: '設定',
           name: 'options'
-        }
+        },
+        children: [
+          {
+            path: ':id',
+            name: 'options-edit',
+            component: {template: '<section class="ph-innerWrapper">{{$route.params.id}}</section>'}
+          }
+        ]
       }
     ]
   });
