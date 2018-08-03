@@ -7,6 +7,8 @@
  * @property CI_Loader $load
  * @property CI_Output $output
  * @property CI_Input $input
+ * @property CI_Session $session
+ * @property Login_tool $login_tool
  */
 class PC_Controller extends CI_Controller
 {
@@ -17,6 +19,12 @@ class PC_Controller extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+
+    //セッションをスタートさせる
+    $this->load->library('session');
+
+    //設定の読み込み
+    $this->load->config('phage_config');
   }
 
   /**

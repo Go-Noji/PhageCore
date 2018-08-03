@@ -13,9 +13,6 @@ class Select extends PC_Controller
   public function __construct()
   {
     parent::__construct();
-
-    //設定の読み込み
-    $this->load->config('phage_config');
   }
 
 }
