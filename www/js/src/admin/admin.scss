@@ -100,7 +100,6 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 .ph-index{
   width: 100%;
-  table-layout: fixed;
   border-collapse: collapse;
 }
 .ph-indexRow{
@@ -110,11 +109,44 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   background-color: $keyColor;
 }
 .ph-indexTh{
-  padding: 5px;
+  padding: 15px;
   text-align: left;
+  &:first-child{
+    max-width: 15px;
+  }
 }
 .ph-indexTd{
-  padding: 5px;
+  padding: 15px;
+}
+
+.ph-checkLabel{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: $gray solid 1px;
+  border-radius: 1px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.ph-checkInput{
+  display: none;
+}
+.ph-checkPseudo{
+  visibility: hidden;
+  &:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .ph-checkInput:checked ~ &{
+    visibility: visible;
+  }
 }
 
 .ph-iconLink{

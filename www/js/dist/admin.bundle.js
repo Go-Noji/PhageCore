@@ -165,6 +165,65 @@ var AmdinStyler = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./js/src/Checkbox.ts":
+/*!****************************!*\
+  !*** ./js/src/Checkbox.ts ***!
+  \****************************/
+/*! exports provided: Checkbox */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Checkbox", function() { return Checkbox; });
+/**
+ * チェックボックス関連の動作を司るクラス
+ */
+var Checkbox = /** @class */ (function () {
+    function Checkbox() {
+    }
+    /**
+     * イベントターゲットのcheckedと
+     * this.targetClassNameをclassに持つエレメントのcheckedを同期させる
+     * @param e
+     * @private
+     */
+    Checkbox.prototype._changeAll = function (e) {
+        var target = e.target;
+        if (target.checked === undefined) {
+            return;
+        }
+        var sync = target.checked;
+        var checkboxes = document.getElementsByClassName(this.targetClassName);
+        Array.prototype.forEach.call(checkboxes, function (checkbox) {
+            if (target.checked !== undefined) {
+                checkbox.checked = sync;
+            }
+        });
+    };
+    /**
+     * 対象となるチェックボックスが持つクラス名をセットする
+     * @param targetClassName
+     */
+    Checkbox.prototype.setTargetClassName = function (targetClassName) {
+        //チェックの対象となるクラスの定義
+        this.targetClassName = targetClassName;
+    };
+    //triggerClassNameを持つチェックボックスのchangeイベントに_changeAll関数を紐づける
+    Checkbox.prototype.registerAllCheck = function (triggerClassName) {
+        var _this = this;
+        //トリガーとなるボックスにイベントを紐づける
+        var triggerCheckBoxes = document.getElementsByClassName(triggerClassName);
+        Array.prototype.forEach.call(triggerCheckBoxes, function (triggerCheckBox) {
+            triggerCheckBox.addEventListener('change', function (e) { _this._changeAll(e); }, false);
+        });
+    };
+    return Checkbox;
+}());
+
+
+
+/***/ }),
+
 /***/ "./js/src/admin/AdminWindow.vue":
 /*!**************************************!*\
   !*** ./js/src/admin/AdminWindow.vue ***!
@@ -375,6 +434,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminWindow.vue */ "./js/src/admin/AdminWindow.vue");
 /* harmony import */ var _SidebarList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SidebarList.vue */ "./js/src/admin/SidebarList.vue");
 /* harmony import */ var _AmdinStyler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../AmdinStyler */ "./js/src/AmdinStyler.ts");
+/* harmony import */ var _Checkbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Checkbox */ "./js/src/Checkbox.ts");
+
 
 
 
@@ -383,6 +444,8 @@ __webpack_require__.r(__webpack_exports__);
 {
     //スタイル調整クラスのインスタンス化
     var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_4__["AmdinStyler"]();
+    //チェックボックス制御クラスのインスタンス化
+    var checkbox_1 = new _Checkbox__WEBPACK_IMPORTED_MODULE_5__["Checkbox"]();
     //高さを合わせたいクラス名(複数)
     var fullHeightClassNames_1 = ['ph-js-fullHeight'];
     var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
@@ -397,7 +460,7 @@ __webpack_require__.r(__webpack_exports__);
                 props: {
                     initApi: 'api/admin/call/content/multiple',
                     title: 'コンテンツ',
-                    key: 'content'
+                    name: 'content'
                 }
             },
             {
@@ -406,7 +469,7 @@ __webpack_require__.r(__webpack_exports__);
                 props: {
                     initApi: 'api/admin/call/options/multiple',
                     title: '設定',
-                    key: 'options'
+                    name: 'options'
                 }
             }
         ]
@@ -425,6 +488,9 @@ __webpack_require__.r(__webpack_exports__);
         //height合わせ
         adminStyler_1.initHeightStyle(fullHeightClassNames_1);
         adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
+        //チェックボックスの登録
+        checkbox_1.setTargetClassName('ph-js-checkId');
+        checkbox_1.registerAllCheck('ph-js-checkAll');
     };
     //画面リサイズによるheight合わせ
     window.addEventListener('resize', function () {
@@ -7731,7 +7797,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;table-layout:fixed;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:5px;text-align:left}.ph-indexTd{padding:5px}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
+exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:rgba(0,0,0,.1)}.ph-adminHeader{padding:30px}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{padding:0 30px}.ph-adminHeaderNavList:first-child,.ph-adminHeaderNavList:last-child{padding:0}.ph-adminBody{display:flex;justify-content:space-between}.ph-adminSidebar{width:15%;padding:0 0 30px;background-color:#023437}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminArea{flex-grow:1;width:85%}.ph-adminTrashArea{display:none;padding:60px}.ph-adminWindow{box-sizing:border-box;margin:15px;padding:15px;width:90%;width:calc(100% - 30px);background-color:#fafafa;box-shadow:0 0 3px 3px #0099a2}.ph-index{width:100%;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #999}.ph-indexHeadRow{background-color:#0099a2}.ph-indexTh{padding:15px;text-align:left}.ph-indexTh:first-child{max-width:15px}.ph-indexTd{padding:15px}.ph-checkLabel{position:relative;display:flex;justify-content:center;align-items:center;border:1px solid #999;border-radius:1px;width:30px;height:30px;cursor:pointer}.ph-checkInput{display:none}.ph-checkPseudo{visibility:hidden}.ph-checkPseudo:before{content:\"\";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}.ph-checkInput:checked~.ph-checkPseudo{visibility:visible}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
 
 // exports
 
@@ -9090,7 +9156,7 @@ __webpack_require__.r(__webpack_exports__);
             required: true,
             default: ''
         },
-        key: {
+        name: {
             type: String,
             required: true,
             default: ''
@@ -9250,7 +9316,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "list" } }, [
-    _c("section", { key: _vm.key, staticClass: "ph-adminWindow" }, [
+    _c("section", { key: _vm.name, staticClass: "ph-adminWindow" }, [
       _c("h2", { staticClass: "ph-adminWindowTitle" }, [
         _vm._v(_vm._s(_vm.title))
       ]),
@@ -9263,11 +9329,24 @@ var render = function() {
             _c(
               "tr",
               { staticClass: "ph-indexRow ph-indexHeadRow" },
-              _vm._l(_vm.fields, function(field) {
-                return _c("th", {
-                  staticClass: "ph-indexTh ph-reverseColor",
-                  domProps: { innerHTML: _vm._s(field) }
-                })
+              _vm._l(_vm.fields, function(field, index) {
+                return _c("th", { staticClass: "ph-indexTh ph-reverseColor" }, [
+                  index === 0
+                    ? _c("label", { staticClass: "ph-checkLabel" }, [
+                        _c("input", {
+                          staticClass: "ph-checkInput ph-js-checkAll",
+                          attrs: { type: "checkbox" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "ph-checkPseudo" }, [
+                          _c("span", {
+                            staticClass:
+                              "ph-iconRe ph-reverseColor fas fa-check"
+                          })
+                        ])
+                      ])
+                    : _c("div", { domProps: { innerHTML: _vm._s(field) } })
+                ])
               })
             )
           ]),
@@ -9278,11 +9357,22 @@ var render = function() {
               return _c(
                 "tr",
                 { staticClass: "ph-indexRow" },
-                _vm._l(datum, function(column) {
-                  return _c("td", {
-                    staticClass: "ph-indexTd",
-                    domProps: { innerHTML: _vm._s(column) }
-                  })
+                _vm._l(datum, function(value, key, index) {
+                  return _c("td", { staticClass: "ph-indexTd" }, [
+                    index === 0
+                      ? _c("label", { staticClass: "ph-checkLabel" }, [
+                          _c("input", {
+                            staticClass: "ph-checkInput ph-js-checkId",
+                            attrs: { type: "checkbox" },
+                            domProps: { value: value }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ph-checkPseudo" }, [
+                            _c("span", { staticClass: "ph-icon fas fa-check" })
+                          ])
+                        ])
+                      : _c("div", { domProps: { innerHTML: _vm._s(value) } })
+                  ])
                 })
               )
             })

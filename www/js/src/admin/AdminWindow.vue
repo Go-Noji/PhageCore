@@ -1,18 +1,30 @@
 <template>
   <transition name="list">
-    <section class="ph-adminWindow" :key="key">
+    <section class="ph-adminWindow" :key="name">
       <h2 class="ph-adminWindowTitle">{{title}}</h2>
       <section class="ph-innerWrapper">
         <h3>{{title}}一覧</h3>
         <table class="ph-index">
           <thead class="ph-indexHead">
           <tr class="ph-indexRow ph-indexHeadRow">
-            <th class="ph-indexTh ph-reverseColor" v-for="field in fields" v-html="field"></th>
+            <th class="ph-indexTh ph-reverseColor" v-for="(field, index) in fields">
+              <label class="ph-checkLabel" v-if="index === 0">
+                <input class="ph-checkInput ph-js-checkAll" type="checkbox">
+                <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
+              </label>
+              <div v-else v-html="field"></div>
+            </th>
           </tr>
           </thead>
           <tbody>
           <tr class="ph-indexRow" v-for="datum in data">
-            <td class="ph-indexTd" v-for="column in datum" v-html="column"></td>
+            <td class="ph-indexTd" v-for="(value, key, index) in datum">
+              <label class="ph-checkLabel" v-if="index === 0">
+                <input class="ph-checkInput ph-js-checkId" type="checkbox" :value="value">
+                <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
+              </label>
+              <div v-else v-html="value"></div>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -42,7 +54,7 @@
         required: true,
         default: ''
       },
-      key: {
+      name: {
         type: String,
         required: true,
         default: ''

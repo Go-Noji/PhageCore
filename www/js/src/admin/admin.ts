@@ -5,6 +5,7 @@ import axios from 'axios';
 import AdminWindow from './AdminWindow.vue';
 import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
+import {Checkbox} from "../Checkbox";
 
 //CodeIgniterが提供する変数
 declare var csrf_key: string;
@@ -14,6 +15,9 @@ declare var site_url: string;
 {
   //スタイル調整クラスのインスタンス化
   const adminStyler = new AmdinStyler();
+
+  //チェックボックス制御クラスのインスタンス化
+  const checkbox = new Checkbox();
 
   //高さを合わせたいクラス名(複数)
   const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
@@ -31,7 +35,7 @@ declare var site_url: string;
         props: {
           initApi: 'api/admin/call/content/multiple',
           title: 'コンテンツ',
-          key: 'content'
+          name: 'content'
         }
       },
       {
@@ -40,7 +44,7 @@ declare var site_url: string;
         props: {
           initApi: 'api/admin/call/options/multiple',
           title: '設定',
-          key: 'options'
+          name: 'options'
         }
       }
     ]
@@ -62,6 +66,10 @@ declare var site_url: string;
     //height合わせ
     adminStyler.initHeightStyle(fullHeightClassNames);
     adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
+
+    //チェックボックスの登録
+    checkbox.setTargetClassName('ph-js-checkId');
+    checkbox.registerAllCheck('ph-js-checkAll');
   }
 
   //画面リサイズによるheight合わせ
