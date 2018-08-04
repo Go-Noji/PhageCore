@@ -39,7 +39,6 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import axios, {AxiosPromise, AxiosError} from 'axios';
 
   export default Vue.extend({
     props: {
