@@ -39,7 +39,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import axios, {CancelTokenSource, CancelToken, AxiosPromise, AxiosError} from 'axios';
+  import axios, {AxiosPromise, AxiosError} from 'axios';
 
   export default Vue.extend({
     props: {
@@ -62,7 +62,6 @@
     data () {
       return {
         loading: false,
-        source: null,
         idField: '',
         linkField: '',
         data: {},
@@ -86,24 +85,6 @@
     },
     methods: {
       /**
-       * 通信中のAjax送信が存在したらそれをキャンセルし、新たなトークンを返す
-       * @return {CancelTokenSource}
-       */
-      abort: function (): CancelToken
-      {
-        //もし通信中だったらその通信をキャンセルする
-        if (this.source !== null)
-        {
-          this.source.cancel();
-          this.source = null;
-        }
-
-        //axiosのキャンセルトークンを登録
-        const CancelToken = axios.CancelToken;
-        this.source = CancelToken.source();
-        return this.source.token;
-      },
-      /**
        * 空データを描写する
        * columnNumberが列、countが行の数
        */
@@ -126,26 +107,6 @@
         this.data = data;
       },
       /**
-       * initApiにセットされたURLを叩いて初期表示のためのデータを取得する
-       * 結果がAxiosPtomiseとして返る
-       * @return {AxiosPromise}
-       */
-      getList: function (): AxiosPromise
-      {
-        //POSTに渡すパラメータ
-        let params: URLSearchParams = new URLSearchParams();
-        params.append(csrf_key, csrf_value);
-
-        //通信を試みる
-        return axios.post(site_url+this.$props.initApi, params, {
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          cancelToken: this.abort()
-        });
-      },
-      /**
        * データを取得し、描写する
        */
       renderList: function()
@@ -157,16 +118,20 @@
         this.renderDummyList(10, 10);
 
         //データの入手
-        this.getList()
-          .then((response: {data: {fields: Array<string>, id: string, link: string, data: Array<{[key: string]: string|null}>}}) =>
+        this.$store.dispatch('connectAPI', {api: this.$props.initApi, data: {}})
+          .then(() =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
-            this.fields = response.data.fields;
-            this.idField = response.data.id;
-            this.linkField = response.data.link;
-            this.data = response.data.data;
+            //データをVuexから取得
+            const data: {fields: Array<string>, id: string, link: string, data: Array<{[key: string]: string|null}>} = this.$store.getters.getData(['fields', 'id', 'link', 'data']);
+
+            //登録
+            this.fields = data.fields;
+            this.idField = data.id;
+            this.linkField = data.link;
+            this.data = data.data;
           })
           .catch((data: AxiosError) =>
           {
