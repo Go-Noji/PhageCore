@@ -9,6 +9,7 @@ import axios, {
   AxiosResponse, CancelTokenSource, CancelTokenStatic
 } from 'axios';
 import AdminWindow from './AdminWindow.vue';
+import AdminEdit from './AdminEdit.vue';
 import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
 import {Checkbox} from "../Checkbox";
@@ -214,7 +215,7 @@ interface adminState{
           {
             path: ':id',
             name: 'options-edit',
-            component: {template: '<section class="ph-innerWrapper">{{$route.params.id}}</section>'},
+            component: AdminEdit,
             props: {
               initApi: 'api/admin/call/options/get/',
             }
