@@ -15,7 +15,8 @@
   },
   "paths": {
     "*": [
-      "./sfc.d.ts"
+      "./sfc.d.ts",
+      "./phage_core.d.ts"
     ]
   }
 }

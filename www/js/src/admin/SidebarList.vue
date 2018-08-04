@@ -10,9 +10,6 @@
 <script lang="ts">
   import Vue from 'vue'
 
-  //CodeIgniterが提供する変数
-  declare var site_url: string;
-
   export default Vue.extend({
     props: {
       icon: {

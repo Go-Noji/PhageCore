@@ -7,11 +7,6 @@ import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
 import {Checkbox} from "../Checkbox";
 
-//CodeIgniterが提供する変数
-declare var csrf_key: string;
-declare var csrf_value: string;
-declare var site_url: string;
-
 {
   //スタイル調整クラスのインスタンス化
   const adminStyler = new AmdinStyler();

@@ -24,11 +24,6 @@
   import Vue from 'vue'
   import axios, {CancelTokenSource, AxiosPromise, AxiosError} from 'axios';
 
-  //CodeIgniterが提供する変数
-  declare var csrf_key: string;
-  declare var csrf_value: string;
-  declare var site_url: string;
-
   //デフォルトのフォームクラス
   const defaultFormClass: string = 'ph-input';
 
