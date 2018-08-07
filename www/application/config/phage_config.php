@@ -217,3 +217,17 @@ $connfig['thumb_sizes'] = array(
   'middle' => 640,
   'small' => 50
 );
+
+
+
+/*api*/
+
+/*
+|--------------------------------------------------------------------------
+| Directory name that stores Station Model
+|--------------------------------------------------------------------------
+|
+| Controllerが参照するStation Modelの入ったディレクトリ
+|
+*/
+$config['station_model_directory'] = 'station';

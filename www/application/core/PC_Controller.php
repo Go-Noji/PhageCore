@@ -7,6 +7,7 @@
  * @property CI_Loader $load
  * @property CI_Output $output
  * @property CI_Input $input
+ * @property CI_Config $config
  * @property CI_Session $session
  * @property Login_tool $login_tool
  */
@@ -57,8 +58,9 @@ class PC_Controller extends CI_Controller
     //$modelの先頭文字を小文字にする
     $model = lcfirst($model.'_station');
 
-    //対応するModelをmodels/stationからロード
-    $this->load->model('station/'.$model);
+    //対応するModelをmodels/下にあるstationディレクトリからロード
+    //stationディレクトリの名前はconfigs/phage_config.phpに'station_model_directory'の名前で設定されている
+    $this->load->model($this->config->item('station_model_directory').'/'.$model);
 
     //呼ぶ
     $result = call_user_func_array(array($this->$model, $method), (array)$this->input->post('argument'));
