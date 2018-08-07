@@ -9480,11 +9480,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     data: function () {
         return {
+            //バックエンドと通信中の時にだけtrueになる
             loading: false,
+            //DBでのprimaryフィールド名
+            //この文字列と等しいカラムはチェックボックスが表示される
             idField: '',
+            //データの名前を表すフィールド名
+            //この文字列と等しいカラムは編集ウィンドウを表示するためのリンクが設定される
             linkField: '',
-            data: {},
-            fields: {}
+            //DBから取得してきたデータ配列
+            //中身はオブジェクトで、{フィールド名: データ}という形になっている
+            data: [],
+            //DBから取得してきたデータのカラム名配列
+            //DBのフィールド名を表すnameとテーブルヘッダーの描写に使われるlabelがある
+            fields: []
         };
     },
     watch: {
@@ -9542,7 +9551,6 @@ __webpack_require__.r(__webpack_exports__);
                 .catch(function (data) {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
-                console.log(data);
             });
         }
     }

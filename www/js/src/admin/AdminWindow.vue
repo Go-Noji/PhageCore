@@ -41,6 +41,20 @@
   import Vue from 'vue'
   import {AxiosError} from 'axios';
 
+  //initAPIから取得できる'fields'のデータ構造
+  //nameがDBのフィールド名で
+  //labelは描写に使われる人間用の名前
+  interface fieldsInterface {
+    name: string,
+    label: string
+  }
+
+  //initAPIから取得できる'data'のデータ構造
+  //キー名がDBのカラム名、値がデータそのもの
+  interface dataInterface {
+    [key: string]: string|null
+  }
+
   export default Vue.extend({
     props: {
       title: {
@@ -61,11 +75,24 @@
     },
     data () {
       return {
+        //バックエンドと通信中の時にだけtrueになる
         loading: false,
+
+        //DBでのprimaryフィールド名
+        //この文字列と等しいカラムはチェックボックスが表示される
         idField: '',
+
+        //データの名前を表すフィールド名
+        //この文字列と等しいカラムは編集ウィンドウを表示するためのリンクが設定される
         linkField: '',
-        data: {},
-        fields: {}
+
+        //DBから取得してきたデータ配列
+        //中身はオブジェクトで、{フィールド名: データ}という形になっている
+        data: [],
+
+        //DBから取得してきたデータのカラム名配列
+        //DBのフィールド名を表すnameとテーブルヘッダーの描写に使われるlabelがある
+        fields: []
       }
     },
     watch: {
@@ -125,7 +152,12 @@
             this.loading = false;
 
             //データをVuexから取得
-            const data: {fields: Array<string>, id: string, link: string, data: Array<{[key: string]: string|null}>} = this.$store.getters.getData(['fields', 'id', 'link', 'data']);
+            const data: {
+              fields: fieldsInterface[],
+              id: string,
+              link: string,
+              data: dataInterface[]
+            } = this.$store.getters.getData(['fields', 'id', 'link', 'data']);
 
             //登録
             this.fields = data.fields;
@@ -137,8 +169,6 @@
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
-
-            console.log(data);
           });
       }
     }
