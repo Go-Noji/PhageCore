@@ -165,65 +165,6 @@ var AmdinStyler = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./js/src/Checkbox.ts":
-/*!****************************!*\
-  !*** ./js/src/Checkbox.ts ***!
-  \****************************/
-/*! exports provided: Checkbox */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Checkbox", function() { return Checkbox; });
-/**
- * チェックボックス関連の動作を司るクラス
- */
-var Checkbox = /** @class */ (function () {
-    function Checkbox() {
-    }
-    /**
-     * イベントターゲットのcheckedと
-     * this.targetClassNameをclassに持つエレメントのcheckedを同期させる
-     * @param e
-     * @private
-     */
-    Checkbox.prototype._changeAll = function (e) {
-        var target = e.target;
-        if (target.checked === undefined) {
-            return;
-        }
-        var sync = target.checked;
-        var checkboxes = document.getElementsByClassName(this.targetClassName);
-        Array.prototype.forEach.call(checkboxes, function (checkbox) {
-            if (target.checked !== undefined) {
-                checkbox.checked = sync;
-            }
-        });
-    };
-    /**
-     * 対象となるチェックボックスが持つクラス名をセットする
-     * @param targetClassName
-     */
-    Checkbox.prototype.setTargetClassName = function (targetClassName) {
-        //チェックの対象となるクラスの定義
-        this.targetClassName = targetClassName;
-    };
-    //triggerClassNameを持つチェックボックスのchangeイベントに_changeAll関数を紐づける
-    Checkbox.prototype.registerAllCheck = function (triggerClassName) {
-        var _this = this;
-        //トリガーとなるボックスにイベントを紐づける
-        var triggerCheckBoxes = document.getElementsByClassName(triggerClassName);
-        Array.prototype.forEach.call(triggerCheckBoxes, function (triggerCheckBox) {
-            triggerCheckBox.addEventListener('change', function (e) { _this._changeAll(e); }, false);
-        });
-    };
-    return Checkbox;
-}());
-
-
-
-/***/ }),
-
 /***/ "./js/src/admin/AdminEdit.vue":
 /*!************************************!*\
   !*** ./js/src/admin/AdminEdit.vue ***!
@@ -525,8 +466,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AdminEdit.vue */ "./js/src/admin/AdminEdit.vue");
 /* harmony import */ var _SidebarList_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SidebarList.vue */ "./js/src/admin/SidebarList.vue");
 /* harmony import */ var _AmdinStyler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../AmdinStyler */ "./js/src/AmdinStyler.ts");
-/* harmony import */ var _Checkbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Checkbox */ "./js/src/Checkbox.ts");
-
 
 
 
@@ -538,8 +477,6 @@ __webpack_require__.r(__webpack_exports__);
 {
     //スタイル調整クラスのインスタンス化
     var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_7__["AmdinStyler"]();
-    //チェックボックス制御クラスのインスタンス化
-    var checkbox_1 = new _Checkbox__WEBPACK_IMPORTED_MODULE_8__["Checkbox"]();
     //高さを合わせたいクラス名(複数)
     var fullHeightClassNames_1 = ['ph-js-fullHeight'];
     var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
@@ -722,9 +659,6 @@ __webpack_require__.r(__webpack_exports__);
         //height合わせ
         adminStyler_1.initHeightStyle(fullHeightClassNames_1);
         adminStyler_1.initHeightStyle(contentsClassNames_1, -document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
-        //チェックボックスの登録
-        checkbox_1.setTargetClassName('ph-js-checkId');
-        checkbox_1.registerAllCheck('ph-js-checkAll');
     };
     //画面リサイズによるheight合わせ
     window.addEventListener('resize', function () {
@@ -9493,8 +9427,19 @@ __webpack_require__.r(__webpack_exports__);
             data: [],
             //DBから取得してきたデータのカラム名配列
             //DBのフィールド名を表すnameとテーブルヘッダーの描写に使われるlabelがある
-            fields: []
+            fields: [],
+            //各行のチェックボックスon/off
+            checks: []
         };
+    },
+    computed: {
+        /**
+         * 全選択チェックボックスのチェック状態値
+         * @return boolean
+         */
+        allCheck: function () {
+            return !this.checks.some(function (check) { return !check; });
+        }
     },
     watch: {
         '$route': function (to, from) {
@@ -9542,6 +9487,8 @@ __webpack_require__.r(__webpack_exports__);
                 _this.loading = false;
                 //データをVuexから取得
                 var data = _this.$store.getters.getData(['fields', 'id', 'link', 'data']);
+                //データの数だけchecksにfalseを設定する
+                _this.checks = new Array(data.data.length).fill(false);
                 //登録
                 _this.fields = data.fields;
                 _this.idField = data.id;
@@ -9552,6 +9499,18 @@ __webpack_require__.r(__webpack_exports__);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
             });
+        },
+        checkAll: function (event) {
+            //全選択チェックボックス
+            var target = event.target;
+            //各行のチェックボックスを全選択チェックボックスと同期させる
+            this.checks = new Array(this.data.length).fill(target.checked);
+        },
+        checkSingle: function (event) {
+            //値が切り替わったチェックボックス
+            var target = event.target;
+            //値を同期させる
+            this.$set(this.checks, target.getAttribute('data-id'), target.checked);
         }
     }
 }));
@@ -9666,8 +9625,10 @@ var render = function() {
                         field === _vm.idField
                           ? _c("label", { staticClass: "ph-checkLabel" }, [
                               _c("input", {
-                                staticClass: "ph-checkInput ph-js-checkAll",
-                                attrs: { type: "checkbox" }
+                                staticClass: "ph-checkInput",
+                                attrs: { type: "checkbox" },
+                                domProps: { checked: _vm.allCheck },
+                                on: { change: _vm.checkAll }
                               }),
                               _vm._v(" "),
                               _c("span", { staticClass: "ph-checkPseudo" }, [
@@ -9688,7 +9649,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.data, function(datum) {
+                _vm._l(_vm.data, function(datum, index) {
                   return _c(
                     "tr",
                     { staticClass: "ph-indexRow" },
@@ -9700,9 +9661,13 @@ var render = function() {
                           key === _vm.idField
                             ? _c("label", { staticClass: "ph-checkLabel" }, [
                                 _c("input", {
-                                  staticClass: "ph-checkInput ph-js-checkId",
-                                  attrs: { type: "checkbox" },
-                                  domProps: { value: value }
+                                  staticClass: "ph-checkInput",
+                                  attrs: { type: "checkbox", "data-id": index },
+                                  domProps: {
+                                    value: value,
+                                    checked: _vm.checks[index]
+                                  },
+                                  on: { change: _vm.checkSingle }
                                 }),
                                 _vm._v(" "),
                                 _c("span", { staticClass: "ph-checkPseudo" }, [

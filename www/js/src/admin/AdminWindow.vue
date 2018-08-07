@@ -10,7 +10,7 @@
             <tr class="ph-indexRow ph-indexHeadRow">
               <th class="ph-indexTh ph-reverseColor" v-for="field in fields">
                 <label class="ph-checkLabel" v-if="field === idField">
-                  <input class="ph-checkInput ph-js-checkAll" type="checkbox">
+                  <input class="ph-checkInput" type="checkbox" :checked="allCheck" @change="checkAll">
                   <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
                 </label>
                 <div v-else v-html="field"></div>
@@ -18,10 +18,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="ph-indexRow" v-for="datum in data">
+            <tr class="ph-indexRow" v-for="(datum, index) in data">
               <td class="ph-indexTd" v-for="(value, key) in datum">
                 <label class="ph-checkLabel" v-if="key === idField">
-                  <input class="ph-checkInput ph-js-checkId" type="checkbox" :value="value">
+                  <input class="ph-checkInput" type="checkbox" :data-id="index" :value="value" :checked="checks[index]" @change="checkSingle">
                   <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
                 </label>
                 <router-link class="ph-linkColor" v-else-if="key === linkField" :to="'/'+name+'/'+datum[idField]" v-html="value"></router-link>
@@ -92,7 +92,20 @@
 
         //DBから取得してきたデータのカラム名配列
         //DBのフィールド名を表すnameとテーブルヘッダーの描写に使われるlabelがある
-        fields: []
+        fields: [],
+
+        //各行のチェックボックスon/off
+        checks: []
+      }
+    },
+    computed: {
+      /**
+       * 全選択チェックボックスのチェック状態値
+       * @return boolean
+       */
+      allCheck: function()
+      {
+        return ! this.checks.some((check: boolean) => ! check);
       }
     },
     watch: {
@@ -159,6 +172,9 @@
               data: dataInterface[]
             } = this.$store.getters.getData(['fields', 'id', 'link', 'data']);
 
+            //データの数だけchecksにfalseを設定する
+            this.checks = new Array(data.data.length).fill(false);
+
             //登録
             this.fields = data.fields;
             this.idField = data.id;
@@ -170,6 +186,22 @@
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
           });
+      },
+      checkAll: function (event: Event)
+      {
+        //全選択チェックボックス
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+
+        //各行のチェックボックスを全選択チェックボックスと同期させる
+        this.checks = new Array(this.data.length).fill(target.checked);
+      },
+      checkSingle: function (event: Event)
+      {
+        //値が切り替わったチェックボックス
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+
+        //値を同期させる
+        this.$set(this.checks, target.getAttribute('data-id'), target.checked);
       }
     }
   });

@@ -12,7 +12,6 @@ import AdminWindow from './AdminWindow.vue';
 import AdminEdit from './AdminEdit.vue';
 import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
-import {Checkbox} from "../Checkbox";
 
 /**
  * Vuexのstate
@@ -26,9 +25,6 @@ interface adminState{
 {
   //スタイル調整クラスのインスタンス化
   const adminStyler = new AmdinStyler();
-
-  //チェックボックス制御クラスのインスタンス化
-  const checkbox = new Checkbox();
 
   //高さを合わせたいクラス名(複数)
   const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
@@ -240,10 +236,6 @@ interface adminState{
     //height合わせ
     adminStyler.initHeightStyle(fullHeightClassNames);
     adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
-
-    //チェックボックスの登録
-    checkbox.setTargetClassName('ph-js-checkId');
-    checkbox.registerAllCheck('ph-js-checkAll');
   }
 
   //画面リサイズによるheight合わせ
