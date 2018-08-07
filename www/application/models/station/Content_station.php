@@ -31,6 +31,8 @@ class Content_station extends PC_Model
   {
     return array(
       'fields' => array('id', 'name', 'content'),
+      'id'=> 'id',
+      'link' => 'name',
       'data' => array(
         array(
           'id' => 1,

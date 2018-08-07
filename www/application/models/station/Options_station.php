@@ -30,7 +30,7 @@ class Options_station extends PC_Model
   public function multiple()
   {
     return array(
-      'fields' => array('ID', '設定名', '設定値'),
+      'fields' => array('id', '設定名', '設定値'),
       'id'=> 'id',
       'link' => 'key_name',
       'data' => $this->options_model->get_controllable_data()
