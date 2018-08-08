@@ -12,11 +12,13 @@ import AdminWindow from './AdminWindow.vue';
 import AdminEdit from './AdminEdit.vue';
 import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
+import api from "@fortawesome/fontawesome";
 
 /**
  * Vuexのstate
  */
 interface adminState{
+  lastApi: string,
   success: {[key: string]: string},
   error: AxiosError,
   source: CancelTokenSource|null
@@ -34,6 +36,7 @@ interface adminState{
   Vue.use(Vuex);
   const store = new Vuex.Store({
     state: {
+      lastApi: '',
       success: {},
       error: {},
       source: null
@@ -90,9 +93,10 @@ interface adminState{
        * @param state
        * @param token
        */
-      cancel (state: adminState, token: CancelTokenStatic)
+      cancel (state: adminState, data: {token: CancelTokenStatic, api: string})
       {
-        state.source = token.source();
+        state.source = data.token.source();
+        state.lastApi = data.api;
       },
       /**
        * 成功データを登録する
@@ -124,14 +128,14 @@ interface adminState{
        */
       connect({commit, state}, payload: {api: string, data: {[key: string]: string}})
       {
-        //もし通信中だったらその通信をキャンセルする
-        if (state.source !== null)
+        //もし同じAPIが通信中だったらその通信をキャンセルする
+        if (state.source !== null && state.lastApi === payload.api)
         {
           state.source.cancel();
         }
 
         //axiosのキャンセルトークンを登録
-        commit('cancel', axios.CancelToken);
+        commit('cancel', {token: axios.CancelToken, api: payload.api});
 
         //データの初期化を行う
         commit('init');
@@ -175,6 +179,7 @@ interface adminState{
             })
             .catch((error: AxiosError) =>
             {
+              console.log(payload);
               console.log(error);
               commit('failure', error);
               reject();

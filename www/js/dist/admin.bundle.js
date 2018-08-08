@@ -484,6 +484,7 @@ __webpack_require__.r(__webpack_exports__);
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
     var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         state: {
+            lastApi: '',
             success: {},
             error: {},
             source: null
@@ -530,8 +531,9 @@ __webpack_require__.r(__webpack_exports__);
              * @param state
              * @param token
              */
-            cancel: function (state, token) {
-                state.source = token.source();
+            cancel: function (state, data) {
+                state.source = data.token.source();
+                state.lastApi = data.api;
             },
             /**
              * 成功データを登録する
@@ -561,12 +563,12 @@ __webpack_require__.r(__webpack_exports__);
              */
             connect: function (_a, payload) {
                 var commit = _a.commit, state = _a.state;
-                //もし通信中だったらその通信をキャンセルする
-                if (state.source !== null) {
+                //もし同じAPIが通信中だったらその通信をキャンセルする
+                if (state.source !== null && state.lastApi === payload.api) {
                     state.source.cancel();
                 }
                 //axiosのキャンセルトークンを登録
-                commit('cancel', axios__WEBPACK_IMPORTED_MODULE_3___default.a.CancelToken);
+                commit('cancel', { token: axios__WEBPACK_IMPORTED_MODULE_3___default.a.CancelToken, api: payload.api });
                 //データの初期化を行う
                 commit('init');
                 //POSTに渡すパラメータ
@@ -602,6 +604,7 @@ __webpack_require__.r(__webpack_exports__);
                         resolve();
                     })
                         .catch(function (error) {
+                        console.log(payload);
                         console.log(error);
                         commit('failure', error);
                         reject();
