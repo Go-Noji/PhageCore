@@ -9362,22 +9362,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
-    props: {},
+    props: {
+        initApi: {
+            type: String,
+            required: true,
+            default: ''
+        }
+    },
     data: function () {
         return {
-            initApi: {
-                type: String,
-                required: true,
-                default: ''
-            }
+            //バックエンドと通信中の時にだけtrueになる
+            loading: false,
+            //DBから取得してきたデータ配列
+            //中身はオブジェクトで、{フィールド名: データ}という形になっている
+            data: []
         };
     },
     watch: {
         '$route': function (to, from) {
+            this.renderEdit();
         }
     },
+    mounted: function () {
+        this.renderEdit();
+    },
     methods: {
-        getData: function () {
+        renderEdit: function () {
+            var _this = this;
+            //loading中アイコンとダミーリストを表示する
+            this.loading = true;
+            this.$store.dispatch('connectAPI', { api: this.$props.initApi, data: { arguments: [this.$route.params.id] } })
+                .then(function () {
+                //loading中アイコンとダミーリストを非表示にする
+                _this.loading = false;
+                //データをVuexから取得
+                var data = _this.$store.getters.getData(['data']);
+                _this.data = data.data;
+                console.log(data.data);
+            })
+                .catch(function (data) {
+                //loading中アイコンとダミーリストを非表示にする
+                _this.loading = false;
+            });
         }
     }
 }));
