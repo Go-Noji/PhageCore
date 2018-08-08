@@ -63,7 +63,7 @@ class PC_Controller extends CI_Controller
     $this->load->model($this->config->item('station_model_directory').'/'.$model);
 
     //呼ぶ
-    $result = call_user_func_array(array($this->$model, $method), (array)$this->input->post('argument'));
+    $result = call_user_func_array(array($this->$model, $method), (array)$this->input->post('arguments'));
 
     //JSON出力
     $this->_outPutJson($this->$model->is_error() ? 400 : 200, $result);
