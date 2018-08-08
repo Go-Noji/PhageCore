@@ -37,4 +37,15 @@ class Options_station extends PC_Model
     );
   }
 
+  /**
+   * 管理画面で扱うことが可能なデータ単体を取得する
+   * @return mixed
+   */
+  public function get($id)
+  {
+    return array(
+      'data' => $this->options_model->get_controllable($id)
+    );
+  }
+
 }

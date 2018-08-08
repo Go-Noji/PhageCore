@@ -97,6 +97,35 @@ class Options_Model extends PC_Model
   }
 
   /**
+   * 管理画面でコントロール可能なoptionsデータを単体をid指定して取得する
+   * コントロール不能のデータはcontrolフィールドの値が0のデータが該当する
+   * ただし、$ignoreControlがTRUEだった場合のみcontrolフィールドが無視される
+   * 該当するデータが無い、もしくは
+   * config/options.phpにて上書きされている場合は空配列が返る
+   * @param int $id
+   * @param bool $ignoreControl
+   * @return array
+   */
+  public function get_controllable($id, $ignoreControl = FALSE)
+  {
+    //$ignoreControlがTRUEだった場合はcontrolフィールドを無視する
+    $whereSQL = $ignoreControl ? 'AND control = 1' : '';
+
+    //データベースのデータを取得
+    $query = $this->db->query("
+    SELECT id, key_name, value 
+    FROM {$this->db->dbprefix('options')} 
+    WHERE id = ?  
+    {$whereSQL} 
+    LIMIT 1
+    ", array($id));
+    $result = (array)$query->row_array();
+
+    //そもそも空、もしくはconfig/options.phpにて上書きされている場合は空配列を返す
+    return ! isset($result['key_name']) || $this->_is_override($result['key_name']) ? array() : $result;
+  }
+
+  /**
    * _get_option()をそのまま呼び出す
    * つまり、optionsテーブルの単一レコードを呼び出す
    * もしDBに該当データが無ければ$fallback(デフォルト)をvalueとし、
