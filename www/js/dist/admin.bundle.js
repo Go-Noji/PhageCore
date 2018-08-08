@@ -9373,6 +9373,9 @@ __webpack_require__.r(__webpack_exports__);
         return {
             //バックエンドと通信中の時にだけtrueになる
             loading: false,
+            //DBから取得してきたフィールド名配列
+            //中身はオブジェクトで、{フィールド名: 人間用の表示名}という形になっている
+            fields: {},
             //DBから取得してきたデータ配列
             //中身はオブジェクトで、{フィールド名: データ}という形になっている
             data: []
@@ -9396,9 +9399,9 @@ __webpack_require__.r(__webpack_exports__);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
                 //データをVuexから取得
-                var data = _this.$store.getters.getData(['data']);
+                var data = _this.$store.getters.getData(['fields', 'data']);
                 _this.data = data.data;
-                console.log(data.data);
+                _this.fields = data.fields;
             })
                 .catch(function (data) {
                 //loading中アイコンとダミーリストを非表示にする

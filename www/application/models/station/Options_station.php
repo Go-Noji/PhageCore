@@ -44,6 +44,7 @@ class Options_station extends PC_Model
   public function get($id)
   {
     return array(
+      'fields' => array('id' => 'id', 'key_name' => '設定名', 'value' => '設定値'),
       'data' => $this->options_model->get_controllable($id)
     );
   }

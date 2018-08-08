@@ -8,6 +8,12 @@
   import Vue from 'vue'
   import {AxiosError} from 'axios';
 
+  //initAPIから取得できる'fields'のデータ構造
+  //キー名がDBのフィールド名で値は描写に使われる人間用の名前
+  interface fieldsInterface {
+    [key: string]: string
+  }
+
   //initAPIから取得できる'data'のデータ構造
   //キー名がDBのカラム名、値がデータそのもの
   interface dataInterface {
@@ -26,6 +32,10 @@
       return {
         //バックエンドと通信中の時にだけtrueになる
         loading: false,
+
+        //DBから取得してきたフィールド名配列
+        //中身はオブジェクトで、{フィールド名: 人間用の表示名}という形になっている
+        fields: {},
 
         //DBから取得してきたデータ配列
         //中身はオブジェクトで、{フィールド名: データ}という形になっている
@@ -56,11 +66,12 @@
 
             //データをVuexから取得
             const data: {
+              fields: fieldsInterface,
               data: dataInterface[]
-            } = this.$store.getters.getData(['data']);
+            } = this.$store.getters.getData(['fields','data']);
 
             this.data = data.data;
-            console.log(data.data);
+            this.fields = data.fields;
           })
           .catch((data: AxiosError) =>
           {
