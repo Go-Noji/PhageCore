@@ -20,61 +20,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 <div id="ph-admin" class="ph-wrapper ph-admin ph-js-fullHeight" style="background-image: <?php echo html_escape($admin_background_image); ?>;">
-  <header class="ph-adminHeader ph-js-adminHeader" style="background-color: <?php echo html_escape($theme_color); ?>;">
-    <nav class="ph-adminHeaderNav">
-      <ul class="ph-adminHeaderNavBox">
-        <li class="ph-adminHeaderNavList"><a class="ph-reverseColor" href="<?php echo site_url(); ?>" target="_blank"><?php echo html_escape($site_name); ?></a></li>
-      </ul>
-      <ul class="ph-adminHeaderNavBox">
-        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-bell"></i></a></li>
-        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-envelope"></i></a></li>
-        <li class="ph-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="ph-icon ph-iconLink ph-reverseColor fas fa-user"></i></a></li>
-      </ul>
-    </nav>
-    <nav class="ph-adminHeaderTab">
-      <ul id="ph-adminHeaderTabBox" class="ph-adminHeaderTabBox"></ul>
-    </nav>
-  </header>
+  <nav id="ph-adminSidebar" class="ph-adminSidebar ph-js-adminSidebar">
+    <ul class="ph-adminSidebarBox">
+      <sidebar-list
+        ref="content"
+        title="コンテンツ"
+        to="/content"
+        icon="fa-pencil-alt"></sidebar-list>
+      <sidebar-list
+        ref="attribute"
+        title="属性"
+        to="/attribute"
+        icon="fa-tags"></sidebar-list>
+      <sidebar-list
+        ref="directory"
+        title="ディレクトリ"
+        to="/directory"
+        icon="fa-folder"></sidebar-list>
+      <sidebar-list
+        ref="resource"
+        title="リソース"
+        to="/resource"
+        icon="fa-file"></sidebar-list>
+      <sidebar-list
+        ref="admin"
+        title="管理者"
+        to="/admin"
+        icon="fa-user"></sidebar-list>
+      <sidebar-list
+        ref="user"
+        title="ユーザー"
+        to="/user"
+        icon="fa-users"></sidebar-list>
+      <sidebar-list
+        ref="options"
+        title="設定"
+        to="/options"
+        icon="fa-cog"></sidebar-list>
+    </ul>
+  </nav>
   <div class="ph-adminBody">
-    <nav id="ph-adminSidebar" class="ph-adminSidebar ph-js-adminSidebar">
-      <ul class="ph-adminSidebarBox">
-        <sidebar-list
-          ref="content"
-          title="コンテンツ"
-          to="/content"
-          icon="fa-pencil-alt"></sidebar-list>
-        <sidebar-list
-          ref="attribute"
-          title="属性"
-          to="/attribute"
-          icon="fa-tags"></sidebar-list>
-        <sidebar-list
-          ref="directory"
-          title="ディレクトリ"
-          to="/directory"
-          icon="fa-folder"></sidebar-list>
-        <sidebar-list
-          ref="resource"
-          title="リソース"
-          to="/resource"
-          icon="fa-file"></sidebar-list>
-        <sidebar-list
-          ref="admin"
-          title="管理者"
-          to="/admin"
-          icon="fa-user"></sidebar-list>
-        <sidebar-list
-          ref="user"
-          title="ユーザー"
-          to="/user"
-          icon="fa-users"></sidebar-list>
-        <sidebar-list
-          ref="options"
-          title="設定"
-          to="/options"
-          icon="fa-cog"></sidebar-list>
-      </ul>
-    </nav>
+    <header class="ph-adminHeader ph-js-adminHeader">
+      <nav class="ph-adminHeaderNav">
+        <ul class="ph-adminHeaderNavBox"></ul>
+        <ul class="ph-adminHeaderNavBox">
+          <li class="ph-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="ph-icon ph-iconLink fas fa-home"></i></a></li>
+          <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink fas fa-bell"></i></a></li>
+          <li class="ph-adminHeaderNavList"><a href="<?php echo site_url('admin/logout'); ?>"><i class="ph-icon ph-iconLink fas fa-envelope"></i></a></li>
+          <li class="ph-adminHeaderNavList"><a href="<?php echo site_url(); ?>" target="_blank"><i class="ph-icon ph-iconLink fas fa-user"></i></a></li>
+        </ul>
+      </nav>
+      <nav class="ph-adminHeaderTab">
+        <ul id="ph-adminHeaderTabBox" class="ph-adminHeaderTabBox"></ul>
+      </nav>
+    </header>
     <div class="ph-adminArea ph-js-adminArea">
       <div id="ph-adminTrashArea" class="ph-adminTrashArea">削除する</div>
       <main role="main">

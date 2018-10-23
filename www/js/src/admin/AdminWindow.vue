@@ -4,7 +4,6 @@
       <h2 class="ph-adminWindowTitle">{{title}}</h2>
       <div class="ph-outerWrapper">
         <section class="ph-innerWrapper">
-          <h3>{{title}}一覧</h3>
           <table class="ph-index">
             <thead class="ph-indexHead">
             <tr class="ph-indexRow ph-indexHeadRow">

@@ -4,9 +4,10 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  */
 
-$black: #023437;
+$black: #000;
 $white: #fafafa;
-$gray: #999;
+$whitest: #fff;
+$gray: #444;
 $keyColor: #0099a2;
 $errorColor: #ea1213;
 $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
@@ -29,14 +30,18 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 
 .ph-admin{
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: $white;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .ph-adminHeader{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding: 15px 30px;
+  border-bottom: 2px solid $keyColor;
 }
 .ph-adminHeaderNav{
   display: flex;
@@ -50,21 +55,21 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   align-items: center;
 }
 .ph-adminHeaderNavList{
-  padding: 0 30px;
-  &:first-child, &:last-child{
-    padding: 0;
+  margin-left: 30px;
+  &:first-child{
+    margin-left: 0;
   }
 }
 
 .ph-adminBody{
-  display: flex;
-  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .ph-adminSidebar{
   width: 15%;
+  max-width: 180px;
   padding: 0 0 30px 0;
-  background-color: $black;
+  background-color: rgba($black, .95);
 }
 .ph-adminSidebarBox{
 }
@@ -74,11 +79,6 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   &:hover{
     background-color: $keyColor;
   }
-}
-
-.ph-adminArea{
-  flex-grow: 1;
-  width: 85%;
 }
 
 .ph-adminTrashArea{
@@ -99,12 +99,8 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 
 .ph-adminWindow{
   box-sizing: border-box;
-  margin: 15px;
+  background-color: $whitest;
   padding: 15px;
-  width: 90%;
-  width: calc(100% - 30px);
-  background-color: $white;
-  box-shadow: 0 0 3px 3px $keyColor;
 }
 .ph-index{
   width: 100%;
@@ -112,9 +108,12 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 .ph-indexRow{
   border-bottom: 1px solid $gray;
+  &:nth-child(2n){
+    background: rgba($gray, .1);
+  }
 }
 .ph-indexHeadRow{
-  background-color: $keyColor;
+  background-color: rgba($keyColor, .8);
 }
 .ph-indexTh{
   padding: 15px;
@@ -134,8 +133,8 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   align-items: center;
   border: $gray solid 1px;
   border-radius: 1px;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 .ph-checkInput{

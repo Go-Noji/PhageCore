@@ -236,17 +236,12 @@ interface adminState{
     }
   });
 
-  window.onload = () =>
+  //リサイズ
+  const resize = () =>
   {
-    //height合わせ
     adminStyler.initHeightStyle(fullHeightClassNames);
-    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
+    adminStyler.initHeightStyle(contentsClassNames);
   }
-
-  //画面リサイズによるheight合わせ
-  window.addEventListener('resize', () =>
-  {
-    adminStyler.initHeightStyle(fullHeightClassNames);
-    adminStyler.initHeightStyle(contentsClassNames, - document.querySelector('.ph-js-adminHeader').getBoundingClientRect().height);
-  }, false);
+  document.addEventListener('DOMContentLoaded', resize, false);
+  window.addEventListener('resize', resize, false);
 }
