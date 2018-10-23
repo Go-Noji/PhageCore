@@ -44,7 +44,29 @@ class Options_station extends PC_Model
   public function get($id)
   {
     return array(
-      'fields' => array('id' => 'id', 'key_name' => '設定名', 'value' => '設定値'),
+      'fields' => array(
+        'id' => array(
+          'label' => 'id',
+          'control' => FALSE,
+          'type' => 'text',
+          'options' => array()
+        ),
+        'key_name' => array(
+          'label' => '設定名',
+          'control' => TRUE,
+          'type' => 'select',
+          'options' => array(
+            'http://localhost/PhageCore/images/logo.png' => 'http://localhost/PhageCore/images/logo.png',
+            'https://pbs.twimg.com/profile_images/739836658455961602/0bwfa8IM_bigger.jpg' => 'https://pbs.twimg.com/profile_images/739836658455961602/0bwfa8IM_bigger.jpg'
+          )
+        ),
+        'value' => array(
+          'label' => '設定値',
+          'control' => TRUE,
+          'type' => 'text',
+          'options' => array()
+        )
+      ),
       'data' => $this->options_model->get_controllable($id)
     );
   }
