@@ -93,8 +93,11 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   display: flex;
   justify-content: space-between;
 }
-.ph-innerWrapper{
+.ph-listWrapper{
   flex-grow: 1;
+}
+.ph-editWrapper{
+  flex-grow: 9;
 }
 
 .ph-adminWindow{

@@ -3,29 +3,42 @@
     <section class="ph-adminWindow" :key="name">
       <h2 class="ph-adminWindowTitle">{{title}}</h2>
       <div class="ph-outerWrapper">
-        <section class="ph-innerWrapper">
+        <section class="ph-listWrapper">
           <table class="ph-index">
             <thead class="ph-indexHead">
             <tr class="ph-indexRow ph-indexHeadRow">
-              <th class="ph-indexTh ph-reverseColor" v-for="field in fields">
-                <label class="ph-checkLabel" v-if="field === idField">
-                  <input class="ph-checkInput" type="checkbox" :checked="allCheck" @change="checkAll">
-                  <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
-                </label>
-                <div v-else v-html="field"></div>
-              </th>
+              <template v-for="field in fields">
+                <th class="ph-indexTh ph-reverseColor" v-if="field.name === idField" v-show="!editFlg">
+                  <label class="ph-checkLabel">
+                    <input class="ph-checkInput" type="checkbox" :checked="allCheck" @change="checkAll">
+                    <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
+                  </label>
+                </th>
+                <th class="ph-indexTh ph-reverseColor" v-else-if="field.name === linkField">
+                  <div v-html="field.label"></div>
+                </th>
+                <th class="ph-indexTh ph-reverseColor" v-else v-show="!editFlg">
+                  <div v-html="field.label"></div>
+                </th>
+              </template>
             </tr>
             </thead>
             <tbody>
             <tr class="ph-indexRow" v-for="(datum, index) in data">
-              <td class="ph-indexTd" v-for="(value, key) in datum">
-                <label class="ph-checkLabel" v-if="key === idField">
-                  <input class="ph-checkInput" type="checkbox" :data-id="index" :value="value" :checked="checks[index]" @change="checkSingle">
-                  <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
-                </label>
-                <router-link class="ph-linkColor" v-else-if="key === linkField" :to="'/'+name+'/'+datum[idField]" v-html="value"></router-link>
-                <div v-else v-html="value"></div>
-              </td>
+              <template v-for="(value, key) in datum">
+                <td class="ph-indexTd" v-if="key === idField" v-show="!editFlg">
+                  <label class="ph-checkLabel">
+                    <input class="ph-checkInput" type="checkbox" :data-id="index" :value="value" :checked="checks[index]" @change="checkSingle">
+                    <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
+                  </label>
+                </td>
+                <td class="ph-indexTd" v-else-if="key === linkField">
+                  <router-link class="ph-linkColor" :to="'/'+name+'/'+datum[idField]" v-html="value"></router-link>
+                </td>
+                <td class="ph-indexTd" v-else v-show="!editFlg">
+                  <div v-html="value"></div>
+                </td>
+              </template>
             </tr>
             </tbody>
           </table>
@@ -105,6 +118,15 @@
       allCheck: function()
       {
         return ! this.checks.some((check: boolean) => ! check);
+      },
+
+      /**
+       * 現在編集windowを開いているかどうか
+       * @return boolean
+       */
+      editFlg: function()
+      {
+        return ! (this.$route.params.id === undefined);
       }
     },
     watch: {

@@ -7965,7 +7965,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:#fafafa;font-size:14px;display:flex;justify-content:space-between}.ph-adminHeader{padding:15px 30px;border-bottom:2px solid #0099a2}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{margin-left:30px}.ph-adminHeaderNavList:first-child{margin-left:0}.ph-adminBody{flex-grow:1}.ph-adminSidebar{width:15%;max-width:180px;padding:0 0 30px;background-color:rgba(0,0,0,.95)}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminTrashArea{display:none;padding:60px}.ph-outerWrapper{display:flex;justify-content:space-between}.ph-innerWrapper{flex-grow:1}.ph-adminWindow{box-sizing:border-box;background-color:#fff;padding:15px}.ph-index{width:100%;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #444}.ph-indexRow:nth-child(2n){background:rgba(68,68,68,.1)}.ph-indexHeadRow{background-color:rgba(0,153,162,.8)}.ph-indexTh{padding:15px;text-align:left}.ph-indexTh:first-child{max-width:15px}.ph-indexTd{padding:15px}.ph-checkLabel{position:relative;display:flex;justify-content:center;align-items:center;border:1px solid #444;border-radius:1px;width:20px;height:20px;cursor:pointer}.ph-checkInput{display:none}.ph-checkPseudo{visibility:hidden}.ph-checkPseudo:before{content:\"\";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}.ph-checkInput:checked~.ph-checkPseudo{visibility:visible}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-linkColor{color:#0099a2;text-decoration:underline}.ph-linkColor:active,.ph-linkColor:hover,.ph-linkColor:visited{color:#0099a2}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
+exports.push([module.i, "@keyframes dummyAnimation{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}.ph-admin{background-color:#fafafa;font-size:14px;display:flex;justify-content:space-between}.ph-adminHeader{padding:15px 30px;border-bottom:2px solid #0099a2}.ph-adminHeader,.ph-adminHeaderNav{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNav{width:100%}.ph-adminHeaderNavBox{display:flex;justify-content:space-between;align-items:center}.ph-adminHeaderNavList{margin-left:30px}.ph-adminHeaderNavList:first-child{margin-left:0}.ph-adminBody{flex-grow:1}.ph-adminSidebar{width:15%;max-width:180px;padding:0 0 30px;background-color:rgba(0,0,0,.95)}.ph-adminSidebarLink{padding:15px;display:block}.ph-adminSidebarLink:hover{background-color:#0099a2}.ph-adminTrashArea{display:none;padding:60px}.ph-outerWrapper{display:flex;justify-content:space-between}.ph-listWrapper{flex-grow:1}.ph-editWrapper{flex-grow:9}.ph-adminWindow{box-sizing:border-box;background-color:#fff;padding:15px}.ph-index{width:100%;border-collapse:collapse}.ph-indexRow{border-bottom:1px solid #444}.ph-indexRow:nth-child(2n){background:rgba(68,68,68,.1)}.ph-indexHeadRow{background-color:rgba(0,153,162,.8)}.ph-indexTh{padding:15px;text-align:left}.ph-indexTh:first-child{max-width:15px}.ph-indexTd{padding:15px}.ph-checkLabel{position:relative;display:flex;justify-content:center;align-items:center;border:1px solid #444;border-radius:1px;width:20px;height:20px;cursor:pointer}.ph-checkInput{display:none}.ph-checkPseudo{visibility:hidden}.ph-checkPseudo:before{content:\"\";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}.ph-checkInput:checked~.ph-checkPseudo{visibility:visible}.ph-iconLink{font-size:24px}.ph-btnLink{text-decoration:none}.ph-linkColor{color:#0099a2;text-decoration:underline}.ph-linkColor:active,.ph-linkColor:hover,.ph-linkColor:visited{color:#0099a2}.ph-reverseColor,.ph-reverseColor:active,.ph-reverseColor:hover,.ph-reverseColor:visited{color:#fafafa}.ph-dummyHeaderParagraph{background:linear-gradient(79deg,#0099a2,#e5e5e5,#0099a2);background-size:600% 600%}.ph-dummyCellParagraph,.ph-dummyHeaderParagraph{border-radius:15px;width:95%;width:calc(100% - 10px);margin:5px;animation:dummyAnimation 1s ease-in infinite}.ph-dummyCellParagraph{background:linear-gradient(79deg,#aaa,#e5e5e5,#aaa);background-size:600% 600%}", ""]);
 
 // exports
 
@@ -9468,6 +9468,13 @@ __webpack_require__.r(__webpack_exports__);
          */
         allCheck: function () {
             return !this.checks.some(function (check) { return !check; });
+        },
+        /**
+         * 現在編集windowを開いているかどうか
+         * @return boolean
+         */
+        editFlg: function () {
+            return !(this.$route.params.id === undefined);
         }
     },
     watch: {
@@ -9601,7 +9608,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "edit" } }, [
-    _c("section", { staticClass: "ph-innerWrapper" }, [
+    _c("section", { staticClass: "ph-editWrapper" }, [
       _vm._v("\n    " + _vm._s(_vm.$route.params.id) + "\n    "),
       _c(
         "ul",
@@ -9748,39 +9755,84 @@ var render = function() {
         "div",
         { staticClass: "ph-outerWrapper" },
         [
-          _c("section", { staticClass: "ph-innerWrapper" }, [
+          _c("section", { staticClass: "ph-listWrapper" }, [
             _c("table", { staticClass: "ph-index" }, [
               _c("thead", { staticClass: "ph-indexHead" }, [
                 _c(
                   "tr",
                   { staticClass: "ph-indexRow ph-indexHeadRow" },
-                  _vm._l(_vm.fields, function(field) {
-                    return _c(
-                      "th",
-                      { staticClass: "ph-indexTh ph-reverseColor" },
-                      [
-                        field === _vm.idField
-                          ? _c("label", { staticClass: "ph-checkLabel" }, [
-                              _c("input", {
-                                staticClass: "ph-checkInput",
-                                attrs: { type: "checkbox" },
-                                domProps: { checked: _vm.allCheck },
-                                on: { change: _vm.checkAll }
-                              }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "ph-checkPseudo" }, [
-                                _c("span", {
-                                  staticClass:
-                                    "ph-iconRe ph-reverseColor fas fa-check"
-                                })
-                              ])
-                            ])
-                          : _c("div", {
-                              domProps: { innerHTML: _vm._s(field) }
-                            })
+                  [
+                    _vm._l(_vm.fields, function(field) {
+                      return [
+                        field.name === _vm.idField
+                          ? _c(
+                              "th",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !_vm.editFlg,
+                                    expression: "!editFlg"
+                                  }
+                                ],
+                                staticClass: "ph-indexTh ph-reverseColor"
+                              },
+                              [
+                                _c("label", { staticClass: "ph-checkLabel" }, [
+                                  _c("input", {
+                                    staticClass: "ph-checkInput",
+                                    attrs: { type: "checkbox" },
+                                    domProps: { checked: _vm.allCheck },
+                                    on: { change: _vm.checkAll }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    { staticClass: "ph-checkPseudo" },
+                                    [
+                                      _c("span", {
+                                        staticClass:
+                                          "ph-iconRe ph-reverseColor fas fa-check"
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ]
+                            )
+                          : field.name === _vm.linkField
+                            ? _c(
+                                "th",
+                                { staticClass: "ph-indexTh ph-reverseColor" },
+                                [
+                                  _c("div", {
+                                    domProps: { innerHTML: _vm._s(field.label) }
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "th",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.editFlg,
+                                      expression: "!editFlg"
+                                    }
+                                  ],
+                                  staticClass: "ph-indexTh ph-reverseColor"
+                                },
+                                [
+                                  _c("div", {
+                                    domProps: { innerHTML: _vm._s(field.label) }
+                                  })
+                                ]
+                              )
                       ]
-                    )
-                  })
+                    })
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),
@@ -9790,45 +9842,96 @@ var render = function() {
                   return _c(
                     "tr",
                     { staticClass: "ph-indexRow" },
-                    _vm._l(datum, function(value, key) {
-                      return _c(
-                        "td",
-                        { staticClass: "ph-indexTd" },
-                        [
+                    [
+                      _vm._l(datum, function(value, key) {
+                        return [
                           key === _vm.idField
-                            ? _c("label", { staticClass: "ph-checkLabel" }, [
-                                _c("input", {
-                                  staticClass: "ph-checkInput",
-                                  attrs: { type: "checkbox", "data-id": index },
-                                  domProps: {
-                                    value: value,
-                                    checked: _vm.checks[index]
-                                  },
-                                  on: { change: _vm.checkSingle }
-                                }),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "ph-checkPseudo" }, [
-                                  _c("span", {
-                                    staticClass: "ph-icon fas fa-check"
-                                  })
-                                ])
-                              ])
+                            ? _c(
+                                "td",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: !_vm.editFlg,
+                                      expression: "!editFlg"
+                                    }
+                                  ],
+                                  staticClass: "ph-indexTd"
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    { staticClass: "ph-checkLabel" },
+                                    [
+                                      _c("input", {
+                                        staticClass: "ph-checkInput",
+                                        attrs: {
+                                          type: "checkbox",
+                                          "data-id": index
+                                        },
+                                        domProps: {
+                                          value: value,
+                                          checked: _vm.checks[index]
+                                        },
+                                        on: { change: _vm.checkSingle }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "ph-checkPseudo" },
+                                        [
+                                          _c("span", {
+                                            staticClass: "ph-icon fas fa-check"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
                             : key === _vm.linkField
-                              ? _c("router-link", {
-                                  staticClass: "ph-linkColor",
-                                  attrs: {
-                                    to:
-                                      "/" + _vm.name + "/" + datum[_vm.idField]
+                              ? _c(
+                                  "td",
+                                  { staticClass: "ph-indexTd" },
+                                  [
+                                    _c("router-link", {
+                                      staticClass: "ph-linkColor",
+                                      attrs: {
+                                        to:
+                                          "/" +
+                                          _vm.name +
+                                          "/" +
+                                          datum[_vm.idField]
+                                      },
+                                      domProps: { innerHTML: _vm._s(value) }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _c(
+                                  "td",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: !_vm.editFlg,
+                                        expression: "!editFlg"
+                                      }
+                                    ],
+                                    staticClass: "ph-indexTd"
                                   },
-                                  domProps: { innerHTML: _vm._s(value) }
-                                })
-                              : _c("div", {
-                                  domProps: { innerHTML: _vm._s(value) }
-                                })
-                        ],
-                        1
-                      )
-                    })
+                                  [
+                                    _c("div", {
+                                      domProps: { innerHTML: _vm._s(value) }
+                                    })
+                                  ]
+                                )
+                        ]
+                      })
+                    ],
+                    2
                   )
                 })
               )

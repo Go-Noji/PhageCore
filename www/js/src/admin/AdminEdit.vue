@@ -1,6 +1,6 @@
 <template>
   <transition name="edit">
-    <section class="ph-innerWrapper">
+    <section class="ph-editWrapper">
       {{$route.params.id}}
       <ul>
         <li v-for="(datum, key, index) in data">
