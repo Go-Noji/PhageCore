@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="ph-indexRow" v-for="(datum, index) in data">
+            <tr v-for="(datum, index) in data" class="ph-indexRow">
               <template v-for="(value, key) in datum">
                 <td class="ph-indexTd" v-if="key === idField" v-show="!editFlg">
                   <label class="ph-checkLabel">
@@ -32,7 +32,7 @@
                     <span class="ph-checkPseudo"><span class="ph-icon fas fa-check"></span></span>
                   </label>
                 </td>
-                <td class="ph-indexTd" v-else-if="key === linkField">
+                <td class="ph-indexTd" v-else-if="key === linkField" :class="activeListId === Number(datum[idField]) ? 'ph-indexActive' : ''">
                   <router-link class="ph-linkColor" :to="'/'+name+'/'+datum[idField]" v-html="value"></router-link>
                 </td>
                 <td class="ph-indexTd" v-else v-show="!editFlg">
@@ -115,7 +115,7 @@
        * 全選択チェックボックスのチェック状態値
        * @return boolean
        */
-      allCheck: function()
+      allCheck: function(): boolean
       {
         return ! this.checks.some((check: boolean) => ! check);
       },
@@ -124,9 +124,19 @@
        * 現在編集windowを開いているかどうか
        * @return boolean
        */
-      editFlg: function()
+      editFlg: function(): boolean
       {
         return ! (this.$route.params.id === undefined);
+      },
+
+      /**
+       * 現在アクティブなリストのIDを返す
+       * どのリストも選択されていない場合は0を返す
+       * @return number
+       */
+      activeListId: function(): number
+      {
+        return this.$route.params.id ? Number(this.$route.params.id) : 0;
       }
     },
     watch: {

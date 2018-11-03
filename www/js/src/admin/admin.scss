@@ -4,13 +4,7 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  */
 
-$black: #000;
-$white: #fafafa;
-$whitest: #fff;
-$gray: #444;
-$keyColor: #0099a2;
-$errorColor: #ea1213;
-$ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+@import "../variable";
 
 //ローディング中に表示されるダミー表示用のアニメーション
 @keyframes dummyAnimation{
@@ -98,6 +92,7 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 .ph-editWrapper{
   flex-grow: 9;
+  padding: 0 15px;
 }
 
 .ph-adminWindow{
@@ -110,7 +105,6 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
   border-collapse: collapse;
 }
 .ph-indexRow{
-  border-bottom: 1px solid $gray;
   &:nth-child(2n){
     background: rgba($gray, .1);
   }
@@ -127,6 +121,10 @@ $ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hir
 }
 .ph-indexTd{
   padding: 15px;
+}
+.ph-indexActive{
+  min-width: 30px;
+  box-shadow: 0 0 3px 3px $keyColor inset;
 }
 
 .ph-checkLabel{

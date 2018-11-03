@@ -4,52 +4,7 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  */
 
-$black: #023437;
-$white: #fafafa;
-$gray: #999;
-$keyColor: #0099a2;
-$errorColor: #ea1213;
-$ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
-
-@mixin resetMarginAndPadding{
-  margin: 0;
-  padding: 0;
-}
-@mixin flexBetween{
-  display: flex;
-  justify-content: space-between;
-}
-@mixin input{
-  padding: 10px;
-  border: $gray solid 1px;
-  border-radius: 3px;
-  box-shadow: 0 0 3px 3px transparent;
-  transition: box-shadow 100ms ease-in;
-  background-color: $white;
-  &:focus{
-    box-shadow: 0 0 3px 3px $keyColor;
-  }
-}
-@mixin btn{
-  padding: 10px;
-  border-radius: 6px;
-  background: transparent;
-  border: 0;
-  text-align: center;
-  cursor: pointer;
-}
-@mixin link($color){
-  color: $color;
-  &:hover{
-    color: $color;
-  }
-  &:active{
-    color: $color;
-  }
-  &:visited{
-    color: $color;
-  }
-}
+@import "variable";
 
 ul{
   margin: 0;
@@ -104,6 +59,23 @@ li{
 }
 .ph-input{
   @include input;
+}
+.ph-selectWrapper{
+  position: relative;
+  &:after{
+    content: '';
+    border-bottom: 0;
+    border-top: 10px solid $gray;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+  }
+}
+.ph-select{
+  @include input;
+  appearance: none;
 }
 .ph-inputError{
   box-shadow: 0 0 3px 3px $errorColor;

@@ -1,13 +1,13 @@
 <template>
   <transition name="edit">
     <section class="ph-editWrapper">
-      {{$route.params.id}}
       <ul>
-        <li v-for="(datum, key, index) in data">
-          <p>{{fields[key].label}}</p>
-          <div v-if="fields[key].type === 'select'">
-            <label>
-              <select :name="key">
+        <li v-for="(datum, key) in data">
+          <p v-if="fields[key].control" class="ph-inputHeader">{{fields[key].label}}</p>
+          <div v-if=" ! fields[key].control"></div>
+          <div v-else-if="fields[key].type === 'select'">
+            <label class="ph-selectWrapper">
+              <select :name="key" class="ph-select">
                 <template v-for="(optionKey, optionValue) in fields[key].options">
                   <option v-if="optionValue === datum" :value="optionValue" selected>{{optionKey}}</option>
                   <option v-else :value="optionValue">{{optionKey}}</option>
@@ -19,9 +19,9 @@
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
-                  <p>{{optionKey}}</p>
-                  <input v-if="optionValue === datum" :name="key" :value="optionValue" type="radio" checked>
-                  <input v-else :name="key" :value="optionValue" type="radio">
+                  <p class="ph-inputHeader">{{optionKey}}</p>
+                  <input v-if="optionValue === datum" :name="key" :value="optionValue" class="ph-input" type="radio" checked>
+                  <input v-else :name="key" :value="optionValue" class="ph-input" type="radio">
                 </label>
               </li>
             </ul>
@@ -30,16 +30,16 @@
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
-                  <p>{{optionKey}}</p>
-                  <input v-if="optionValue === datum" :name="key" :value="optionValue" type="checkbox" checked>
-                  <input v-else :name="key" :value="optionValue" type="checkbox">
+                  <p class="ph-inputHeader">{{optionKey}}</p>
+                  <input v-if="optionValue === datum" :name="key" :value="optionValue" class="ph-input" type="checkbox" checked>
+                  <input v-else :name="key" :value="optionValue" class="ph-input" type="checkbox">
                 </label>
               </li>
             </ul>
           </div>
           <div v-else>
             <label>
-              <input :name="key" :value="datum" :type="fields[key].type">
+              <input :name="key" :value="datum" :type="fields[key].type" class="ph-input">
             </label>
           </div>
         </li>
