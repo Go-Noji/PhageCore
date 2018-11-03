@@ -37,7 +37,9 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugin: [require('autoprefixer')({grid: true})]
+              plugins: [
+                require('autoprefixer')({grid: true})
+              ]
             }
           },
           {
@@ -55,6 +57,14 @@ module.exports = {
             options: {
               url: false,
               minimize: true
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('autoprefixer')({grid: true})
+              ]
             },
           },
           {

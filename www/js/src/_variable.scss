@@ -1,0 +1,231 @@
+/**
+ * @copyright oddcodes All Rights Reserved
+ * @license https://opensource.org/licenses/mit-license.html MIT License
+ * @author Go Noji <gisosyadfe@gmail.com>
+ */
+
+$black: #023437;
+$white: #fafafa;
+$gray: #999;
+$keyColor: #0099a2;
+$errorColor: #ea1213;
+$ja: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+
+@mixin resetMarginAndPadding{
+  margin: 0;
+  padding: 0;
+}
+@mixin flexBetween{
+  display: flex;
+  justify-content: space-between;
+}
+@mixin input{
+  padding: 10px;
+  border: $gray solid 1px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px 3px transparent;
+  transition: box-shadow 100ms ease-in;
+  background-color: $white;
+  &:focus{
+    box-shadow: 0 0 3px 3px $keyColor;
+  }
+}
+@mixin btn{
+  padding: 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 0;
+  text-align: center;
+  cursor: pointer;
+}
+@mixin link($color){
+  color: $color;
+  &:hover{
+    color: $color;
+  }
+  &:active{
+    color: $color;
+  }
+  &:visited{
+    color: $color;
+  }
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+li{
+  list-style-type: none;
+}
+
+.ph-body{
+  font-size: 16px;
+  font-family: $ja;
+  background-color: $white;
+}
+.ph-wrapper{
+}
+
+.ph-between{
+  @include flexBetween;
+}
+.ph-logoBack{
+  padding: 30px;
+  background-color: $black;
+  color: $white
+}
+.ph-logoBackLink{
+  @include link($white);
+}
+.ps-installLogo{
+  margin: auto;
+  max-width: 300px;
+  display: block;
+}
+.ph-formWrapper{
+  padding: 30px;
+}
+.ph-submitWrapper{
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-subTitle{
+  margin: 30px 0 0 0;
+}
+.ph-paragraph{
+  @include resetMarginAndPadding;
+}
+.ph-paragraphError{
+  color: $errorColor;
+}
+.ph-input{
+  @include input;
+}
+.ph-inputError{
+  box-shadow: 0 0 3px 3px $errorColor;
+}
+.ph-icon{
+  color: $keyColor;
+}
+.ph-button{
+  @include btn;
+}
+.ph-submit{
+  @include btn;
+  border: $keyColor solid 1px;
+  background-color: $white;
+  color: $keyColor;
+  transition: background-color, color 300ms ease-in;
+  &:hover{
+    background: $keyColor;
+    color: $white;
+  }
+}
+
+@keyframes loaderSize{
+  0% {
+    width: 80%;
+    height: 80%;
+  }
+  50% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 80%;
+    height: 80%;
+  }
+}
+@keyframes loaderRadius{
+  0% {
+    border-radius: 100%;
+  }
+  30% {
+    border-radius: 10%;
+  }
+  50% {
+    border-radius: 60%;
+  }
+  70% {
+    border-radius: 50%;
+  }
+  100% {
+    border-radius: 100%;
+  }
+}
+@keyframes loaderRotate{
+  0% {
+    transform: rotate(0deg);
+  }
+  18% {
+    transform: rotate(156deg);
+  }
+  21% {
+    transform: rotate(10deg);
+  }
+  67% {
+    transform: rotate(311deg);
+  }
+  89% {
+    transform: rotate(26deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.ph-loaderWrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin: 30px auto;
+}
+.ph-loaderBox{
+  border-radius: 100%;
+  border: #0099a2 solid 6px;
+  margin: 0;
+  padding: 0;
+  animation:
+    loaderRadius .5s infinite ease-in-out,
+    loaderRotate 3s infinite ease-in-out,
+    loaderSize .9s infinite ease-in-out;
+}
+.ph-loaderMessage{
+  font-size: 16px;
+  font-weight: 700;
+  color: #0099a2;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow:
+    #fff 2px 0px 0px, #fff -2px 0px 0px,
+    #fff 0px -2px 0px, #fff 0px 2px 0px,
+    #fff 2px 2px 0px, #fff -2px 2px 0px,
+    #fff 2px -2px 0px, #fff -2px -2px 0px,
+    #fff 1px 2px 0px, #fff -1px 2px 0px,
+    #fff 1px -2px 0px, #fff -1px -2px 0px,
+    #fff 2px 1px 0px, #fff -2px 1px 0px,
+    #fff 2px -1px 0px, #fff -2px -1px 0px,
+    #fff 1px 1px 0px, #fff -1px 1px 0px,
+    #fff 1px -1px 0px, #fff -1px -1px 0px;
+}
+
+.loader-fade-enter-active, .loader-fade-leave-active{
+  transition: opacity .2s ease;
+}
+.loader-fade-enter, .loader-fade-leave-to{
+  opacity: 0;
+}
