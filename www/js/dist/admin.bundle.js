@@ -9784,9 +9784,9 @@ var render = function() {
                   "tr",
                   { staticClass: "ph-indexRow ph-indexHeadRow" },
                   [
-                    _vm._l(_vm.fields, function(field) {
+                    _vm._l(_vm.fields, function(field, name) {
                       return [
-                        field.name === _vm.idField
+                        name === _vm.idField
                           ? _c(
                               "th",
                               {
@@ -9822,10 +9822,13 @@ var render = function() {
                                 ])
                               ]
                             )
-                          : field.name === _vm.linkField
+                          : name === _vm.linkField
                             ? _c(
                                 "th",
-                                { staticClass: "ph-indexTh ph-reverseColor" },
+                                {
+                                  staticClass: "ph-indexTh ph-reverseColor",
+                                  attrs: { "data-flg": "1" }
+                                },
                                 [
                                   _c("div", {
                                     domProps: { innerHTML: _vm._s(field.label) }

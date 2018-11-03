@@ -12,12 +12,22 @@ class Options_station extends PC_Model
 {
 
   /**
+   * このクラスが扱うデータの定義表
+   * @var array
+   */
+  private $FIELDS = array();
+
+  /**
    * Options_station constructor.
    * @return void
    */
   public function __construct()
   {
     parent::__construct();
+
+    //データベース・表示の相互変換定義をロード、プロパティに設定
+    $this->config->load('phage_data_fields', TRUE);
+    $this->FIELDS = $this->config->item('options_data_fields', 'phage_data_fields');
 
     //modelのロード
     $this->load->model('database/options_model');
@@ -30,20 +40,7 @@ class Options_station extends PC_Model
   public function multiple()
   {
     return array(
-      'fields' => array(
-        array(
-          'name' => 'id',
-          'label' => 'id'
-        ),
-        array(
-          'name' => 'key_name',
-          'label' => '設定名'
-        ),
-        array(
-          'name' => 'value',
-          'label' => '設定値'
-        )
-      ),
+      'fields' => $this->FIELDS,
       'id'=> 'id',
       'link' => 'key_name',
       'data' => $this->options_model->get_controllable_data()
@@ -57,29 +54,7 @@ class Options_station extends PC_Model
   public function get($id)
   {
     return array(
-      'fields' => array(
-        'id' => array(
-          'label' => 'id',
-          'control' => FALSE,
-          'type' => 'text',
-          'options' => array()
-        ),
-        'key_name' => array(
-          'label' => '設定名',
-          'control' => TRUE,
-          'type' => 'select',
-          'options' => array(
-            'http://localhost/PhageCore/images/logo.png' => 'http://localhost/PhageCore/images/logo.png',
-            'https://pbs.twimg.com/profile_images/739836658455961602/0bwfa8IM_bigger.jpg' => 'https://pbs.twimg.com/profile_images/739836658455961602/0bwfa8IM_bigger.jpg'
-          )
-        ),
-        'value' => array(
-          'label' => '設定値',
-          'control' => TRUE,
-          'type' => 'text',
-          'options' => array()
-        )
-      ),
+      'fields' => $this->FIELDS,
       'data' => $this->options_model->get_controllable($id)
     );
   }

@@ -6,6 +6,7 @@
  *
  * @property CI_Loader $load
  * @property CI_DB $db
+ * @property CI_Config $config
  */
 class PC_Model extends CI_Model
 {

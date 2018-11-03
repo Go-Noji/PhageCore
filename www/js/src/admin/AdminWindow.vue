@@ -7,14 +7,14 @@
           <table class="ph-index">
             <thead class="ph-indexHead">
             <tr class="ph-indexRow ph-indexHeadRow">
-              <template v-for="field in fields">
-                <th class="ph-indexTh ph-reverseColor" v-if="field.name === idField" v-show="!editFlg">
+              <template v-for="(field, name) in fields">
+                <th class="ph-indexTh ph-reverseColor" v-if="name === idField" v-show="!editFlg">
                   <label class="ph-checkLabel">
                     <input class="ph-checkInput" type="checkbox" :checked="allCheck" @change="checkAll">
                     <span class="ph-checkPseudo"><span class="ph-iconRe ph-reverseColor fas fa-check"></span></span>
                   </label>
                 </th>
-                <th class="ph-indexTh ph-reverseColor" v-else-if="field.name === linkField">
+                <th class="ph-indexTh ph-reverseColor" data-flg="1" v-else-if="name === linkField">
                   <div v-html="field.label"></div>
                 </th>
                 <th class="ph-indexTh ph-reverseColor" v-else v-show="!editFlg">
@@ -52,14 +52,6 @@
 <script lang="ts">
   import Vue from 'vue'
   import {AxiosError} from 'axios';
-
-  //initAPIから取得できる'fields'のデータ構造
-  //nameがDBのフィールド名で
-  //labelは描写に使われる人間用の名前
-  interface fieldsInterface {
-    name: string,
-    label: string
-  }
 
   //initAPIから取得できる'data'のデータ構造
   //キー名がDBのカラム名、値がデータそのもの
@@ -197,7 +189,7 @@
 
             //データをVuexから取得
             const data: {
-              fields: fieldsInterface[],
+              fields: {[key: string]: string},
               id: string,
               link: string,
               data: dataInterface[]
