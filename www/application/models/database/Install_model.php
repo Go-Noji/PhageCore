@@ -5,6 +5,7 @@
  * @author Go Noji <gisosyadfe@gmail.com>
  *
  * @property CI_Loader $load
+ * @property CI_Config $config
  * @property CI_Input $input
  * @property CI_DB $db
  */
@@ -44,14 +45,19 @@ class Install_model extends CI_Model
 
   /**
    * 初期化判定ファイルの削除
-   * @return void
+   * 初期化判定ファイルが存在するにも拘わらず削除に失敗した場合はFALSEを返す
+   * @return bool
    */
-  private function _delete_resetDB()
+  private function _delete_reset_file()
   {
-    if (file_exists('.resetdb'))
+    //ファイルが存在するにも拘わらず削除に失敗したらFALSEを返す
+    if (file_exists($this->config->item('install_reset_file')) && ! unlink($this->config->item('install_reset_file')))
     {
-      unlink('.resetdb');
+      return FALSE;
     }
+
+    //削除成功
+    return TRUE;
   }
 
   /**
@@ -477,7 +483,7 @@ class Install_model extends CI_Model
   /**
    * 初期化が必要かどうかを判断する
    * 以下の条件のうちどれかに該当した場合にTRUEを返す
-   * トップディレクトリに'.resetdb'というファイルが存在する
+   * トップディレクトリに$this->config->item('install_reset_file')というファイルが存在する
    * PhageCore初期テーブルがなにかしら足らない
    * サイト名が未設定
    * 最高権限の管理者データが一つもない
@@ -486,7 +492,7 @@ class Install_model extends CI_Model
   public function is_need_install()
   {
     //初期化ファイルがあるかどうかの判断
-    if (file_exists('.resetdb'))
+    if (file_exists($this->config->item('install_reset_file')))
     {
       return TRUE;
     }
@@ -517,6 +523,12 @@ class Install_model extends CI_Model
    */
   public function install($truncate = FALSE)
   {
+    //初期化ファイルの削除
+    if ( ! $this->_delete_reset_file())
+    {
+      return FALSE;
+    }
+
     //既にあるテーブルを消す
     if ($truncate)
     {
@@ -526,9 +538,6 @@ class Install_model extends CI_Model
     //CREATE文実行
     //同時にSQLが成功したか判断する結果の配列を取得する
     $results = $this->_create();
-
-    //初期化ファイルの削除
-    $this->_delete_resetDB();
 
     //エラーがあったらFALSEを返す
     foreach ($results as $result) {

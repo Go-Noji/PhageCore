@@ -6,6 +6,20 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/*---install---*/
+
+/*
+|--------------------------------------------------------------------------
+| File path for initialize database
+|--------------------------------------------------------------------------
+|
+| インストールを再度行うためのファイルパス
+| index.phpから見た相対的なファイルパスを設定する
+| このファイルがある場合、ログイン画面にアクセスしようとするとインストール画面へリダイレクトする
+|
+*/
+$config['install_reset_file'] = '.resetdb';
+
 /*---admin---*/
 
 /*
@@ -55,8 +69,6 @@ $config['admin_settings'] = array(
     'class' => ''
   )
 );
-
-
 
 /*---types---*/
 
@@ -138,8 +150,6 @@ $config['content_type'] = array(
 */
 $config['attribute_type'] = array('カテゴリー', 'タグ');
 
-
-
 /*---cache---*/
 
 /*
@@ -153,8 +163,6 @@ $config['attribute_type'] = array('カテゴリー', 'タグ');
 |
 */
 $config['enable_pre_json'] = TRUE;
-
-
 
 /*---comment---*/
 
@@ -180,9 +188,7 @@ $config['enable_comment'] = FALSE;
 */
 $config['enable_reply_restriction'] = TRUE;
 
-
-
-/*image*/
+/*---image---*/
 
 /*
 |--------------------------------------------------------------------------
@@ -218,9 +224,7 @@ $connfig['thumb_sizes'] = array(
   'small' => 50
 );
 
-
-
-/*api*/
+/*---api---*/
 
 /*
 |--------------------------------------------------------------------------

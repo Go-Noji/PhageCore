@@ -11,6 +11,7 @@
  * @property CI_Form_validation $form_validation
  * @property Install_model $install_model
  * @property Link_files $link_files
+ * @property Login_tool $login_tool
  */
 class Install extends CI_Controller
 {
@@ -70,14 +71,17 @@ class Install extends CI_Controller
     //設定の読み込み
     $this->load->config('phage_config');
 
-    //URLとFORM、Loginヘルパーのロード
-    $this->load->helper(array('url', 'form', 'login'));
+    //URLとFORMヘルパーのロード
+    $this->load->helper(array('url', 'form'));
 
     //バリデーションライブラリのロード
     $this->load->library('form_validation');
 
     //リンクファイルライブラリのロード
     $this->load->library('link_files');
+
+    //ログインライブラリーのロード
+    $this->load->library('login_tool', array('admin', 5, 10));
 
     //インストールモデルのロード
     $this->load->model('database/install_model');
