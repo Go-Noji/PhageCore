@@ -274,4 +274,20 @@ class Install extends CI_Controller
     $this->load->view('admin/install');
   }
 
+  /**
+   * 既に管理者としてログインしている場合にアクセスするとリセット用の設定ファイルを作成、インストール画面へリダイレクトする
+   * ログインしていない、もしくはファイルの作成に失敗した場合はTOPページへリダイレクトする
+   */
+  public function reset()
+  {
+    //ログインしていない・もしくはファイル作成に失敗した場合は終了させる
+    if ( ! $this->login_tool->is_login() || ! touch($this->config->item('install_reset_file')))
+    {
+      redirect(site_url());
+    }
+
+    //インストール画面へリダイレクト
+    redirect(site_url('management/install'));
+  }
+
 }
