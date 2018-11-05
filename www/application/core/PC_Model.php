@@ -11,7 +11,7 @@
 class PC_Model extends CI_Model
 {
 
-  private $error = false;
+  protected $error = FALSE;
 
   /**
    * PC_Model constructor.
