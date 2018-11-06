@@ -8,7 +8,7 @@
  * @property CI_Output $output
  * @property CI_Input $input
  */
-class Admin extends PC_Controller
+class Admin extends PH_Controller
 {
 
   /**

@@ -9,7 +9,7 @@
  * @property CI_Lang $lang
  * @property Options_model $options_model
  */
-class Options_station extends PC_Model
+class Options_station extends PH_Model
 {
 
   /**

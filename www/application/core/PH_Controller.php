@@ -13,7 +13,7 @@
  * @property CI_Form_validation $form_validation
  * @property Login_tool $login_tool
  */
-class PC_Controller extends CI_Controller
+class PH_Controller extends CI_Controller
 {
 
   /**
@@ -23,7 +23,7 @@ class PC_Controller extends CI_Controller
   protected $validation_messages = array();
 
   /**
-   * PC_Controller constructor.
+   * PH_Controller constructor.
    */
   public function __construct()
   {

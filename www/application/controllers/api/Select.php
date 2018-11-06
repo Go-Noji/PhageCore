@@ -4,7 +4,7 @@
  * @license https://opensource.org/licenses/mit-license.html MIT License
  * @author Go Noji <gisosyadfe@gmail.com>
  */
-class Select extends PC_Controller
+class Select extends PH_Controller
 {
 
   /**
