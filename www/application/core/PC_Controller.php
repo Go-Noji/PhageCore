@@ -36,7 +36,7 @@ class PC_Controller extends CI_Controller
     $this->load->config('phage_config');
 
     //バリデーションライブラリのロード
-    $this->load->library('for_validation');
+    $this->load->library('form_validation');
   }
 
   /**
@@ -66,15 +66,18 @@ class PC_Controller extends CI_Controller
    */
   protected function _call_method($model, $method)
   {
+    //モデル名の取得
+    $model_name = lcfirst($model.'_station');
+
     //対応するModelをmodels/下にあるstationディレクトリからロード
     //stationディレクトリの名前はconfigs/phage_config.phpに'station_model_directory'の名前で設定されている
-    $this->load->model($this->config->item('station_model_directory').'/'.lcfirst($model.'_station'));
+    $this->load->model($this->config->item('station_model_directory').'/'.$model_name);
 
     //呼ぶ
-    $result = call_user_func_array(array($this->$model, $method), (array)$this->input->post('arguments'));
+    $result = call_user_func_array(array($this->$model_name, $method), (array)$this->input->post('arguments'));
 
     //JSON出力
-    $this->_outPutJson($this->$model->is_error() ? 400 : 200, $result);
+    $this->_outPutJson($this->$model_name->is_error() ? 400 : 200, $result);
   }
 
   /**
