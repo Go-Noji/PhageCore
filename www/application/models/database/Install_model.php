@@ -310,7 +310,8 @@ class Install_model extends CI_Model
       `id` INT(9) NOT NULL AUTO_INCREMENT COMMENT 'AI' , 
       `key_name` VARCHAR(50) NOT NULL COMMENT 'キー' , 
       `value` TEXT NOT NULL COMMENT '値' , 
-      `control` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '管理画面で制御可能にするかどうか' , 
+      `description` TEXT NOT NULL COMMENT '説明' , 
+      `deletable` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '管理画面で削除可能にするかどうか' , 
       PRIMARY KEY (`id`), 
       UNIQUE (`key_name`)
     ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '汎用設定データ';
@@ -432,21 +433,24 @@ class Install_model extends CI_Model
     }
     if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'site_name',
-      'value' => $this->input->post('site')
+      'value' => $this->input->post('site'),
+      'description' => 'サイト名'
     )))
     {
       return FALSE;
     }
     if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'site_logo',
-      'value' => site_url('images/logo.png')
+      'value' => site_url('images/logo.png'),
+      'description' => 'ロゴイメージ画像'
     )))
     {
       return FALSE;
     }
     if ( ! $this->db->insert($this->db->dbprefix('options'), array(
       'key_name' => 'init_timestamp',
-      'value' => time()
+      'value' => time(),
+      'description' => 'インストール日時'
     )))
     {
       return FALSE;

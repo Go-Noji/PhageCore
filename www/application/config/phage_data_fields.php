@@ -38,5 +38,11 @@ $config['options_data_fields'] = array(
     'control' => TRUE,
     'type' => 'text',
     'options' => array()
+  ),
+  'description' => array(
+    'label' => '説明',
+    'control' => TRUE,
+    'type' => 'textarea',
+    'options' => array()
   )
 );

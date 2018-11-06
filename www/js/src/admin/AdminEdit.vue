@@ -37,6 +37,11 @@
               </li>
             </ul>
           </div>
+          <div v-else-if="fields[key].type === 'textarea'">
+            <label>
+              <textarea :name="key" :type="fields[key].type"v-html="datum" class="ph-textarea"></textarea>
+            </label>
+          </div>
           <div v-else>
             <label>
               <input :name="key" :value="datum" :type="fields[key].type" class="ph-input">

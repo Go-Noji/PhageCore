@@ -77,6 +77,12 @@ li{
   @include input;
   appearance: none;
 }
+.ph-textarea{
+  @include input;
+  width: 100%;
+  max-width: 800px;
+  min-height: 200px;
+}
 .ph-inputError{
   box-shadow: 0 0 3px 3px $errorColor;
 }

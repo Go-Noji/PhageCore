@@ -55,6 +55,7 @@ class Options_model extends PH_Model
         'id' => '0',
         'key_name' => $key_name,
         'value' => $this->config->item($key_name, 'options'),
+        'description' => '',
         'control' => '0'
       );
     }
@@ -79,6 +80,7 @@ class Options_model extends PH_Model
       'id' => '0',
       'key_name' => $key_name,
       'value' => $fallback,
+      'description' => '',
       'control' => '0'
     );
   }
@@ -113,7 +115,7 @@ class Options_model extends PH_Model
 
     //データベースのデータを取得
     $query = $this->db->query("
-    SELECT id, key_name, value 
+    SELECT id, key_name, value, description 
     FROM {$this->db->dbprefix('options')} 
     WHERE id = ?  
     {$whereSQL} 
@@ -179,7 +181,7 @@ class Options_model extends PH_Model
 
     //データベースのデータを取得
     $query = $this->db->query("
-    SELECT id, key_name, value 
+    SELECT id, key_name, value, description 
     FROM {$this->db->dbprefix('options')} 
     {$whereSQL}
     ");
