@@ -14,96 +14,6 @@ li{
   list-style-type: none;
 }
 
-.ph-body{
-  font-size: 16px;
-  font-family: $ja;
-  background-color: $white;
-}
-.ph-wrapper{
-}
-
-.ph-between{
-  @include flexBetween;
-}
-.ph-logoBack{
-  padding: 30px;
-  background-color: $black;
-  color: $white
-}
-.ph-logoBackLink{
-  @include link($white);
-}
-.ps-installLogo{
-  margin: auto;
-  max-width: 300px;
-  display: block;
-}
-.ph-formWrapper{
-  padding: 30px;
-}
-.ph-submitWrapper{
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ph-subTitle{
-  margin: 30px 0 0 0;
-}
-.ph-paragraph{
-  @include resetMarginAndPadding;
-}
-.ph-paragraphError{
-  color: $errorColor;
-}
-.ph-input{
-  @include input;
-}
-.ph-selectWrapper{
-  position: relative;
-  &:after{
-    content: '';
-    border-bottom: 0;
-    border-top: 10px solid $gray;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    position: absolute;
-    right: 8px;
-    top: 4px;
-  }
-}
-.ph-select{
-  @include input;
-  appearance: none;
-}
-.ph-textarea{
-  @include input;
-  width: 100%;
-  max-width: 800px;
-  min-height: 200px;
-}
-.ph-inputError{
-  box-shadow: 0 0 3px 3px $errorColor;
-}
-.ph-icon{
-  color: $keyColor;
-}
-.ph-button{
-  @include btn;
-}
-.ph-submit{
-  @include btn;
-  border: $keyColor solid 1px;
-  background-color: $white;
-  color: $keyColor;
-  transition: background-color, color 300ms ease-in;
-  &:hover{
-    background: $keyColor;
-    color: $white;
-  }
-}
-
 @keyframes loaderSize{
   0% {
     width: 80%;
@@ -206,4 +116,112 @@ li{
 }
 .loader-fade-enter, .loader-fade-leave-to{
   opacity: 0;
+}
+
+.ph-body{
+  font-size: 16px;
+  font-family: $ja;
+  background-color: $white;
+}
+.ph-wrapper{
+}
+
+.ph-between{
+  @include flexBetween;
+}
+.ph-logoBack{
+  padding: 30px;
+  background-color: $black;
+  color: $white
+}
+.ph-logoBackLink{
+  @include link($white);
+}
+.ps-installLogo{
+  margin: auto;
+  max-width: 300px;
+  display: block;
+}
+.ph-formWrapper{
+  padding: 30px;
+}
+.ph-submitWrapper{
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ph-subTitle{
+  margin: 30px 0 0 0;
+}
+.ph-paragraph{
+  @include resetMarginAndPadding;
+}
+.ph-paragraphError{
+  color: $errorColor;
+}
+.ph-inputWrapper{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ph-inputSubmitWrapper{
+  position: relative;
+  height: 0;
+}
+.ph-inputLoaderWrapper{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto 30px;
+}
+.ph-input{
+  @include input;
+}
+.ph-selectWrapper{
+  position: relative;
+  &:after{
+    content: '';
+    border-bottom: 0;
+    border-top: 10px solid $gray;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+  }
+}
+.ph-select{
+  @include input;
+  appearance: none;
+}
+.ph-textarea{
+  @include input;
+  width: 100%;
+  max-width: 800px;
+  min-width: 400px;
+  min-height: 200px;
+}
+.ph-inputError{
+  box-shadow: 0 0 3px 3px $errorColor;
+}
+.ph-icon{
+  color: $keyColor;
+}
+.ph-button{
+  @include btn;
+}
+.ph-submit{
+  @include btn;
+  border: $keyColor solid 1px;
+  background-color: $white;
+  color: $keyColor;
+  transition: background-color, color 300ms ease-in;
+  &:hover{
+    background: $keyColor;
+    color: $white;
+  }
 }

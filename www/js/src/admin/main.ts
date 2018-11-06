@@ -1,4 +1,5 @@
 import '../style.scss';
+import '../adjustment.scss';
 import './admin.scss';
 import 'sanitize.css';
 import './admin.ts';

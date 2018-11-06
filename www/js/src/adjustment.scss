@@ -1,0 +1,32 @@
+/**
+ * @copyright oddcodes All Rights Reserved
+ * @license https://opensource.org/licenses/mit-license.html MIT License
+ * @author Go Noji <gisosyadfe@gmail.com>
+ */
+
+@for $i from 0 through 100 {
+  .ph-adjustmentMl#{$i} {
+    margin-left: #{$i}px;
+  }
+  .ph-adjustmentMr#{$i} {
+    margin-right: #{$i}px;
+  }
+  .ph-adjustmentMt#{$i} {
+    margin-top: #{$i}px;
+  }
+  .ph-adjustmentMb#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .ph-adjustmentPl#{$i} {
+    padding-left: #{$i}px;
+  }
+  .ph-adjustmentPr#{$i} {
+    padding-right: #{$i}px;
+  }
+  .ph-adjustmentPt#{$i} {
+    padding-top: #{$i}px;
+  }
+  .ph-adjustmentPb#{$i} {
+    padding-bottom: #{$i}px;
+  }
+}

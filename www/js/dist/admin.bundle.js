@@ -165,6 +165,27 @@ var AmdinStyler = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./js/src/adjustment.scss":
+/*!********************************!*\
+  !*** ./js/src/adjustment.scss ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../node_modules/style-loader!../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./adjustment.scss */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("7677935e", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
 /***/ "./js/src/admin/AdminEdit.vue":
 /*!************************************!*\
   !*** ./js/src/admin/AdminEdit.vue ***!
@@ -681,15 +702,18 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../style.scss */ "./js/src/style.scss");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _admin_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin.scss */ "./js/src/admin/admin.scss");
-/* harmony import */ var _admin_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_admin_scss__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sanitize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sanitize.css */ "./node_modules/sanitize.css/sanitize.css");
-/* harmony import */ var sanitize_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sanitize_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _admin_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin.ts */ "./js/src/admin/admin.ts");
-/* harmony import */ var _fortawesome_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/fontawesome */ "./node_modules/@fortawesome/fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_fontawesome_free_solid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/fontawesome-free-solid */ "./node_modules/@fortawesome/fontawesome-free-solid/index.es.js");
-/* harmony import */ var _fortawesome_fontawesome_free_regular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/fontawesome-free-regular */ "./node_modules/@fortawesome/fontawesome-free-regular/index.es.js");
-/* harmony import */ var _fortawesome_fontawesome_free_brands__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/fontawesome-free-brands */ "./node_modules/@fortawesome/fontawesome-free-brands/index.es.js");
+/* harmony import */ var _adjustment_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../adjustment.scss */ "./js/src/adjustment.scss");
+/* harmony import */ var _adjustment_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_adjustment_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _admin_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin.scss */ "./js/src/admin/admin.scss");
+/* harmony import */ var _admin_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_admin_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sanitize_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sanitize.css */ "./node_modules/sanitize.css/sanitize.css");
+/* harmony import */ var sanitize_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sanitize_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _admin_ts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./admin.ts */ "./js/src/admin/admin.ts");
+/* harmony import */ var _fortawesome_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/fontawesome */ "./node_modules/@fortawesome/fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_fontawesome_free_solid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/fontawesome-free-solid */ "./node_modules/@fortawesome/fontawesome-free-solid/index.es.js");
+/* harmony import */ var _fortawesome_fontawesome_free_regular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/fontawesome-free-regular */ "./node_modules/@fortawesome/fontawesome-free-regular/index.es.js");
+/* harmony import */ var _fortawesome_fontawesome_free_brands__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/fontawesome-free-brands */ "./node_modules/@fortawesome/fontawesome-free-brands/index.es.js");
+
 
 
 
@@ -7953,6 +7977,25 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss":
+/*!*********************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss ***!
+  \*********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".ph-adjustmentMl0{margin-left:0}.ph-adjustmentMr0{margin-right:0}.ph-adjustmentMt0{margin-top:0}.ph-adjustmentMb0{margin-bottom:0}.ph-adjustmentPl0{padding-left:0}.ph-adjustmentPr0{padding-right:0}.ph-adjustmentPt0{padding-top:0}.ph-adjustmentPb0{padding-bottom:0}.ph-adjustmentMl1{margin-left:1px}.ph-adjustmentMr1{margin-right:1px}.ph-adjustmentMt1{margin-top:1px}.ph-adjustmentMb1{margin-bottom:1px}.ph-adjustmentPl1{padding-left:1px}.ph-adjustmentPr1{padding-right:1px}.ph-adjustmentPt1{padding-top:1px}.ph-adjustmentPb1{padding-bottom:1px}.ph-adjustmentMl2{margin-left:2px}.ph-adjustmentMr2{margin-right:2px}.ph-adjustmentMt2{margin-top:2px}.ph-adjustmentMb2{margin-bottom:2px}.ph-adjustmentPl2{padding-left:2px}.ph-adjustmentPr2{padding-right:2px}.ph-adjustmentPt2{padding-top:2px}.ph-adjustmentPb2{padding-bottom:2px}.ph-adjustmentMl3{margin-left:3px}.ph-adjustmentMr3{margin-right:3px}.ph-adjustmentMt3{margin-top:3px}.ph-adjustmentMb3{margin-bottom:3px}.ph-adjustmentPl3{padding-left:3px}.ph-adjustmentPr3{padding-right:3px}.ph-adjustmentPt3{padding-top:3px}.ph-adjustmentPb3{padding-bottom:3px}.ph-adjustmentMl4{margin-left:4px}.ph-adjustmentMr4{margin-right:4px}.ph-adjustmentMt4{margin-top:4px}.ph-adjustmentMb4{margin-bottom:4px}.ph-adjustmentPl4{padding-left:4px}.ph-adjustmentPr4{padding-right:4px}.ph-adjustmentPt4{padding-top:4px}.ph-adjustmentPb4{padding-bottom:4px}.ph-adjustmentMl5{margin-left:5px}.ph-adjustmentMr5{margin-right:5px}.ph-adjustmentMt5{margin-top:5px}.ph-adjustmentMb5{margin-bottom:5px}.ph-adjustmentPl5{padding-left:5px}.ph-adjustmentPr5{padding-right:5px}.ph-adjustmentPt5{padding-top:5px}.ph-adjustmentPb5{padding-bottom:5px}.ph-adjustmentMl6{margin-left:6px}.ph-adjustmentMr6{margin-right:6px}.ph-adjustmentMt6{margin-top:6px}.ph-adjustmentMb6{margin-bottom:6px}.ph-adjustmentPl6{padding-left:6px}.ph-adjustmentPr6{padding-right:6px}.ph-adjustmentPt6{padding-top:6px}.ph-adjustmentPb6{padding-bottom:6px}.ph-adjustmentMl7{margin-left:7px}.ph-adjustmentMr7{margin-right:7px}.ph-adjustmentMt7{margin-top:7px}.ph-adjustmentMb7{margin-bottom:7px}.ph-adjustmentPl7{padding-left:7px}.ph-adjustmentPr7{padding-right:7px}.ph-adjustmentPt7{padding-top:7px}.ph-adjustmentPb7{padding-bottom:7px}.ph-adjustmentMl8{margin-left:8px}.ph-adjustmentMr8{margin-right:8px}.ph-adjustmentMt8{margin-top:8px}.ph-adjustmentMb8{margin-bottom:8px}.ph-adjustmentPl8{padding-left:8px}.ph-adjustmentPr8{padding-right:8px}.ph-adjustmentPt8{padding-top:8px}.ph-adjustmentPb8{padding-bottom:8px}.ph-adjustmentMl9{margin-left:9px}.ph-adjustmentMr9{margin-right:9px}.ph-adjustmentMt9{margin-top:9px}.ph-adjustmentMb9{margin-bottom:9px}.ph-adjustmentPl9{padding-left:9px}.ph-adjustmentPr9{padding-right:9px}.ph-adjustmentPt9{padding-top:9px}.ph-adjustmentPb9{padding-bottom:9px}.ph-adjustmentMl10{margin-left:10px}.ph-adjustmentMr10{margin-right:10px}.ph-adjustmentMt10{margin-top:10px}.ph-adjustmentMb10{margin-bottom:10px}.ph-adjustmentPl10{padding-left:10px}.ph-adjustmentPr10{padding-right:10px}.ph-adjustmentPt10{padding-top:10px}.ph-adjustmentPb10{padding-bottom:10px}.ph-adjustmentMl11{margin-left:11px}.ph-adjustmentMr11{margin-right:11px}.ph-adjustmentMt11{margin-top:11px}.ph-adjustmentMb11{margin-bottom:11px}.ph-adjustmentPl11{padding-left:11px}.ph-adjustmentPr11{padding-right:11px}.ph-adjustmentPt11{padding-top:11px}.ph-adjustmentPb11{padding-bottom:11px}.ph-adjustmentMl12{margin-left:12px}.ph-adjustmentMr12{margin-right:12px}.ph-adjustmentMt12{margin-top:12px}.ph-adjustmentMb12{margin-bottom:12px}.ph-adjustmentPl12{padding-left:12px}.ph-adjustmentPr12{padding-right:12px}.ph-adjustmentPt12{padding-top:12px}.ph-adjustmentPb12{padding-bottom:12px}.ph-adjustmentMl13{margin-left:13px}.ph-adjustmentMr13{margin-right:13px}.ph-adjustmentMt13{margin-top:13px}.ph-adjustmentMb13{margin-bottom:13px}.ph-adjustmentPl13{padding-left:13px}.ph-adjustmentPr13{padding-right:13px}.ph-adjustmentPt13{padding-top:13px}.ph-adjustmentPb13{padding-bottom:13px}.ph-adjustmentMl14{margin-left:14px}.ph-adjustmentMr14{margin-right:14px}.ph-adjustmentMt14{margin-top:14px}.ph-adjustmentMb14{margin-bottom:14px}.ph-adjustmentPl14{padding-left:14px}.ph-adjustmentPr14{padding-right:14px}.ph-adjustmentPt14{padding-top:14px}.ph-adjustmentPb14{padding-bottom:14px}.ph-adjustmentMl15{margin-left:15px}.ph-adjustmentMr15{margin-right:15px}.ph-adjustmentMt15{margin-top:15px}.ph-adjustmentMb15{margin-bottom:15px}.ph-adjustmentPl15{padding-left:15px}.ph-adjustmentPr15{padding-right:15px}.ph-adjustmentPt15{padding-top:15px}.ph-adjustmentPb15{padding-bottom:15px}.ph-adjustmentMl16{margin-left:16px}.ph-adjustmentMr16{margin-right:16px}.ph-adjustmentMt16{margin-top:16px}.ph-adjustmentMb16{margin-bottom:16px}.ph-adjustmentPl16{padding-left:16px}.ph-adjustmentPr16{padding-right:16px}.ph-adjustmentPt16{padding-top:16px}.ph-adjustmentPb16{padding-bottom:16px}.ph-adjustmentMl17{margin-left:17px}.ph-adjustmentMr17{margin-right:17px}.ph-adjustmentMt17{margin-top:17px}.ph-adjustmentMb17{margin-bottom:17px}.ph-adjustmentPl17{padding-left:17px}.ph-adjustmentPr17{padding-right:17px}.ph-adjustmentPt17{padding-top:17px}.ph-adjustmentPb17{padding-bottom:17px}.ph-adjustmentMl18{margin-left:18px}.ph-adjustmentMr18{margin-right:18px}.ph-adjustmentMt18{margin-top:18px}.ph-adjustmentMb18{margin-bottom:18px}.ph-adjustmentPl18{padding-left:18px}.ph-adjustmentPr18{padding-right:18px}.ph-adjustmentPt18{padding-top:18px}.ph-adjustmentPb18{padding-bottom:18px}.ph-adjustmentMl19{margin-left:19px}.ph-adjustmentMr19{margin-right:19px}.ph-adjustmentMt19{margin-top:19px}.ph-adjustmentMb19{margin-bottom:19px}.ph-adjustmentPl19{padding-left:19px}.ph-adjustmentPr19{padding-right:19px}.ph-adjustmentPt19{padding-top:19px}.ph-adjustmentPb19{padding-bottom:19px}.ph-adjustmentMl20{margin-left:20px}.ph-adjustmentMr20{margin-right:20px}.ph-adjustmentMt20{margin-top:20px}.ph-adjustmentMb20{margin-bottom:20px}.ph-adjustmentPl20{padding-left:20px}.ph-adjustmentPr20{padding-right:20px}.ph-adjustmentPt20{padding-top:20px}.ph-adjustmentPb20{padding-bottom:20px}.ph-adjustmentMl21{margin-left:21px}.ph-adjustmentMr21{margin-right:21px}.ph-adjustmentMt21{margin-top:21px}.ph-adjustmentMb21{margin-bottom:21px}.ph-adjustmentPl21{padding-left:21px}.ph-adjustmentPr21{padding-right:21px}.ph-adjustmentPt21{padding-top:21px}.ph-adjustmentPb21{padding-bottom:21px}.ph-adjustmentMl22{margin-left:22px}.ph-adjustmentMr22{margin-right:22px}.ph-adjustmentMt22{margin-top:22px}.ph-adjustmentMb22{margin-bottom:22px}.ph-adjustmentPl22{padding-left:22px}.ph-adjustmentPr22{padding-right:22px}.ph-adjustmentPt22{padding-top:22px}.ph-adjustmentPb22{padding-bottom:22px}.ph-adjustmentMl23{margin-left:23px}.ph-adjustmentMr23{margin-right:23px}.ph-adjustmentMt23{margin-top:23px}.ph-adjustmentMb23{margin-bottom:23px}.ph-adjustmentPl23{padding-left:23px}.ph-adjustmentPr23{padding-right:23px}.ph-adjustmentPt23{padding-top:23px}.ph-adjustmentPb23{padding-bottom:23px}.ph-adjustmentMl24{margin-left:24px}.ph-adjustmentMr24{margin-right:24px}.ph-adjustmentMt24{margin-top:24px}.ph-adjustmentMb24{margin-bottom:24px}.ph-adjustmentPl24{padding-left:24px}.ph-adjustmentPr24{padding-right:24px}.ph-adjustmentPt24{padding-top:24px}.ph-adjustmentPb24{padding-bottom:24px}.ph-adjustmentMl25{margin-left:25px}.ph-adjustmentMr25{margin-right:25px}.ph-adjustmentMt25{margin-top:25px}.ph-adjustmentMb25{margin-bottom:25px}.ph-adjustmentPl25{padding-left:25px}.ph-adjustmentPr25{padding-right:25px}.ph-adjustmentPt25{padding-top:25px}.ph-adjustmentPb25{padding-bottom:25px}.ph-adjustmentMl26{margin-left:26px}.ph-adjustmentMr26{margin-right:26px}.ph-adjustmentMt26{margin-top:26px}.ph-adjustmentMb26{margin-bottom:26px}.ph-adjustmentPl26{padding-left:26px}.ph-adjustmentPr26{padding-right:26px}.ph-adjustmentPt26{padding-top:26px}.ph-adjustmentPb26{padding-bottom:26px}.ph-adjustmentMl27{margin-left:27px}.ph-adjustmentMr27{margin-right:27px}.ph-adjustmentMt27{margin-top:27px}.ph-adjustmentMb27{margin-bottom:27px}.ph-adjustmentPl27{padding-left:27px}.ph-adjustmentPr27{padding-right:27px}.ph-adjustmentPt27{padding-top:27px}.ph-adjustmentPb27{padding-bottom:27px}.ph-adjustmentMl28{margin-left:28px}.ph-adjustmentMr28{margin-right:28px}.ph-adjustmentMt28{margin-top:28px}.ph-adjustmentMb28{margin-bottom:28px}.ph-adjustmentPl28{padding-left:28px}.ph-adjustmentPr28{padding-right:28px}.ph-adjustmentPt28{padding-top:28px}.ph-adjustmentPb28{padding-bottom:28px}.ph-adjustmentMl29{margin-left:29px}.ph-adjustmentMr29{margin-right:29px}.ph-adjustmentMt29{margin-top:29px}.ph-adjustmentMb29{margin-bottom:29px}.ph-adjustmentPl29{padding-left:29px}.ph-adjustmentPr29{padding-right:29px}.ph-adjustmentPt29{padding-top:29px}.ph-adjustmentPb29{padding-bottom:29px}.ph-adjustmentMl30{margin-left:30px}.ph-adjustmentMr30{margin-right:30px}.ph-adjustmentMt30{margin-top:30px}.ph-adjustmentMb30{margin-bottom:30px}.ph-adjustmentPl30{padding-left:30px}.ph-adjustmentPr30{padding-right:30px}.ph-adjustmentPt30{padding-top:30px}.ph-adjustmentPb30{padding-bottom:30px}.ph-adjustmentMl31{margin-left:31px}.ph-adjustmentMr31{margin-right:31px}.ph-adjustmentMt31{margin-top:31px}.ph-adjustmentMb31{margin-bottom:31px}.ph-adjustmentPl31{padding-left:31px}.ph-adjustmentPr31{padding-right:31px}.ph-adjustmentPt31{padding-top:31px}.ph-adjustmentPb31{padding-bottom:31px}.ph-adjustmentMl32{margin-left:32px}.ph-adjustmentMr32{margin-right:32px}.ph-adjustmentMt32{margin-top:32px}.ph-adjustmentMb32{margin-bottom:32px}.ph-adjustmentPl32{padding-left:32px}.ph-adjustmentPr32{padding-right:32px}.ph-adjustmentPt32{padding-top:32px}.ph-adjustmentPb32{padding-bottom:32px}.ph-adjustmentMl33{margin-left:33px}.ph-adjustmentMr33{margin-right:33px}.ph-adjustmentMt33{margin-top:33px}.ph-adjustmentMb33{margin-bottom:33px}.ph-adjustmentPl33{padding-left:33px}.ph-adjustmentPr33{padding-right:33px}.ph-adjustmentPt33{padding-top:33px}.ph-adjustmentPb33{padding-bottom:33px}.ph-adjustmentMl34{margin-left:34px}.ph-adjustmentMr34{margin-right:34px}.ph-adjustmentMt34{margin-top:34px}.ph-adjustmentMb34{margin-bottom:34px}.ph-adjustmentPl34{padding-left:34px}.ph-adjustmentPr34{padding-right:34px}.ph-adjustmentPt34{padding-top:34px}.ph-adjustmentPb34{padding-bottom:34px}.ph-adjustmentMl35{margin-left:35px}.ph-adjustmentMr35{margin-right:35px}.ph-adjustmentMt35{margin-top:35px}.ph-adjustmentMb35{margin-bottom:35px}.ph-adjustmentPl35{padding-left:35px}.ph-adjustmentPr35{padding-right:35px}.ph-adjustmentPt35{padding-top:35px}.ph-adjustmentPb35{padding-bottom:35px}.ph-adjustmentMl36{margin-left:36px}.ph-adjustmentMr36{margin-right:36px}.ph-adjustmentMt36{margin-top:36px}.ph-adjustmentMb36{margin-bottom:36px}.ph-adjustmentPl36{padding-left:36px}.ph-adjustmentPr36{padding-right:36px}.ph-adjustmentPt36{padding-top:36px}.ph-adjustmentPb36{padding-bottom:36px}.ph-adjustmentMl37{margin-left:37px}.ph-adjustmentMr37{margin-right:37px}.ph-adjustmentMt37{margin-top:37px}.ph-adjustmentMb37{margin-bottom:37px}.ph-adjustmentPl37{padding-left:37px}.ph-adjustmentPr37{padding-right:37px}.ph-adjustmentPt37{padding-top:37px}.ph-adjustmentPb37{padding-bottom:37px}.ph-adjustmentMl38{margin-left:38px}.ph-adjustmentMr38{margin-right:38px}.ph-adjustmentMt38{margin-top:38px}.ph-adjustmentMb38{margin-bottom:38px}.ph-adjustmentPl38{padding-left:38px}.ph-adjustmentPr38{padding-right:38px}.ph-adjustmentPt38{padding-top:38px}.ph-adjustmentPb38{padding-bottom:38px}.ph-adjustmentMl39{margin-left:39px}.ph-adjustmentMr39{margin-right:39px}.ph-adjustmentMt39{margin-top:39px}.ph-adjustmentMb39{margin-bottom:39px}.ph-adjustmentPl39{padding-left:39px}.ph-adjustmentPr39{padding-right:39px}.ph-adjustmentPt39{padding-top:39px}.ph-adjustmentPb39{padding-bottom:39px}.ph-adjustmentMl40{margin-left:40px}.ph-adjustmentMr40{margin-right:40px}.ph-adjustmentMt40{margin-top:40px}.ph-adjustmentMb40{margin-bottom:40px}.ph-adjustmentPl40{padding-left:40px}.ph-adjustmentPr40{padding-right:40px}.ph-adjustmentPt40{padding-top:40px}.ph-adjustmentPb40{padding-bottom:40px}.ph-adjustmentMl41{margin-left:41px}.ph-adjustmentMr41{margin-right:41px}.ph-adjustmentMt41{margin-top:41px}.ph-adjustmentMb41{margin-bottom:41px}.ph-adjustmentPl41{padding-left:41px}.ph-adjustmentPr41{padding-right:41px}.ph-adjustmentPt41{padding-top:41px}.ph-adjustmentPb41{padding-bottom:41px}.ph-adjustmentMl42{margin-left:42px}.ph-adjustmentMr42{margin-right:42px}.ph-adjustmentMt42{margin-top:42px}.ph-adjustmentMb42{margin-bottom:42px}.ph-adjustmentPl42{padding-left:42px}.ph-adjustmentPr42{padding-right:42px}.ph-adjustmentPt42{padding-top:42px}.ph-adjustmentPb42{padding-bottom:42px}.ph-adjustmentMl43{margin-left:43px}.ph-adjustmentMr43{margin-right:43px}.ph-adjustmentMt43{margin-top:43px}.ph-adjustmentMb43{margin-bottom:43px}.ph-adjustmentPl43{padding-left:43px}.ph-adjustmentPr43{padding-right:43px}.ph-adjustmentPt43{padding-top:43px}.ph-adjustmentPb43{padding-bottom:43px}.ph-adjustmentMl44{margin-left:44px}.ph-adjustmentMr44{margin-right:44px}.ph-adjustmentMt44{margin-top:44px}.ph-adjustmentMb44{margin-bottom:44px}.ph-adjustmentPl44{padding-left:44px}.ph-adjustmentPr44{padding-right:44px}.ph-adjustmentPt44{padding-top:44px}.ph-adjustmentPb44{padding-bottom:44px}.ph-adjustmentMl45{margin-left:45px}.ph-adjustmentMr45{margin-right:45px}.ph-adjustmentMt45{margin-top:45px}.ph-adjustmentMb45{margin-bottom:45px}.ph-adjustmentPl45{padding-left:45px}.ph-adjustmentPr45{padding-right:45px}.ph-adjustmentPt45{padding-top:45px}.ph-adjustmentPb45{padding-bottom:45px}.ph-adjustmentMl46{margin-left:46px}.ph-adjustmentMr46{margin-right:46px}.ph-adjustmentMt46{margin-top:46px}.ph-adjustmentMb46{margin-bottom:46px}.ph-adjustmentPl46{padding-left:46px}.ph-adjustmentPr46{padding-right:46px}.ph-adjustmentPt46{padding-top:46px}.ph-adjustmentPb46{padding-bottom:46px}.ph-adjustmentMl47{margin-left:47px}.ph-adjustmentMr47{margin-right:47px}.ph-adjustmentMt47{margin-top:47px}.ph-adjustmentMb47{margin-bottom:47px}.ph-adjustmentPl47{padding-left:47px}.ph-adjustmentPr47{padding-right:47px}.ph-adjustmentPt47{padding-top:47px}.ph-adjustmentPb47{padding-bottom:47px}.ph-adjustmentMl48{margin-left:48px}.ph-adjustmentMr48{margin-right:48px}.ph-adjustmentMt48{margin-top:48px}.ph-adjustmentMb48{margin-bottom:48px}.ph-adjustmentPl48{padding-left:48px}.ph-adjustmentPr48{padding-right:48px}.ph-adjustmentPt48{padding-top:48px}.ph-adjustmentPb48{padding-bottom:48px}.ph-adjustmentMl49{margin-left:49px}.ph-adjustmentMr49{margin-right:49px}.ph-adjustmentMt49{margin-top:49px}.ph-adjustmentMb49{margin-bottom:49px}.ph-adjustmentPl49{padding-left:49px}.ph-adjustmentPr49{padding-right:49px}.ph-adjustmentPt49{padding-top:49px}.ph-adjustmentPb49{padding-bottom:49px}.ph-adjustmentMl50{margin-left:50px}.ph-adjustmentMr50{margin-right:50px}.ph-adjustmentMt50{margin-top:50px}.ph-adjustmentMb50{margin-bottom:50px}.ph-adjustmentPl50{padding-left:50px}.ph-adjustmentPr50{padding-right:50px}.ph-adjustmentPt50{padding-top:50px}.ph-adjustmentPb50{padding-bottom:50px}.ph-adjustmentMl51{margin-left:51px}.ph-adjustmentMr51{margin-right:51px}.ph-adjustmentMt51{margin-top:51px}.ph-adjustmentMb51{margin-bottom:51px}.ph-adjustmentPl51{padding-left:51px}.ph-adjustmentPr51{padding-right:51px}.ph-adjustmentPt51{padding-top:51px}.ph-adjustmentPb51{padding-bottom:51px}.ph-adjustmentMl52{margin-left:52px}.ph-adjustmentMr52{margin-right:52px}.ph-adjustmentMt52{margin-top:52px}.ph-adjustmentMb52{margin-bottom:52px}.ph-adjustmentPl52{padding-left:52px}.ph-adjustmentPr52{padding-right:52px}.ph-adjustmentPt52{padding-top:52px}.ph-adjustmentPb52{padding-bottom:52px}.ph-adjustmentMl53{margin-left:53px}.ph-adjustmentMr53{margin-right:53px}.ph-adjustmentMt53{margin-top:53px}.ph-adjustmentMb53{margin-bottom:53px}.ph-adjustmentPl53{padding-left:53px}.ph-adjustmentPr53{padding-right:53px}.ph-adjustmentPt53{padding-top:53px}.ph-adjustmentPb53{padding-bottom:53px}.ph-adjustmentMl54{margin-left:54px}.ph-adjustmentMr54{margin-right:54px}.ph-adjustmentMt54{margin-top:54px}.ph-adjustmentMb54{margin-bottom:54px}.ph-adjustmentPl54{padding-left:54px}.ph-adjustmentPr54{padding-right:54px}.ph-adjustmentPt54{padding-top:54px}.ph-adjustmentPb54{padding-bottom:54px}.ph-adjustmentMl55{margin-left:55px}.ph-adjustmentMr55{margin-right:55px}.ph-adjustmentMt55{margin-top:55px}.ph-adjustmentMb55{margin-bottom:55px}.ph-adjustmentPl55{padding-left:55px}.ph-adjustmentPr55{padding-right:55px}.ph-adjustmentPt55{padding-top:55px}.ph-adjustmentPb55{padding-bottom:55px}.ph-adjustmentMl56{margin-left:56px}.ph-adjustmentMr56{margin-right:56px}.ph-adjustmentMt56{margin-top:56px}.ph-adjustmentMb56{margin-bottom:56px}.ph-adjustmentPl56{padding-left:56px}.ph-adjustmentPr56{padding-right:56px}.ph-adjustmentPt56{padding-top:56px}.ph-adjustmentPb56{padding-bottom:56px}.ph-adjustmentMl57{margin-left:57px}.ph-adjustmentMr57{margin-right:57px}.ph-adjustmentMt57{margin-top:57px}.ph-adjustmentMb57{margin-bottom:57px}.ph-adjustmentPl57{padding-left:57px}.ph-adjustmentPr57{padding-right:57px}.ph-adjustmentPt57{padding-top:57px}.ph-adjustmentPb57{padding-bottom:57px}.ph-adjustmentMl58{margin-left:58px}.ph-adjustmentMr58{margin-right:58px}.ph-adjustmentMt58{margin-top:58px}.ph-adjustmentMb58{margin-bottom:58px}.ph-adjustmentPl58{padding-left:58px}.ph-adjustmentPr58{padding-right:58px}.ph-adjustmentPt58{padding-top:58px}.ph-adjustmentPb58{padding-bottom:58px}.ph-adjustmentMl59{margin-left:59px}.ph-adjustmentMr59{margin-right:59px}.ph-adjustmentMt59{margin-top:59px}.ph-adjustmentMb59{margin-bottom:59px}.ph-adjustmentPl59{padding-left:59px}.ph-adjustmentPr59{padding-right:59px}.ph-adjustmentPt59{padding-top:59px}.ph-adjustmentPb59{padding-bottom:59px}.ph-adjustmentMl60{margin-left:60px}.ph-adjustmentMr60{margin-right:60px}.ph-adjustmentMt60{margin-top:60px}.ph-adjustmentMb60{margin-bottom:60px}.ph-adjustmentPl60{padding-left:60px}.ph-adjustmentPr60{padding-right:60px}.ph-adjustmentPt60{padding-top:60px}.ph-adjustmentPb60{padding-bottom:60px}.ph-adjustmentMl61{margin-left:61px}.ph-adjustmentMr61{margin-right:61px}.ph-adjustmentMt61{margin-top:61px}.ph-adjustmentMb61{margin-bottom:61px}.ph-adjustmentPl61{padding-left:61px}.ph-adjustmentPr61{padding-right:61px}.ph-adjustmentPt61{padding-top:61px}.ph-adjustmentPb61{padding-bottom:61px}.ph-adjustmentMl62{margin-left:62px}.ph-adjustmentMr62{margin-right:62px}.ph-adjustmentMt62{margin-top:62px}.ph-adjustmentMb62{margin-bottom:62px}.ph-adjustmentPl62{padding-left:62px}.ph-adjustmentPr62{padding-right:62px}.ph-adjustmentPt62{padding-top:62px}.ph-adjustmentPb62{padding-bottom:62px}.ph-adjustmentMl63{margin-left:63px}.ph-adjustmentMr63{margin-right:63px}.ph-adjustmentMt63{margin-top:63px}.ph-adjustmentMb63{margin-bottom:63px}.ph-adjustmentPl63{padding-left:63px}.ph-adjustmentPr63{padding-right:63px}.ph-adjustmentPt63{padding-top:63px}.ph-adjustmentPb63{padding-bottom:63px}.ph-adjustmentMl64{margin-left:64px}.ph-adjustmentMr64{margin-right:64px}.ph-adjustmentMt64{margin-top:64px}.ph-adjustmentMb64{margin-bottom:64px}.ph-adjustmentPl64{padding-left:64px}.ph-adjustmentPr64{padding-right:64px}.ph-adjustmentPt64{padding-top:64px}.ph-adjustmentPb64{padding-bottom:64px}.ph-adjustmentMl65{margin-left:65px}.ph-adjustmentMr65{margin-right:65px}.ph-adjustmentMt65{margin-top:65px}.ph-adjustmentMb65{margin-bottom:65px}.ph-adjustmentPl65{padding-left:65px}.ph-adjustmentPr65{padding-right:65px}.ph-adjustmentPt65{padding-top:65px}.ph-adjustmentPb65{padding-bottom:65px}.ph-adjustmentMl66{margin-left:66px}.ph-adjustmentMr66{margin-right:66px}.ph-adjustmentMt66{margin-top:66px}.ph-adjustmentMb66{margin-bottom:66px}.ph-adjustmentPl66{padding-left:66px}.ph-adjustmentPr66{padding-right:66px}.ph-adjustmentPt66{padding-top:66px}.ph-adjustmentPb66{padding-bottom:66px}.ph-adjustmentMl67{margin-left:67px}.ph-adjustmentMr67{margin-right:67px}.ph-adjustmentMt67{margin-top:67px}.ph-adjustmentMb67{margin-bottom:67px}.ph-adjustmentPl67{padding-left:67px}.ph-adjustmentPr67{padding-right:67px}.ph-adjustmentPt67{padding-top:67px}.ph-adjustmentPb67{padding-bottom:67px}.ph-adjustmentMl68{margin-left:68px}.ph-adjustmentMr68{margin-right:68px}.ph-adjustmentMt68{margin-top:68px}.ph-adjustmentMb68{margin-bottom:68px}.ph-adjustmentPl68{padding-left:68px}.ph-adjustmentPr68{padding-right:68px}.ph-adjustmentPt68{padding-top:68px}.ph-adjustmentPb68{padding-bottom:68px}.ph-adjustmentMl69{margin-left:69px}.ph-adjustmentMr69{margin-right:69px}.ph-adjustmentMt69{margin-top:69px}.ph-adjustmentMb69{margin-bottom:69px}.ph-adjustmentPl69{padding-left:69px}.ph-adjustmentPr69{padding-right:69px}.ph-adjustmentPt69{padding-top:69px}.ph-adjustmentPb69{padding-bottom:69px}.ph-adjustmentMl70{margin-left:70px}.ph-adjustmentMr70{margin-right:70px}.ph-adjustmentMt70{margin-top:70px}.ph-adjustmentMb70{margin-bottom:70px}.ph-adjustmentPl70{padding-left:70px}.ph-adjustmentPr70{padding-right:70px}.ph-adjustmentPt70{padding-top:70px}.ph-adjustmentPb70{padding-bottom:70px}.ph-adjustmentMl71{margin-left:71px}.ph-adjustmentMr71{margin-right:71px}.ph-adjustmentMt71{margin-top:71px}.ph-adjustmentMb71{margin-bottom:71px}.ph-adjustmentPl71{padding-left:71px}.ph-adjustmentPr71{padding-right:71px}.ph-adjustmentPt71{padding-top:71px}.ph-adjustmentPb71{padding-bottom:71px}.ph-adjustmentMl72{margin-left:72px}.ph-adjustmentMr72{margin-right:72px}.ph-adjustmentMt72{margin-top:72px}.ph-adjustmentMb72{margin-bottom:72px}.ph-adjustmentPl72{padding-left:72px}.ph-adjustmentPr72{padding-right:72px}.ph-adjustmentPt72{padding-top:72px}.ph-adjustmentPb72{padding-bottom:72px}.ph-adjustmentMl73{margin-left:73px}.ph-adjustmentMr73{margin-right:73px}.ph-adjustmentMt73{margin-top:73px}.ph-adjustmentMb73{margin-bottom:73px}.ph-adjustmentPl73{padding-left:73px}.ph-adjustmentPr73{padding-right:73px}.ph-adjustmentPt73{padding-top:73px}.ph-adjustmentPb73{padding-bottom:73px}.ph-adjustmentMl74{margin-left:74px}.ph-adjustmentMr74{margin-right:74px}.ph-adjustmentMt74{margin-top:74px}.ph-adjustmentMb74{margin-bottom:74px}.ph-adjustmentPl74{padding-left:74px}.ph-adjustmentPr74{padding-right:74px}.ph-adjustmentPt74{padding-top:74px}.ph-adjustmentPb74{padding-bottom:74px}.ph-adjustmentMl75{margin-left:75px}.ph-adjustmentMr75{margin-right:75px}.ph-adjustmentMt75{margin-top:75px}.ph-adjustmentMb75{margin-bottom:75px}.ph-adjustmentPl75{padding-left:75px}.ph-adjustmentPr75{padding-right:75px}.ph-adjustmentPt75{padding-top:75px}.ph-adjustmentPb75{padding-bottom:75px}.ph-adjustmentMl76{margin-left:76px}.ph-adjustmentMr76{margin-right:76px}.ph-adjustmentMt76{margin-top:76px}.ph-adjustmentMb76{margin-bottom:76px}.ph-adjustmentPl76{padding-left:76px}.ph-adjustmentPr76{padding-right:76px}.ph-adjustmentPt76{padding-top:76px}.ph-adjustmentPb76{padding-bottom:76px}.ph-adjustmentMl77{margin-left:77px}.ph-adjustmentMr77{margin-right:77px}.ph-adjustmentMt77{margin-top:77px}.ph-adjustmentMb77{margin-bottom:77px}.ph-adjustmentPl77{padding-left:77px}.ph-adjustmentPr77{padding-right:77px}.ph-adjustmentPt77{padding-top:77px}.ph-adjustmentPb77{padding-bottom:77px}.ph-adjustmentMl78{margin-left:78px}.ph-adjustmentMr78{margin-right:78px}.ph-adjustmentMt78{margin-top:78px}.ph-adjustmentMb78{margin-bottom:78px}.ph-adjustmentPl78{padding-left:78px}.ph-adjustmentPr78{padding-right:78px}.ph-adjustmentPt78{padding-top:78px}.ph-adjustmentPb78{padding-bottom:78px}.ph-adjustmentMl79{margin-left:79px}.ph-adjustmentMr79{margin-right:79px}.ph-adjustmentMt79{margin-top:79px}.ph-adjustmentMb79{margin-bottom:79px}.ph-adjustmentPl79{padding-left:79px}.ph-adjustmentPr79{padding-right:79px}.ph-adjustmentPt79{padding-top:79px}.ph-adjustmentPb79{padding-bottom:79px}.ph-adjustmentMl80{margin-left:80px}.ph-adjustmentMr80{margin-right:80px}.ph-adjustmentMt80{margin-top:80px}.ph-adjustmentMb80{margin-bottom:80px}.ph-adjustmentPl80{padding-left:80px}.ph-adjustmentPr80{padding-right:80px}.ph-adjustmentPt80{padding-top:80px}.ph-adjustmentPb80{padding-bottom:80px}.ph-adjustmentMl81{margin-left:81px}.ph-adjustmentMr81{margin-right:81px}.ph-adjustmentMt81{margin-top:81px}.ph-adjustmentMb81{margin-bottom:81px}.ph-adjustmentPl81{padding-left:81px}.ph-adjustmentPr81{padding-right:81px}.ph-adjustmentPt81{padding-top:81px}.ph-adjustmentPb81{padding-bottom:81px}.ph-adjustmentMl82{margin-left:82px}.ph-adjustmentMr82{margin-right:82px}.ph-adjustmentMt82{margin-top:82px}.ph-adjustmentMb82{margin-bottom:82px}.ph-adjustmentPl82{padding-left:82px}.ph-adjustmentPr82{padding-right:82px}.ph-adjustmentPt82{padding-top:82px}.ph-adjustmentPb82{padding-bottom:82px}.ph-adjustmentMl83{margin-left:83px}.ph-adjustmentMr83{margin-right:83px}.ph-adjustmentMt83{margin-top:83px}.ph-adjustmentMb83{margin-bottom:83px}.ph-adjustmentPl83{padding-left:83px}.ph-adjustmentPr83{padding-right:83px}.ph-adjustmentPt83{padding-top:83px}.ph-adjustmentPb83{padding-bottom:83px}.ph-adjustmentMl84{margin-left:84px}.ph-adjustmentMr84{margin-right:84px}.ph-adjustmentMt84{margin-top:84px}.ph-adjustmentMb84{margin-bottom:84px}.ph-adjustmentPl84{padding-left:84px}.ph-adjustmentPr84{padding-right:84px}.ph-adjustmentPt84{padding-top:84px}.ph-adjustmentPb84{padding-bottom:84px}.ph-adjustmentMl85{margin-left:85px}.ph-adjustmentMr85{margin-right:85px}.ph-adjustmentMt85{margin-top:85px}.ph-adjustmentMb85{margin-bottom:85px}.ph-adjustmentPl85{padding-left:85px}.ph-adjustmentPr85{padding-right:85px}.ph-adjustmentPt85{padding-top:85px}.ph-adjustmentPb85{padding-bottom:85px}.ph-adjustmentMl86{margin-left:86px}.ph-adjustmentMr86{margin-right:86px}.ph-adjustmentMt86{margin-top:86px}.ph-adjustmentMb86{margin-bottom:86px}.ph-adjustmentPl86{padding-left:86px}.ph-adjustmentPr86{padding-right:86px}.ph-adjustmentPt86{padding-top:86px}.ph-adjustmentPb86{padding-bottom:86px}.ph-adjustmentMl87{margin-left:87px}.ph-adjustmentMr87{margin-right:87px}.ph-adjustmentMt87{margin-top:87px}.ph-adjustmentMb87{margin-bottom:87px}.ph-adjustmentPl87{padding-left:87px}.ph-adjustmentPr87{padding-right:87px}.ph-adjustmentPt87{padding-top:87px}.ph-adjustmentPb87{padding-bottom:87px}.ph-adjustmentMl88{margin-left:88px}.ph-adjustmentMr88{margin-right:88px}.ph-adjustmentMt88{margin-top:88px}.ph-adjustmentMb88{margin-bottom:88px}.ph-adjustmentPl88{padding-left:88px}.ph-adjustmentPr88{padding-right:88px}.ph-adjustmentPt88{padding-top:88px}.ph-adjustmentPb88{padding-bottom:88px}.ph-adjustmentMl89{margin-left:89px}.ph-adjustmentMr89{margin-right:89px}.ph-adjustmentMt89{margin-top:89px}.ph-adjustmentMb89{margin-bottom:89px}.ph-adjustmentPl89{padding-left:89px}.ph-adjustmentPr89{padding-right:89px}.ph-adjustmentPt89{padding-top:89px}.ph-adjustmentPb89{padding-bottom:89px}.ph-adjustmentMl90{margin-left:90px}.ph-adjustmentMr90{margin-right:90px}.ph-adjustmentMt90{margin-top:90px}.ph-adjustmentMb90{margin-bottom:90px}.ph-adjustmentPl90{padding-left:90px}.ph-adjustmentPr90{padding-right:90px}.ph-adjustmentPt90{padding-top:90px}.ph-adjustmentPb90{padding-bottom:90px}.ph-adjustmentMl91{margin-left:91px}.ph-adjustmentMr91{margin-right:91px}.ph-adjustmentMt91{margin-top:91px}.ph-adjustmentMb91{margin-bottom:91px}.ph-adjustmentPl91{padding-left:91px}.ph-adjustmentPr91{padding-right:91px}.ph-adjustmentPt91{padding-top:91px}.ph-adjustmentPb91{padding-bottom:91px}.ph-adjustmentMl92{margin-left:92px}.ph-adjustmentMr92{margin-right:92px}.ph-adjustmentMt92{margin-top:92px}.ph-adjustmentMb92{margin-bottom:92px}.ph-adjustmentPl92{padding-left:92px}.ph-adjustmentPr92{padding-right:92px}.ph-adjustmentPt92{padding-top:92px}.ph-adjustmentPb92{padding-bottom:92px}.ph-adjustmentMl93{margin-left:93px}.ph-adjustmentMr93{margin-right:93px}.ph-adjustmentMt93{margin-top:93px}.ph-adjustmentMb93{margin-bottom:93px}.ph-adjustmentPl93{padding-left:93px}.ph-adjustmentPr93{padding-right:93px}.ph-adjustmentPt93{padding-top:93px}.ph-adjustmentPb93{padding-bottom:93px}.ph-adjustmentMl94{margin-left:94px}.ph-adjustmentMr94{margin-right:94px}.ph-adjustmentMt94{margin-top:94px}.ph-adjustmentMb94{margin-bottom:94px}.ph-adjustmentPl94{padding-left:94px}.ph-adjustmentPr94{padding-right:94px}.ph-adjustmentPt94{padding-top:94px}.ph-adjustmentPb94{padding-bottom:94px}.ph-adjustmentMl95{margin-left:95px}.ph-adjustmentMr95{margin-right:95px}.ph-adjustmentMt95{margin-top:95px}.ph-adjustmentMb95{margin-bottom:95px}.ph-adjustmentPl95{padding-left:95px}.ph-adjustmentPr95{padding-right:95px}.ph-adjustmentPt95{padding-top:95px}.ph-adjustmentPb95{padding-bottom:95px}.ph-adjustmentMl96{margin-left:96px}.ph-adjustmentMr96{margin-right:96px}.ph-adjustmentMt96{margin-top:96px}.ph-adjustmentMb96{margin-bottom:96px}.ph-adjustmentPl96{padding-left:96px}.ph-adjustmentPr96{padding-right:96px}.ph-adjustmentPt96{padding-top:96px}.ph-adjustmentPb96{padding-bottom:96px}.ph-adjustmentMl97{margin-left:97px}.ph-adjustmentMr97{margin-right:97px}.ph-adjustmentMt97{margin-top:97px}.ph-adjustmentMb97{margin-bottom:97px}.ph-adjustmentPl97{padding-left:97px}.ph-adjustmentPr97{padding-right:97px}.ph-adjustmentPt97{padding-top:97px}.ph-adjustmentPb97{padding-bottom:97px}.ph-adjustmentMl98{margin-left:98px}.ph-adjustmentMr98{margin-right:98px}.ph-adjustmentMt98{margin-top:98px}.ph-adjustmentMb98{margin-bottom:98px}.ph-adjustmentPl98{padding-left:98px}.ph-adjustmentPr98{padding-right:98px}.ph-adjustmentPt98{padding-top:98px}.ph-adjustmentPb98{padding-bottom:98px}.ph-adjustmentMl99{margin-left:99px}.ph-adjustmentMr99{margin-right:99px}.ph-adjustmentMt99{margin-top:99px}.ph-adjustmentMb99{margin-bottom:99px}.ph-adjustmentPl99{padding-left:99px}.ph-adjustmentPr99{padding-right:99px}.ph-adjustmentPt99{padding-top:99px}.ph-adjustmentPb99{padding-bottom:99px}.ph-adjustmentMl100{margin-left:100px}.ph-adjustmentMr100{margin-right:100px}.ph-adjustmentMt100{margin-top:100px}.ph-adjustmentMb100{margin-bottom:100px}.ph-adjustmentPl100{padding-left:100px}.ph-adjustmentPr100{padding-right:100px}.ph-adjustmentPt100{padding-top:100px}.ph-adjustmentPb100{padding-bottom:100px}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/admin/admin.scss":
 /*!**********************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/admin/admin.scss ***!
@@ -7984,7 +8027,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}.ph-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.ph-between{display:flex;justify-content:space-between}.ph-logoBack{padding:30px;background-color:#000}.ph-logoBack,.ph-logoBackLink,.ph-logoBackLink:active,.ph-logoBackLink:hover,.ph-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.ph-formWrapper{padding:30px}.ph-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.ph-subTitle{margin:30px 0 0}.ph-paragraph{margin:0;padding:0}.ph-paragraphError{color:#ea1213}.ph-input{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff}.ph-input:focus{box-shadow:0 0 3px 3px #0099a2}.ph-selectWrapper{position:relative}.ph-selectWrapper:after{content:\"\";border-bottom:0;border-top:10px solid #444;border-left:7px solid transparent;border-right:7px solid transparent;position:absolute;right:8px;top:4px}.ph-select{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none}.ph-select:focus{box-shadow:0 0 3px 3px #0099a2}.ph-textarea{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff;width:100%;max-width:800px;min-height:200px}.ph-textarea:focus{box-shadow:0 0 3px 3px #0099a2}.ph-inputError{box-shadow:0 0 3px 3px #ea1213}.ph-icon{color:#0099a2}.ph-button{border-radius:6px;border:0}.ph-button,.ph-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.ph-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.ph-submit:hover{background:#0099a2;color:#fafafa}@-webkit-keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@-webkit-keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@-webkit-keyframes loaderRotate{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}18%{-webkit-transform:rotate(156deg);transform:rotate(156deg)}21%{-webkit-transform:rotate(10deg);transform:rotate(10deg)}67%{-webkit-transform:rotate(311deg);transform:rotate(311deg)}89%{-webkit-transform:rotate(26deg);transform:rotate(26deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}@keyframes loaderRotate{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}18%{-webkit-transform:rotate(156deg);transform:rotate(156deg)}21%{-webkit-transform:rotate(10deg);transform:rotate(10deg)}67%{-webkit-transform:rotate(311deg);transform:rotate(311deg)}89%{-webkit-transform:rotate(26deg);transform:rotate(26deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}.ph-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.ph-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;-webkit-animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.ph-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}", ""]);
+exports.push([module.i, "ul{margin:0;padding:0}li{list-style-type:none}@-webkit-keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@keyframes loaderSize{0%{width:80%;height:80%}50%{width:0;height:0}to{width:80%;height:80%}}@-webkit-keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@keyframes loaderRadius{0%{border-radius:100%}30%{border-radius:10%}50%{border-radius:60%}70%{border-radius:50%}to{border-radius:100%}}@-webkit-keyframes loaderRotate{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}18%{-webkit-transform:rotate(156deg);transform:rotate(156deg)}21%{-webkit-transform:rotate(10deg);transform:rotate(10deg)}67%{-webkit-transform:rotate(311deg);transform:rotate(311deg)}89%{-webkit-transform:rotate(26deg);transform:rotate(26deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}@keyframes loaderRotate{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}18%{-webkit-transform:rotate(156deg);transform:rotate(156deg)}21%{-webkit-transform:rotate(10deg);transform:rotate(10deg)}67%{-webkit-transform:rotate(311deg);transform:rotate(311deg)}89%{-webkit-transform:rotate(26deg);transform:rotate(26deg)}to{-webkit-transform:rotate(0deg);transform:rotate(0deg)}}.ph-loaderWrap{display:flex;justify-content:center;align-items:center;width:80px;height:80px;position:relative;margin:30px auto}.ph-loaderBox{border-radius:100%;border:6px solid #0099a2;margin:0;padding:0;-webkit-animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out;animation:loaderRadius .5s infinite ease-in-out,loaderRotate 3s infinite ease-in-out,loaderSize .9s infinite ease-in-out}.ph-loaderMessage{font-size:16px;font-weight:700;color:#0099a2;margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;text-shadow:#fff 2px 0 0,#fff -2px 0 0,#fff 0 -2px 0,#fff 0 2px 0,#fff 2px 2px 0,#fff -2px 2px 0,#fff 2px -2px 0,#fff -2px -2px 0,#fff 1px 2px 0,#fff -1px 2px 0,#fff 1px -2px 0,#fff -1px -2px 0,#fff 2px 1px 0,#fff -2px 1px 0,#fff 2px -1px 0,#fff -2px -1px 0,#fff 1px 1px 0,#fff -1px 1px 0,#fff 1px -1px 0,#fff -1px -1px 0}.loader-fade-enter-active,.loader-fade-leave-active{transition:opacity .2s ease}.loader-fade-enter,.loader-fade-leave-to{opacity:0}.ph-body{font-size:16px;font-family:\\\\6E38\\30B4\\30B7\\30C3\\30AF\\4F53,Yu Gothic,YuGothic,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 Pro,Hiragino Kaku Gothic Pro,\\\\30E1\\30A4\\30EA\\30AA,Meiryo,sans-serif;background-color:#fafafa}.ph-between{display:flex;justify-content:space-between}.ph-logoBack{padding:30px;background-color:#000}.ph-logoBack,.ph-logoBackLink,.ph-logoBackLink:active,.ph-logoBackLink:hover,.ph-logoBackLink:visited{color:#fafafa}.ps-installLogo{margin:auto;max-width:300px;display:block}.ph-formWrapper{padding:30px}.ph-submitWrapper{height:80px;display:flex;justify-content:center;align-items:center}.ph-subTitle{margin:30px 0 0}.ph-paragraph{margin:0;padding:0}.ph-paragraphError{color:#ea1213}.ph-inputWrapper{display:flex;justify-content:flex-start;align-items:center}.ph-inputSubmitWrapper{position:relative;height:0}.ph-inputLoaderWrapper{position:absolute;top:0;bottom:0;left:0;right:0;margin:auto 30px}.ph-input{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff}.ph-input:focus{box-shadow:0 0 3px 3px #0099a2}.ph-selectWrapper{position:relative}.ph-selectWrapper:after{content:\"\";border-bottom:0;border-top:10px solid #444;border-left:7px solid transparent;border-right:7px solid transparent;position:absolute;right:8px;top:4px}.ph-select{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none}.ph-select:focus{box-shadow:0 0 3px 3px #0099a2}.ph-textarea{padding:10px;border:1px solid #444;border-radius:3px;box-shadow:0 0 3px 3px transparent;transition:box-shadow .1s ease-in;background-color:#fff;width:100%;max-width:800px;min-width:400px;min-height:200px}.ph-textarea:focus{box-shadow:0 0 3px 3px #0099a2}.ph-inputError{box-shadow:0 0 3px 3px #ea1213}.ph-icon{color:#0099a2}.ph-button{border-radius:6px;border:0}.ph-button,.ph-submit{padding:10px;background:transparent;text-align:center;cursor:pointer}.ph-submit{border-radius:6px;border:0;border:1px solid #0099a2;background-color:#fafafa;color:#0099a2;transition:background-color,color .3s ease-in}.ph-submit:hover{background:#0099a2;color:#fafafa}", ""]);
 
 // exports
 
@@ -8597,6 +8640,36 @@ if(false) {}
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--1-2!./node_modules/postcss-loader/lib??ref--1-3!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss ***!
+  \*************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader??ref--1-2!../../node_modules/postcss-loader/lib??ref--1-3!../../node_modules/sass-loader/lib/loader.js!./adjustment.scss */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./js/src/adjustment.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -9397,13 +9470,28 @@ __webpack_require__.r(__webpack_exports__);
                 _this.loading = false;
                 //データをVuexから取得
                 var data = _this.$store.getters.getData(['fields', 'data']);
+                //connectingプロパティを仕込みつつthis.fieldsに情報を追加
+                for (var _i = 0, _a = Object.keys(data.fields); _i < _a.length; _i++) {
+                    var k = _a[_i];
+                    _this.$set(_this.fields, k, data.fields[k]);
+                    _this.$set(_this.fields[k], 'connecting', false);
+                }
+                //this.dataの追加
                 _this.data = data.data;
-                _this.fields = data.fields;
             })
                 .catch(function (data) {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
             });
+        },
+        submit: function (key) {
+            var _this = this;
+            //一旦ボタンをローディングアニメーションにする
+            this.$set(this.fields[key], 'connecting', true);
+            this.fields[key].connecting = true;
+            setTimeout(function () {
+                _this.$set(_this.fields[key], 'connecting', false);
+            }, 1000);
         }
     }
 }));
@@ -9630,7 +9718,7 @@ var render = function() {
             !_vm.fields[key].control
               ? _c("div")
               : _vm.fields[key].type === "select"
-                ? _c("div", [
+                ? _c("div", { staticClass: "ph-inputWrapper" }, [
                     _c("label", { staticClass: "ph-selectWrapper" }, [
                       _c(
                         "select",
@@ -9660,10 +9748,47 @@ var render = function() {
                         ],
                         2
                       )
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.fields[key].connecting
+                      ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "ph-loaderWrap ph-inputLoaderWrapper"
+                            },
+                            [
+                              _c("div", { staticClass: "ph-loaderBox" }),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "ph-loaderMessage" }, [
+                                _vm._v("Connecting...")
+                              ])
+                            ]
+                          )
+                        ])
+                      : _c("div", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "ph-submit ph-adjustmentMl10",
+                              attrs: { required: "required", type: "button" },
+                              on: {
+                                click: function($event) {
+                                  _vm.submit(key)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("更新"),
+                              _c("i", {
+                                staticClass: "fas fa-sync-alt ph-adjustmentMl5"
+                              })
+                            ]
+                          )
+                        ])
                   ])
                 : _vm.fields[key].type === "radio"
-                  ? _c("div", [
+                  ? _c("div", { staticClass: "ph-inputWrapper" }, [
                       _c(
                         "ul",
                         _vm._l(_vm.fields[key].options, function(
@@ -9694,10 +9819,49 @@ var render = function() {
                             ])
                           ])
                         })
-                      )
+                      ),
+                      _vm._v(" "),
+                      _vm.fields[key].connecting
+                        ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "ph-loaderWrap ph-inputLoaderWrapper"
+                              },
+                              [
+                                _c("div", { staticClass: "ph-loaderBox" }),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "ph-loaderMessage" }, [
+                                  _vm._v("Connecting...")
+                                ])
+                              ]
+                            )
+                          ])
+                        : _c("div", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "ph-submit ph-adjustmentMl10",
+                                attrs: { required: "required", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.submit(key)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v("更新"),
+                                _c("i", {
+                                  staticClass:
+                                    "fas fa-sync-alt ph-adjustmentMl5"
+                                })
+                              ]
+                            )
+                          ])
                     ])
                   : _vm.fields[key].type === "checkbox"
-                    ? _c("div", [
+                    ? _c("div", { staticClass: "ph-inputWrapper" }, [
                         _c(
                           "ul",
                           _vm._l(_vm.fields[key].options, function(
@@ -9728,26 +9892,174 @@ var render = function() {
                               ])
                             ])
                           })
-                        )
+                        ),
+                        _vm._v(" "),
+                        _vm.fields[key].connecting
+                          ? _c(
+                              "div",
+                              { staticClass: "ph-inputSubmitWrapper" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "ph-loaderWrap ph-inputLoaderWrapper"
+                                  },
+                                  [
+                                    _c("div", { staticClass: "ph-loaderBox" }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "ph-loaderMessage" },
+                                      [_vm._v("Connecting...")]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _c("div", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "ph-submit ph-adjustmentMl10",
+                                  attrs: {
+                                    required: "required",
+                                    type: "button"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.submit(key)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v("更新"),
+                                  _c("i", {
+                                    staticClass:
+                                      "fas fa-sync-alt ph-adjustmentMl5"
+                                  })
+                                ]
+                              )
+                            ])
                       ])
                     : _vm.fields[key].type === "textarea"
-                      ? _c("div", [
+                      ? _c("div", { staticClass: "ph-inputWrapper" }, [
                           _c("label", [
                             _c("textarea", {
                               staticClass: "ph-textarea",
                               attrs: { name: key, type: _vm.fields[key].type },
                               domProps: { innerHTML: _vm._s(datum) }
                             })
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _vm.fields[key].connecting
+                            ? _c(
+                                "div",
+                                { staticClass: "ph-inputSubmitWrapper" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "ph-loaderWrap ph-inputLoaderWrapper"
+                                    },
+                                    [
+                                      _c("div", {
+                                        staticClass: "ph-loaderBox"
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "p",
+                                        { staticClass: "ph-loaderMessage" },
+                                        [_vm._v("Connecting...")]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "ph-submit ph-adjustmentMl10",
+                                    attrs: {
+                                      required: "required",
+                                      type: "button"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.submit(key)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v("更新"),
+                                    _c("i", {
+                                      staticClass:
+                                        "fas fa-sync-alt ph-adjustmentMl5"
+                                    })
+                                  ]
+                                )
+                              ])
                         ])
-                      : _c("div", [
+                      : _c("div", { staticClass: "ph-inputWrapper" }, [
                           _c("label", [
                             _c("input", {
                               staticClass: "ph-input",
                               attrs: { name: key, type: _vm.fields[key].type },
                               domProps: { value: datum }
                             })
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _vm.fields[key].connecting
+                            ? _c(
+                                "div",
+                                { staticClass: "ph-inputSubmitWrapper" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "ph-loaderWrap ph-inputLoaderWrapper"
+                                    },
+                                    [
+                                      _c("div", {
+                                        staticClass: "ph-loaderBox"
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "p",
+                                        { staticClass: "ph-loaderMessage" },
+                                        [_vm._v("Connecting...")]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _c("div", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "ph-submit ph-adjustmentMl10",
+                                    attrs: {
+                                      required: "required",
+                                      type: "button"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.submit(key)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v("更新"),
+                                    _c("i", {
+                                      staticClass:
+                                        "fas fa-sync-alt ph-adjustmentMl5"
+                                    })
+                                  ]
+                                )
+                              ])
                         ])
           ])
         })

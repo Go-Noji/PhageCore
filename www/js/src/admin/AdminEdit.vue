@@ -5,7 +5,7 @@
         <li v-for="(datum, key) in data">
           <p v-if="fields[key].control" class="ph-inputHeader">{{fields[key].label}}</p>
           <div v-if=" ! fields[key].control"></div>
-          <div v-else-if="fields[key].type === 'select'">
+          <div v-else-if="fields[key].type === 'select'" class="ph-inputWrapper">
             <label class="ph-selectWrapper">
               <select :name="key" class="ph-select">
                 <template v-for="(optionKey, optionValue) in fields[key].options">
@@ -14,8 +14,17 @@
                 </template>
               </select>
             </label>
+            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
+              <div class="ph-loaderWrap ph-inputLoaderWrapper">
+                <div class="ph-loaderBox"></div>
+                <p class="ph-loaderMessage">Connecting...</p>
+              </div>
+            </div>
+            <div v-else>
+              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+            </div>
           </div>
-          <div v-else-if="fields[key].type === 'radio'">
+          <div v-else-if="fields[key].type === 'radio'" class="ph-inputWrapper">
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
@@ -25,8 +34,17 @@
                 </label>
               </li>
             </ul>
+            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
+              <div class="ph-loaderWrap ph-inputLoaderWrapper">
+                <div class="ph-loaderBox"></div>
+                <p class="ph-loaderMessage">Connecting...</p>
+              </div>
+            </div>
+            <div v-else>
+              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+            </div>
           </div>
-          <div v-else-if="fields[key].type === 'checkbox'">
+          <div v-else-if="fields[key].type === 'checkbox'" class="ph-inputWrapper">
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
@@ -36,16 +54,43 @@
                 </label>
               </li>
             </ul>
+            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
+              <div class="ph-loaderWrap ph-inputLoaderWrapper">
+                <div class="ph-loaderBox"></div>
+                <p class="ph-loaderMessage">Connecting...</p>
+              </div>
+            </div>
+            <div v-else>
+              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+            </div>
           </div>
-          <div v-else-if="fields[key].type === 'textarea'">
+          <div v-else-if="fields[key].type === 'textarea'" class="ph-inputWrapper">
             <label>
               <textarea :name="key" :type="fields[key].type"v-html="datum" class="ph-textarea"></textarea>
             </label>
+            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
+              <div class="ph-loaderWrap ph-inputLoaderWrapper">
+                <div class="ph-loaderBox"></div>
+                <p class="ph-loaderMessage">Connecting...</p>
+              </div>
+            </div>
+            <div v-else>
+              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+            </div>
           </div>
-          <div v-else>
+          <div v-else class="ph-inputWrapper">
             <label>
               <input :name="key" :value="datum" :type="fields[key].type" class="ph-input">
             </label>
+            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
+              <div class="ph-loaderWrap ph-inputLoaderWrapper">
+                <div class="ph-loaderBox"></div>
+                <p class="ph-loaderMessage">Connecting...</p>
+              </div>
+            </div>
+            <div v-else>
+              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+            </div>
           </div>
         </li>
       </ul>
@@ -60,7 +105,7 @@
   //initAPIから取得できる'fields'のデータ構造
   //キー名がDBのフィールド名で値は描写に使われる人間用の名前
   interface fieldsInterface {
-    [key: string]: {control: boolean, label: string, type: string, options: {[key: string]: string}}
+    [key: string]: {control: boolean, label: string, type: string, options: {[key: string]: string}, connecting: boolean}
   }
 
   //initAPIから取得できる'data'のデータ構造
@@ -119,14 +164,33 @@
               data: dataInterface[]
             } = this.$store.getters.getData(['fields','data']);
 
+            //connectingプロパティを仕込みつつthis.fieldsに情報を追加
+            for (let k of Object.keys(data.fields))
+            {
+              this.$set(this.fields, k, data.fields[k]);
+              this.$set(this.fields[k], 'connecting', false);
+            }
+
+            //this.dataの追加
             this.data = data.data;
-            this.fields = data.fields;
           })
           .catch((data: AxiosError) =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
           });
+      },
+
+      submit: function(key: string)
+      {
+        //一旦ボタンをローディングアニメーションにする
+        this.$set(this.fields[key], 'connecting', true);
+        this.fields[key].connecting = true;
+
+        setTimeout(() =>
+        {
+          this.$set(this.fields[key], 'connecting', false);
+        }, 1000)
       }
     }
   });
