@@ -6,3 +6,4 @@ $lang['staticpage'] = 'static page';
 //バリデーション
 $lang['empty_data'] = '更新するデータが見つかりません';
 $lang['db_error'] = 'データベースエラーが発生しました';
+$lang['bad_access'] = 'アクセスできない操作です';

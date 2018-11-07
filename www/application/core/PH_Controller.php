@@ -40,6 +40,64 @@ class PH_Controller extends CI_Controller
   }
 
   /**
+   * $modelで指定されたStationモデルをロードし、$this->で参照するモデル名を返す
+   * 失敗すると空文字を返す
+   * @param string $model
+   * @return string
+   */
+  private function _load_station($model)
+  {
+    //モデル名の取得
+    $model_name = lcfirst($model.'_station');
+
+    //モデルファイルが存在しなかったら空文字を返す
+    if ( ! file_exists(APPPATH.'models/'.$this->config->item('station_model_directory').'/'.ucfirst($model).'_station.php'))
+    {
+      return '';
+    }
+
+    //対応するModelをmodels/下にあるstationディレクトリからロード
+    //stationディレクトリの名前はconfigs/phage_config.phpに'station_model_directory'の名前で設定されている
+    $this->load->model($this->config->item('station_model_directory').'/'.$model_name);
+
+    //モデル名を返す
+    return $model_name;
+  }
+
+  /**
+   * $model_name->$methodがこのクラスの$actionで呼ばれるべきメソッドか判定する
+   * $actionにはこのメソッドを呼び出したメソッド名(call, mutation等)
+   * $model_nameにはロード済の$this->この部分
+   * $methodには呼び出そうとしている$this->$model_name->この部分
+   * をそれぞれ設定する
+   * @param string $action
+   * @param string $model_name
+   * @param string $method
+   * @return bool
+   */
+  private function _is_method_type($action, $model_name, $method)
+  {
+    return call_user_func_array(array($this->$model_name, 'is_method_type'), array($method, $action));
+  }
+
+  /**
+   * call(), またはmutation()を実行する権限があるか判定する
+   * 継承先でオーバーライドして使う
+   * TRUEを返すことで実行可能・FALSEを返すことで実行不可
+   * $actionは'call'か'mutation'
+   * $modelは呼び出そうとしているStationモデル
+   * $methodは呼び出そうとしているStationモデルのメソッド名が入る
+   * @param string $action
+   * @param string $model
+   * @param string $method
+   * @return bool
+   */
+  protected function _is_qualification($action, $model, $method)
+  {
+    return TRUE;
+  }
+
+  /**
    * JSONを吐き出してスクリプトを終了させる
    * @param int $status
    * @param array $data
@@ -59,20 +117,13 @@ class PH_Controller extends CI_Controller
   }
 
   /**
-   * $modelと$methodによって指定されたstationディレクトリのクラス->メソッドを叩く
+   * $model_nameと$methodによって指定されたstationディレクトリのクラス->メソッドを叩く
    * メソッドの引数には$_POST['augments']を分解したものが割り当てられる
-   * @param $model
-   * @param $method
+   * @param string $model_name
+   * @param string $method
    */
-  protected function _call_method($model, $method)
+  protected function _call_method($model_name, $method)
   {
-    //モデル名の取得
-    $model_name = lcfirst($model.'_station');
-
-    //対応するModelをmodels/下にあるstationディレクトリからロード
-    //stationディレクトリの名前はconfigs/phage_config.phpに'station_model_directory'の名前で設定されている
-    $this->load->model($this->config->item('station_model_directory').'/'.$model_name);
-
     //呼ぶ
     $result = call_user_func_array(array($this->$model_name, $method), (array)$this->input->post('arguments'));
 
@@ -137,7 +188,28 @@ class PH_Controller extends CI_Controller
    */
   public function call($model, $method)
   {
-    $this->_call_method($model, $method);
+    //更新資格があるか確認する
+    if ( ! $this->_is_qualification('call', $model, $method))
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+    }
+
+    //モデルのロード
+    $model_name = $this->_load_station($model);
+
+    //ロードに失敗したら終了
+    if ($model_name === '')
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+    }
+
+    //callタイプのメソッドであるか確認する
+    if ( ! $this->_is_method_type('call', $model_name, $method))
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+    }
+
+    $this->_call_method($model_name, $method);
   }
 
   /**
@@ -150,10 +222,31 @@ class PH_Controller extends CI_Controller
    */
   public function mutation($model, $method)
   {
+    //更新資格があるか確認する
+    if ( ! $this->_is_qualification('mutation', $model, $method))
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+    }
+
     //そもそも更新データが確認できない
     if ( ! $this->input->post('data'))
     {
       $this->_outPutJson(400, array('message' => array('all' => $this->lang->line('empty_data'))));
+    }
+
+    //モデルのロード
+    $model_name = $this->_load_station($model);
+
+    //ロードに失敗したら終了
+    if ($model_name === '')
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+    }
+
+    //mutationタイプのメソッドであるか確認する
+    if ( ! $this->_is_method_type('mutation', $model_name, $method))
+    {
+      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //バリデーションが失敗した場合はエラーメッセージをステータスコード400とともに返却
@@ -163,7 +256,7 @@ class PH_Controller extends CI_Controller
     }
 
     //$this->_call_method()から対象のモデルメソッドを叩く
-    $this->_call_method($model, $method);
+    $this->_call_method($model_name, $method);
   }
 
 }

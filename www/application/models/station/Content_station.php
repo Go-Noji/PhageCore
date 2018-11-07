@@ -21,6 +21,9 @@ class Content_station extends PH_Model
 
     //modelのロード
     $this->load->model('database/content_model');
+
+    //メソッドタイプの定義
+    $this->_set_method_type('multiple', 'call');
   }
 
   /**

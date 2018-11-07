@@ -26,6 +26,9 @@ class Options_station extends PH_Model
   {
     parent::__construct();
 
+    //データベースへの接続
+    $this->load->database();
+
     //データベース・表示の相互変換定義をロード、プロパティに設定
     $this->config->load('phage_data_fields', TRUE);
     $this->FIELDS = $this->config->item('options_data_fields', 'phage_data_fields');
@@ -35,6 +38,11 @@ class Options_station extends PH_Model
 
     //libraryのロード
     $this->load->library('form_validation');
+
+    //メソッドタイプの定義
+    $this->_set_method_type('multiple', 'call');
+    $this->_set_method_type('get', 'call');
+    $this->_set_method_type('set', 'mutation');
   }
 
   /**
