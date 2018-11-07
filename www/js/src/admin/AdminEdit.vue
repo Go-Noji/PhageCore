@@ -14,15 +14,7 @@
                 </template>
               </select>
             </label>
-            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
-              <div class="ph-loaderWrap ph-inputLoaderWrapper">
-                <div class="ph-loaderBox"></div>
-                <p class="ph-loaderMessage">Connecting...</p>
-              </div>
-            </div>
-            <div v-else>
-              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-            </div>
+            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'radio'" class="ph-inputWrapper">
             <ul>
@@ -34,15 +26,7 @@
                 </label>
               </li>
             </ul>
-            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
-              <div class="ph-loaderWrap ph-inputLoaderWrapper">
-                <div class="ph-loaderBox"></div>
-                <p class="ph-loaderMessage">Connecting...</p>
-              </div>
-            </div>
-            <div v-else>
-              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-            </div>
+            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'checkbox'" class="ph-inputWrapper">
             <ul>
@@ -54,43 +38,19 @@
                 </label>
               </li>
             </ul>
-            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
-              <div class="ph-loaderWrap ph-inputLoaderWrapper">
-                <div class="ph-loaderBox"></div>
-                <p class="ph-loaderMessage">Connecting...</p>
-              </div>
-            </div>
-            <div v-else>
-              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-            </div>
+            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'textarea'" class="ph-inputWrapper">
             <label>
               <textarea :name="key" :type="fields[key].type"v-html="datum" class="ph-textarea"></textarea>
             </label>
-            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
-              <div class="ph-loaderWrap ph-inputLoaderWrapper">
-                <div class="ph-loaderBox"></div>
-                <p class="ph-loaderMessage">Connecting...</p>
-              </div>
-            </div>
-            <div v-else>
-              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-            </div>
+            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
           </div>
           <div v-else class="ph-inputWrapper">
             <label>
               <input :name="key" :value="datum" :type="fields[key].type" class="ph-input">
             </label>
-            <div v-if="fields[key].connecting" class="ph-inputSubmitWrapper">
-              <div class="ph-loaderWrap ph-inputLoaderWrapper">
-                <div class="ph-loaderBox"></div>
-                <p class="ph-loaderMessage">Connecting...</p>
-              </div>
-            </div>
-            <div v-else>
-              <button @click="submit(key)" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-            </div>
+            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
           </div>
         </li>
       </ul>
@@ -101,6 +61,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import {AxiosError} from 'axios';
+  import AdminEditSubmit from './AdminEditSubmit.vue';
 
   //initAPIから取得できる'fields'のデータ構造
   //キー名がDBのフィールド名で値は描写に使われる人間用の名前
@@ -115,6 +76,9 @@
   }
 
   export default Vue.extend({
+    components: {
+      AdminEditSubmit
+    },
     props: {
       initApi: {
         type: String,
@@ -180,18 +144,6 @@
             this.loading = false;
           });
       },
-
-      submit: function(key: string)
-      {
-        //一旦ボタンをローディングアニメーションにする
-        this.$set(this.fields[key], 'connecting', true);
-        this.fields[key].connecting = true;
-
-        setTimeout(() =>
-        {
-          this.$set(this.fields[key], 'connecting', false);
-        }, 1000)
-      }
     }
   });
 </script>

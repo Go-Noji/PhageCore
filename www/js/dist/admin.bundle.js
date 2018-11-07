@@ -273,6 +273,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./js/src/admin/AdminEditSubmit.vue":
+/*!******************************************!*\
+  !*** ./js/src/admin/AdminEditSubmit.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true&");
+/* harmony import */ var _AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=script&lang=js& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "45eb77ee",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "js/src/admin/AdminEditSubmit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&":
+/*!***************************************************************************************************!*\
+  !*** ./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-style-loader!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--2-2!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--2-3!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_2_2_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_lib_index_js_ref_2_3_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true&":
+/*!*************************************************************************************!*\
+  !*** ./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./js/src/admin/AdminWindow.vue":
 /*!**************************************!*\
   !*** ./js/src/admin/AdminWindow.vue ***!
@@ -8072,6 +8159,25 @@ exports.push([module.i, "", ""]);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--2-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--2-3!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminWindow.vue?vue&type=style&index=0&id=6bd78c1c&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--2-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--2-3!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminWindow.vue?vue&type=style&index=0&id=6bd78c1c&scoped=true&lang=css& ***!
@@ -8793,6 +8899,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--2-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--2-3!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--2-2!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--2-3!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminWindow.vue?vue&type=style&index=0&id=6bd78c1c&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--2-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--2-3!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminWindow.vue?vue&type=style&index=0&id=6bd78c1c&scoped=true&lang=css& ***!
@@ -9430,8 +9566,13 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _AdminEditSubmit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminEditSubmit.vue */ "./js/src/admin/AdminEditSubmit.vue");
+
 
 /* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    components: {
+        AdminEditSubmit: _AdminEditSubmit_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    },
     props: {
         initApi: {
             type: String,
@@ -9484,15 +9625,6 @@ __webpack_require__.r(__webpack_exports__);
                 _this.loading = false;
             });
         },
-        submit: function (key) {
-            var _this = this;
-            //一旦ボタンをローディングアニメーションにする
-            this.$set(this.fields[key], 'connecting', true);
-            this.fields[key].connecting = true;
-            setTimeout(function () {
-                _this.$set(_this.fields[key], 'connecting', false);
-            }, 1000);
-        }
     }
 }));
 
@@ -9688,6 +9820,78 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+  props: {
+    //更新する際の通信に使うためのURL
+    initApi: {
+      type: String,
+      required: true,
+      default: ''
+    },
+
+    //親から渡される表示定義
+    fields: {
+      type: Object,
+      required: true
+    },
+
+    //このコンポネートが表示される部分のキー
+    name: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
+    return {
+      connecting: false
+    }
+  },
+  methods: {
+    submit: function()
+    {
+      //一旦ボタンをローディングアニメーションにする
+      this.connecting = true;
+
+      setTimeout(() =>
+      {
+        this.connecting = false;
+      }, 1000)
+    }
+  }
+}));
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEdit.vue?vue&type=template&id=374e5394&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEdit.vue?vue&type=template&id=374e5394&scoped=true& ***!
@@ -9718,150 +9922,52 @@ var render = function() {
             !_vm.fields[key].control
               ? _c("div")
               : _vm.fields[key].type === "select"
-                ? _c("div", { staticClass: "ph-inputWrapper" }, [
-                    _c("label", { staticClass: "ph-selectWrapper" }, [
-                      _c(
-                        "select",
-                        { staticClass: "ph-select", attrs: { name: key } },
-                        [
-                          _vm._l(_vm.fields[key].options, function(
-                            optionKey,
-                            optionValue
-                          ) {
-                            return [
-                              optionValue === datum
-                                ? _c(
-                                    "option",
-                                    {
-                                      attrs: { selected: "" },
-                                      domProps: { value: optionValue }
-                                    },
-                                    [_vm._v(_vm._s(optionKey))]
-                                  )
-                                : _c(
-                                    "option",
-                                    { domProps: { value: optionValue } },
-                                    [_vm._v(_vm._s(optionKey))]
-                                  )
-                            ]
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm.fields[key].connecting
-                      ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "ph-loaderWrap ph-inputLoaderWrapper"
-                            },
-                            [
-                              _c("div", { staticClass: "ph-loaderBox" }),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "ph-loaderMessage" }, [
-                                _vm._v("Connecting...")
-                              ])
-                            ]
-                          )
-                        ])
-                      : _c("div", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "ph-submit ph-adjustmentMl10",
-                              attrs: { required: "required", type: "button" },
-                              on: {
-                                click: function($event) {
-                                  _vm.submit(key)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v("更新"),
-                              _c("i", {
-                                staticClass: "fas fa-sync-alt ph-adjustmentMl5"
-                              })
-                            ]
-                          )
-                        ])
-                  ])
-                : _vm.fields[key].type === "radio"
-                  ? _c("div", { staticClass: "ph-inputWrapper" }, [
-                      _c(
-                        "ul",
-                        _vm._l(_vm.fields[key].options, function(
-                          optionKey,
-                          optionValue
-                        ) {
-                          return _c("li", [
-                            _c("label", [
-                              _c("p", { staticClass: "ph-inputHeader" }, [
-                                _vm._v(_vm._s(optionKey))
-                              ]),
-                              _vm._v(" "),
-                              optionValue === datum
-                                ? _c("input", {
-                                    staticClass: "ph-input",
-                                    attrs: {
-                                      name: key,
-                                      type: "radio",
-                                      checked: ""
-                                    },
-                                    domProps: { value: optionValue }
-                                  })
-                                : _c("input", {
-                                    staticClass: "ph-input",
-                                    attrs: { name: key, type: "radio" },
-                                    domProps: { value: optionValue }
-                                  })
-                            ])
-                          ])
-                        })
-                      ),
+                ? _c(
+                    "div",
+                    { staticClass: "ph-inputWrapper" },
+                    [
+                      _c("label", { staticClass: "ph-selectWrapper" }, [
+                        _c(
+                          "select",
+                          { staticClass: "ph-select", attrs: { name: key } },
+                          [
+                            _vm._l(_vm.fields[key].options, function(
+                              optionKey,
+                              optionValue
+                            ) {
+                              return [
+                                optionValue === datum
+                                  ? _c(
+                                      "option",
+                                      {
+                                        attrs: { selected: "" },
+                                        domProps: { value: optionValue }
+                                      },
+                                      [_vm._v(_vm._s(optionKey))]
+                                    )
+                                  : _c(
+                                      "option",
+                                      { domProps: { value: optionValue } },
+                                      [_vm._v(_vm._s(optionKey))]
+                                    )
+                              ]
+                            })
+                          ],
+                          2
+                        )
+                      ]),
                       _vm._v(" "),
-                      _vm.fields[key].connecting
-                        ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "ph-loaderWrap ph-inputLoaderWrapper"
-                              },
-                              [
-                                _c("div", { staticClass: "ph-loaderBox" }),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "ph-loaderMessage" }, [
-                                  _vm._v("Connecting...")
-                                ])
-                              ]
-                            )
-                          ])
-                        : _c("div", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "ph-submit ph-adjustmentMl10",
-                                attrs: { required: "required", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.submit(key)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v("更新"),
-                                _c("i", {
-                                  staticClass:
-                                    "fas fa-sync-alt ph-adjustmentMl5"
-                                })
-                              ]
-                            )
-                          ])
-                    ])
-                  : _vm.fields[key].type === "checkbox"
-                    ? _c("div", { staticClass: "ph-inputWrapper" }, [
+                      _c("AdminEditSubmit", {
+                        attrs: { fields: _vm.fields, name: key, initApi: "" }
+                      })
+                    ],
+                    1
+                  )
+                : _vm.fields[key].type === "radio"
+                  ? _c(
+                      "div",
+                      { staticClass: "ph-inputWrapper" },
+                      [
                         _c(
                           "ul",
                           _vm._l(_vm.fields[key].options, function(
@@ -9879,14 +9985,14 @@ var render = function() {
                                       staticClass: "ph-input",
                                       attrs: {
                                         name: key,
-                                        type: "checkbox",
+                                        type: "radio",
                                         checked: ""
                                       },
                                       domProps: { value: optionValue }
                                     })
                                   : _c("input", {
                                       staticClass: "ph-input",
-                                      attrs: { name: key, type: "checkbox" },
+                                      attrs: { name: key, type: "radio" },
                                       domProps: { value: optionValue }
                                     })
                               ])
@@ -9894,173 +10000,110 @@ var render = function() {
                           })
                         ),
                         _vm._v(" "),
-                        _vm.fields[key].connecting
-                          ? _c(
-                              "div",
-                              { staticClass: "ph-inputSubmitWrapper" },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "ph-loaderWrap ph-inputLoaderWrapper"
-                                  },
-                                  [
-                                    _c("div", { staticClass: "ph-loaderBox" }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "p",
-                                      { staticClass: "ph-loaderMessage" },
-                                      [_vm._v("Connecting...")]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          : _c("div", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "ph-submit ph-adjustmentMl10",
-                                  attrs: {
-                                    required: "required",
-                                    type: "button"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.submit(key)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v("更新"),
-                                  _c("i", {
-                                    staticClass:
-                                      "fas fa-sync-alt ph-adjustmentMl5"
-                                  })
-                                ]
-                              )
-                            ])
-                      ])
+                        _c("AdminEditSubmit", {
+                          attrs: { fields: _vm.fields, name: key, initApi: "" }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm.fields[key].type === "checkbox"
+                    ? _c(
+                        "div",
+                        { staticClass: "ph-inputWrapper" },
+                        [
+                          _c(
+                            "ul",
+                            _vm._l(_vm.fields[key].options, function(
+                              optionKey,
+                              optionValue
+                            ) {
+                              return _c("li", [
+                                _c("label", [
+                                  _c("p", { staticClass: "ph-inputHeader" }, [
+                                    _vm._v(_vm._s(optionKey))
+                                  ]),
+                                  _vm._v(" "),
+                                  optionValue === datum
+                                    ? _c("input", {
+                                        staticClass: "ph-input",
+                                        attrs: {
+                                          name: key,
+                                          type: "checkbox",
+                                          checked: ""
+                                        },
+                                        domProps: { value: optionValue }
+                                      })
+                                    : _c("input", {
+                                        staticClass: "ph-input",
+                                        attrs: { name: key, type: "checkbox" },
+                                        domProps: { value: optionValue }
+                                      })
+                                ])
+                              ])
+                            })
+                          ),
+                          _vm._v(" "),
+                          _c("AdminEditSubmit", {
+                            attrs: {
+                              fields: _vm.fields,
+                              name: key,
+                              initApi: ""
+                            }
+                          })
+                        ],
+                        1
+                      )
                     : _vm.fields[key].type === "textarea"
-                      ? _c("div", { staticClass: "ph-inputWrapper" }, [
-                          _c("label", [
-                            _c("textarea", {
-                              staticClass: "ph-textarea",
-                              attrs: { name: key, type: _vm.fields[key].type },
-                              domProps: { innerHTML: _vm._s(datum) }
+                      ? _c(
+                          "div",
+                          { staticClass: "ph-inputWrapper" },
+                          [
+                            _c("label", [
+                              _c("textarea", {
+                                staticClass: "ph-textarea",
+                                attrs: {
+                                  name: key,
+                                  type: _vm.fields[key].type
+                                },
+                                domProps: { innerHTML: _vm._s(datum) }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("AdminEditSubmit", {
+                              attrs: {
+                                fields: _vm.fields,
+                                name: key,
+                                initApi: ""
+                              }
                             })
-                          ]),
-                          _vm._v(" "),
-                          _vm.fields[key].connecting
-                            ? _c(
-                                "div",
-                                { staticClass: "ph-inputSubmitWrapper" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "ph-loaderWrap ph-inputLoaderWrapper"
-                                    },
-                                    [
-                                      _c("div", {
-                                        staticClass: "ph-loaderBox"
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "p",
-                                        { staticClass: "ph-loaderMessage" },
-                                        [_vm._v("Connecting...")]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "ph-submit ph-adjustmentMl10",
-                                    attrs: {
-                                      required: "required",
-                                      type: "button"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.submit(key)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v("更新"),
-                                    _c("i", {
-                                      staticClass:
-                                        "fas fa-sync-alt ph-adjustmentMl5"
-                                    })
-                                  ]
-                                )
-                              ])
-                        ])
-                      : _c("div", { staticClass: "ph-inputWrapper" }, [
-                          _c("label", [
-                            _c("input", {
-                              staticClass: "ph-input",
-                              attrs: { name: key, type: _vm.fields[key].type },
-                              domProps: { value: datum }
+                          ],
+                          1
+                        )
+                      : _c(
+                          "div",
+                          { staticClass: "ph-inputWrapper" },
+                          [
+                            _c("label", [
+                              _c("input", {
+                                staticClass: "ph-input",
+                                attrs: {
+                                  name: key,
+                                  type: _vm.fields[key].type
+                                },
+                                domProps: { value: datum }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("AdminEditSubmit", {
+                              attrs: {
+                                fields: _vm.fields,
+                                name: key,
+                                initApi: ""
+                              }
                             })
-                          ]),
-                          _vm._v(" "),
-                          _vm.fields[key].connecting
-                            ? _c(
-                                "div",
-                                { staticClass: "ph-inputSubmitWrapper" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "ph-loaderWrap ph-inputLoaderWrapper"
-                                    },
-                                    [
-                                      _c("div", {
-                                        staticClass: "ph-loaderBox"
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "p",
-                                        { staticClass: "ph-loaderMessage" },
-                                        [_vm._v("Connecting...")]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _c("div", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "ph-submit ph-adjustmentMl10",
-                                    attrs: {
-                                      required: "required",
-                                      type: "button"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.submit(key)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v("更新"),
-                                    _c("i", {
-                                      staticClass:
-                                        "fas fa-sync-alt ph-adjustmentMl5"
-                                    })
-                                  ]
-                                )
-                              ])
-                        ])
+                          ],
+                          1
+                        )
           ])
         })
       )
@@ -10068,6 +10111,56 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.connecting
+    ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [_vm._m(0)])
+    : _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "ph-submit ph-adjustmentMl10",
+            attrs: { required: "required", type: "button" },
+            on: { click: _vm.submit }
+          },
+          [
+            _vm._v("更新"),
+            _c("i", { staticClass: "fas fa-sync-alt ph-adjustmentMl5" })
+          ]
+        )
+      ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ph-loaderWrap ph-inputLoaderWrapper" }, [
+      _c("div", { staticClass: "ph-loaderBox" }),
+      _vm._v(" "),
+      _c("p", { staticClass: "ph-loaderMessage" }, [_vm._v("Connecting...")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -13109,6 +13202,27 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
 var update = add("3a815310", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader!./node_modules/style-loader!./node_modules/css-loader??ref--2-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib??ref--2-3!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !../../../node_modules/style-loader!../../../node_modules/css-loader??ref--2-2!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/lib??ref--2-3!../../../node_modules/sass-loader/lib/loader.js!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("31b3b198", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
