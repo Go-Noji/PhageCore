@@ -212,7 +212,7 @@ class Install extends CI_Controller
    * @param array $data
    * @return void
    */
-  protected function _outPutJson($status = 200, $data = array())
+  protected function _output_json($status = 200, $data = array())
   {
     //ステータスコードを仕込んで出力、スクリプト終了
     if ($status !== 200)
@@ -251,7 +251,7 @@ class Install extends CI_Controller
     }
 
     //JSONの出力
-    $this->_outPutJson($result ? 200 : 400, array(
+    $this->_output_json($result ? 200 : 400, array(
       'validation' => $this->error ? array('db_error' => $this->error) : $errors,
     ));
   }

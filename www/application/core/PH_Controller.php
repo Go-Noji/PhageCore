@@ -103,7 +103,7 @@ class PH_Controller extends CI_Controller
    * @param array $data
    * @return void
    */
-  protected function _outPutJson($status = 200, $data = array())
+  protected function _output_json($status = 200, $data = array())
   {
     //ステータスコードを仕込んで出力、スクリプト終了
     if ($status !== 200)
@@ -128,7 +128,7 @@ class PH_Controller extends CI_Controller
     $result = call_user_func_array(array($this->$model_name, $method), (array)$this->input->post('arguments'));
 
     //JSON出力
-    $this->_outPutJson($this->$model_name->is_error() ? 400 : 200, $result);
+    $this->_output_json($this->$model_name->is_error() ? 400 : 200, $result);
   }
 
   /**
@@ -191,7 +191,7 @@ class PH_Controller extends CI_Controller
     //更新資格があるか確認する
     if ( ! $this->_is_qualification('call', $model, $method))
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //モデルのロード
@@ -200,13 +200,13 @@ class PH_Controller extends CI_Controller
     //ロードに失敗したら終了
     if ($model_name === '')
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //callタイプのメソッドであるか確認する
     if ( ! $this->_is_method_type('call', $model_name, $method))
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     $this->_call_method($model_name, $method);
@@ -225,13 +225,13 @@ class PH_Controller extends CI_Controller
     //更新資格があるか確認する
     if ( ! $this->_is_qualification('mutation', $model, $method))
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //そもそも更新データが確認できない
     if ( ! $this->input->post('data'))
     {
-      $this->_outPutJson(400, array('message' => array('all' => $this->lang->line('empty_data'))));
+      $this->_output_json(400, array('message' => array('all' => $this->lang->line('empty_data'))));
     }
 
     //モデルのロード
@@ -240,19 +240,19 @@ class PH_Controller extends CI_Controller
     //ロードに失敗したら終了
     if ($model_name === '')
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //mutationタイプのメソッドであるか確認する
     if ( ! $this->_is_method_type('mutation', $model_name, $method))
     {
-      $this->_outPutJson(400, array('message' => $this->lang->line('bad_access')));
+      $this->_output_json(400, array('message' => $this->lang->line('bad_access')));
     }
 
     //バリデーションが失敗した場合はエラーメッセージをステータスコード400とともに返却
     if ( ! $this->_validation($this->input->post('data'), lcfirst($model.'_station')))
     {
-      $this->_outPutJson(400, array('message' => array_merge(array('all' => ''), $this->validation_messages)));
+      $this->_output_json(400, array('message' => array_merge(array('all' => ''), $this->validation_messages)));
     }
 
     //$this->_call_method()から対象のモデルメソッドを叩く

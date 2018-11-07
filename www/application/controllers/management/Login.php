@@ -66,7 +66,7 @@ class Login extends CI_Controller
    * @param array $data
    * @return void
    */
-  private function _outPutJson($status = 200, $data = array())
+  private function _output_json($status = 200, $data = array())
   {
     //ステータスコードを仕込んで出力、スクリプト終了
     if ($status !== 200)
@@ -104,7 +104,7 @@ class Login extends CI_Controller
    */
   public function getLimitMessage()
   {
-    $this->_outPutJson(200, array('message' => $this->_getLimitMessage()));
+    $this->_output_json(200, array('message' => $this->_getLimitMessage()));
   }
 
   /**
@@ -123,7 +123,7 @@ class Login extends CI_Controller
     {
       $this->login_tool->login($admin['id']);
 
-      $this->_outPutJson(200, array_merge($admin, array('message' => '')));
+      $this->_output_json(200, array_merge($admin, array('message' => '')));
     }
 
 
@@ -132,7 +132,7 @@ class Login extends CI_Controller
     $this->login_tool->set_failure();
 
     //失敗を返す
-    $this->_outPutJson(400, array(
+    $this->_output_json(400, array(
       'message' => $this->_getLimitMessage()
     ));
   }

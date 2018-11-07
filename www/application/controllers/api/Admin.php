@@ -25,7 +25,7 @@ class Admin extends PH_Controller
     //ログインしていなかったら失敗を出力して出力
     if ( ! $this->login_tool->is_login())
     {
-      $this->_outPutJson(400, array('message' => '['.get_class($this).']: 権限が確認できません'));
+      $this->_output_json(400, array('message' => '['.get_class($this).']: 権限が確認できません'));
     }
   }
 
