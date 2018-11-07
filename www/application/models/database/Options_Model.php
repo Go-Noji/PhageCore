@@ -8,7 +8,7 @@
  * @property CI_Config $config
  * @property CI_DB $db
  */
-class Options_model extends PH_Model
+class Options_model extends CI_Model
 {
 
   /**
