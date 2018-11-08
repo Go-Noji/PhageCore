@@ -46,7 +46,7 @@ class Options_model extends CI_Model
    * @param string|null $fallback
    * @return array
    */
-  private function _get_option($key_name, $fallback)
+  public function get_row($key_name, $fallback = NULL)
   {
     //config/options.phpに同名データが存在したら即返却
     if ($this->_is_override($key_name))
@@ -86,19 +86,6 @@ class Options_model extends CI_Model
   }
 
   /**
-   * $key_nameで指定された設定のvalueのみを返却する
-   * 該当データが無かった場合は$fallbackの値がそのまま返る
-   * @param $key_name
-   * @param string|null $fallback
-   * @return string|null
-   */
-  public function get($key_name, $fallback = NULL)
-  {
-    $result = $this->_get_option($key_name, $fallback);
-    return $result['value'];
-  }
-
-  /**
    * 管理画面でコントロール可能なoptionsデータを単体をid指定して取得する
    * コントロール不能のデータはcontrolフィールドの値が0のデータが該当する
    * ただし、$ignoreControlがTRUEだった場合のみcontrolフィールドが無視される
@@ -108,37 +95,37 @@ class Options_model extends CI_Model
    * @param bool $ignoreControl
    * @return array
    */
-  public function get_controllable($id, $ignoreControl = FALSE)
+  public function get_row_by_id($id, $ignoreControl = FALSE)
   {
     //$ignoreControlがTRUEだった場合はcontrolフィールドを無視する
     $whereSQL = $ignoreControl ? 'AND control = 1' : '';
 
     //データベースのデータを取得
-    $query = $this->db->query("
-    SELECT id, key_name, value, description 
-    FROM {$this->db->dbprefix('options')} 
-    WHERE id = ?  
-    {$whereSQL} 
-    LIMIT 1
-    ", array($id));
-    $result = (array)$query->row_array();
+    $result = $this->db
+      ->query("
+      SELECT id, key_name, value, description 
+      FROM {$this->db->dbprefix('options')} 
+      WHERE id = ?  
+      {$whereSQL} 
+      LIMIT 1
+      ", array($id))
+      ->row_array();
 
     //そもそも空、もしくはconfig/options.phpにて上書きされている場合は空配列を返す
     return ! isset($result['key_name']) || $this->_is_override($result['key_name']) ? array() : $result;
   }
 
   /**
-   * _get_option()をそのまま呼び出す
-   * つまり、optionsテーブルの単一レコードを呼び出す
-   * もしDBに該当データが無ければ$fallback(デフォルト)をvalueとし、
-   * idは0, key_nameは$key_nameの疑似的なレコードが返却される
-   * @param string $key_name
+   * $key_nameで指定された設定のvalueのみを返却する
+   * 該当データが無かった場合は$fallbackの値がそのまま返る
+   * @param $key_name
    * @param string|null $fallback
-   * @return array
+   * @return string|null
    */
-  public function get_row($key_name, $fallback = NULL)
+  public function get($key_name, $fallback = NULL)
   {
-    return $this->_get_option($key_name, $fallback);
+    $result = $this->get_row($key_name, $fallback);
+    return $result['value'];
   }
 
   /**
@@ -213,7 +200,7 @@ class Options_model extends CI_Model
    * @param bool $override
    * @return int
    */
-  public function set($key_name, $value, $override = TRUE)
+  public function set_by_key($key_name, $value, $override = TRUE)
   {
     //引数の整形
     $key_name = (string)$key_name;
@@ -246,6 +233,50 @@ class Options_model extends CI_Model
       'key_name' => $key_name,
       'value' => $value
     )) ? $this->db->insert_id() : 0;
+  }
+
+  /**
+   * $idで指定されたデータの
+   * @param $id
+   * @param $field
+   * @param $value
+   * @return int
+   */
+  public function set($id, $field, $value)
+  {
+    //引数の整形
+    $id = (int)$id;
+    $field = (string)$field;
+    $value = (string)$value;
+
+    //$fieldが存在しないフィールドだった場合は0を返す
+    if ( ! in_array($field, array('key_name', 'value', 'description'), TRUE))
+    {
+      return 0;
+    }
+
+    //既に$key_nameで指定された値があるか確認
+    $past = $this->db
+      ->query("
+      SELECT * 
+      FROM {$this->db->dbprefix('options')} 
+      WHERE id = ? 
+      LIMIT 1
+      ", array($id))
+      ->row_array();
+
+    //データが存在しない場合は0を返す
+    if ( ! isset($past['id']))
+    {
+      return 0;
+    }
+
+    //UPDATEを実行し、成功なら変更したレコードのID、失敗なら0を返す
+    return $this->db->update($this->db->dbprefix.'options', array(
+      $field => $value
+    ), array(
+      'id' => $past['id']
+    )) ? (int)$past['id'] : 0;
   }
 
   /**

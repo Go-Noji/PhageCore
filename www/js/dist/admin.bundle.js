@@ -283,7 +283,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=template&id=45eb77ee&scoped=true&");
-/* harmony import */ var _AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=script&lang=js& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AdminEditSubmit_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=script&lang=ts& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts&");
 /* empty/unused harmony star reexport *//* harmony import */ var _AdminEditSubmit_vue_vue_type_style_index_0_id_45eb77ee_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css& */ "./js/src/admin/AdminEditSubmit.vue?vue&type=style&index=0&id=45eb77ee&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -295,7 +295,7 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminEditSubmit_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
   _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _AdminEditSubmit_vue_vue_type_template_id_45eb77ee_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -312,17 +312,17 @@ component.options.__file = "js/src/admin/AdminEditSubmit.vue"
 
 /***/ }),
 
-/***/ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&":
+/***/ "./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts&":
 /*!*******************************************************************!*\
-  !*** ./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js& ***!
+  !*** ./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts& ***!
   \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--3!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminEditSubmit.vue?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminEditSubmit_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -684,7 +684,15 @@ __webpack_require__.r(__webpack_exports__);
                 params.append(csrf_key, csrf_value);
                 //追加パラメータ
                 Object.keys(payload.data).forEach(function (key) {
-                    params.append(key, payload.data[key]);
+                    var value = payload.data[key];
+                    if (typeof value === 'string') {
+                        params.append(key, value);
+                    }
+                    else if (typeof value === 'object') {
+                        Object.keys(value).forEach(function (name) {
+                            params.append(key + '[' + name + ']', value[name]);
+                        });
+                    }
                 });
                 //通信を試みる
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post(site_url + payload.api, params, {
@@ -751,6 +759,7 @@ __webpack_require__.r(__webpack_exports__);
                         component: _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
                         props: {
                             initApi: 'api/admin/call/options/get/',
+                            name: 'options',
                         }
                     }
                 ]
@@ -9613,6 +9622,10 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
             type: String,
             required: true,
             default: ''
+        },
+        name: {
+            type: String,
+            required: true
         }
     },
     data: function () {
@@ -9669,6 +9682,72 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
             });
         },
         changeValue: function () {
+        }
+    }
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts&":
+/*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--3!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=ts& ***!
+  \******************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    props: {
+        //親から渡される表示定義
+        fields: {
+            type: Object,
+            required: true
+        },
+        //このコンポネートが表示される編集画面の項目名
+        name: {
+            type: String,
+            required: true
+        },
+        //このコンポネートが表示される部分のキー名
+        field: {
+            type: String,
+            required: true
+        },
+        //このコンポーネントが送信する値
+        data: {
+            type: String,
+            required: true
+        }
+    },
+    data: function () {
+        return {
+            connecting: false
+        };
+    },
+    methods: {
+        submit: function () {
+            var _this = this;
+            //一旦ボタンをローディングアニメーションにする
+            this.connecting = true;
+            //変更するデータの用意
+            var data = { data: {}, arguments: [this.$route.params.id] };
+            data.data[this.field] = this.data;
+            console.log(data);
+            //サーバーサイドに変更を要請
+            this.$store.dispatch('connectAPI', { api: 'api/admin/mutation/' + this.name + '/set', data: data })
+                .then(function () {
+                //ローディングアニメーションを非表示にする
+                _this.connecting = false;
+            })
+                .catch(function () {
+                //ローディングアニメーションを非表示にする
+                _this.connecting = false;
+            });
         }
     }
 }));
@@ -9872,84 +9951,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEditSubmit.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
-  props: {
-    //更新する際の通信に使うためのURL
-    initApi: {
-      type: String,
-      required: true,
-      default: ''
-    },
-
-    //親から渡される表示定義
-    fields: {
-      type: Object,
-      required: true
-    },
-
-    //このコンポネートが表示される部分のキー
-    name: {
-      type: String,
-      required: true
-    },
-
-    //このコンポーネントが送信する値
-    data: {
-      type: String,
-      required: true
-    }
-  },
-  data () {
-    return {
-      connecting: false
-    }
-  },
-  methods: {
-    submit: function()
-    {
-      //一旦ボタンをローディングアニメーションにする
-      this.connecting = true;
-
-      setTimeout(() =>
-      {
-        this.connecting = false;
-      }, 1000)
-    }
-  }
-}));
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./js/src/admin/AdminEdit.vue?vue&type=template&id=374e5394&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./js/src/admin/AdminEdit.vue?vue&type=template&id=374e5394&scoped=true& ***!
@@ -10018,9 +10019,9 @@ var render = function() {
                       _c("AdminEditSubmit", {
                         attrs: {
                           fields: _vm.fields,
-                          name: key,
-                          data: _vm.data[key],
-                          initApi: ""
+                          name: _vm.name,
+                          field: key,
+                          data: _vm.data[key]
                         }
                       })
                     ],
@@ -10072,9 +10073,9 @@ var render = function() {
                         _c("AdminEditSubmit", {
                           attrs: {
                             fields: _vm.fields,
-                            name: key,
-                            data: _vm.data[key],
-                            initApi: ""
+                            name: _vm.name,
+                            field: key,
+                            data: _vm.data[key]
                           }
                         })
                       ],
@@ -10154,9 +10155,9 @@ var render = function() {
                           _c("AdminEditSubmit", {
                             attrs: {
                               fields: _vm.fields,
-                              name: key,
-                              data: _vm.data[key],
-                              initApi: ""
+                              name: _vm.name,
+                              field: key,
+                              data: _vm.data[key]
                             }
                           })
                         ],
@@ -10197,9 +10198,9 @@ var render = function() {
                             _c("AdminEditSubmit", {
                               attrs: {
                                 fields: _vm.fields,
-                                name: key,
-                                data: _vm.data[key],
-                                initApi: ""
+                                name: _vm.name,
+                                field: key,
+                                data: _vm.data[key]
                               }
                             })
                           ],
@@ -10312,9 +10313,9 @@ var render = function() {
                             _c("AdminEditSubmit", {
                               attrs: {
                                 fields: _vm.fields,
-                                name: key,
-                                data: _vm.data[key],
-                                initApi: ""
+                                name: _vm.name,
+                                field: key,
+                                data: _vm.data[key]
                               }
                             })
                           ],

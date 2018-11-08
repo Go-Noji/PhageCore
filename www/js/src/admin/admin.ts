@@ -126,7 +126,7 @@ interface adminState{
        * @param commit
        * @param payload
        */
-      connect({commit, state}, payload: {api: string, data: {[key: string]: string}})
+      connect({commit, state}, payload: {api: string, data: {[key: string]: string|{[key: string]: string}}})
       {
         //もし同じAPIが通信中だったらその通信をキャンセルする
         if (state.source !== null && state.lastApi === payload.api)
@@ -147,7 +147,18 @@ interface adminState{
         //追加パラメータ
         Object.keys(payload.data).forEach((key: string) =>
         {
-          params.append(key, payload.data[key]);
+          const value: string|{[key: string]: string} = payload.data[key];
+          if (typeof value === 'string')
+          {
+            params.append(key, value);
+          }
+          else if (typeof value === 'object')
+          {
+            Object.keys(value).forEach((name: string) =>
+            {
+              params.append(key+'['+name+']', value[name]);
+            });
+          }
         });
 
         //通信を試みる
@@ -219,6 +230,7 @@ interface adminState{
             component: AdminEdit,
             props: {
               initApi: 'api/admin/call/options/get/',
+              name: 'options',
             }
           }
         ]

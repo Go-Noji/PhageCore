@@ -13,7 +13,7 @@
                 </template>
               </select>
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'radio'" class="ph-inputWrapper">
             <ul>
@@ -24,7 +24,7 @@
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'checkbox'" class="ph-inputWrapper">
             <ul>
@@ -35,19 +35,19 @@
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'textarea'" class="ph-inputWrapper">
             <label>
               <textarea :name="key" :type="fields[key].type" v-model="data[key]" class="ph-textarea"></textarea>
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
           </div>
           <div v-else class="ph-inputWrapper">
             <label>
               <input :name="key" :type="fields[key].type" v-model="data[key]" class="ph-input">
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
           </div>
         </li>
       </ul>
@@ -81,6 +81,10 @@
         type: String,
         required: true,
         default: ''
+      },
+      name: {
+        type: String,
+        required: true
       }
     },
     data () {

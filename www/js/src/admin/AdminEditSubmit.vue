@@ -10,27 +10,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import Vue from 'vue'
   import {AxiosError} from 'axios';
 
   export default Vue.extend({
     props: {
-      //更新する際の通信に使うためのURL
-      initApi: {
-        type: String,
-        required: true,
-        default: ''
-      },
-
       //親から渡される表示定義
       fields: {
         type: Object,
         required: true
       },
 
-      //このコンポネートが表示される部分のキー
+      //このコンポネートが表示される編集画面の項目名
       name: {
+        type: String,
+        required: true
+      },
+
+      //このコンポネートが表示される部分のキー名
+      field: {
         type: String,
         required: true
       },
@@ -52,10 +51,23 @@
         //一旦ボタンをローディングアニメーションにする
         this.connecting = true;
 
-        setTimeout(() =>
-        {
-          this.connecting = false;
-        }, 1000)
+        //変更するデータの用意
+        const data: {data: {[key: string]: string}, arguments: [string]} = {data: {}, arguments: [this.$route.params.id]};
+        data.data[this.field] = this.data;
+        console.log(data);
+
+        //サーバーサイドに変更を要請
+        this.$store.dispatch('connectAPI', {api: 'api/admin/mutation/'+this.name+'/set', data: data})
+          .then(() =>
+          {
+            //ローディングアニメーションを非表示にする
+            this.connecting = false;
+          })
+          .catch(() =>
+          {
+            //ローディングアニメーションを非表示にする
+            this.connecting = false;
+          });
       }
     }
   });

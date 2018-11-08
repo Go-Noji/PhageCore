@@ -67,7 +67,7 @@ class Options_station extends PH_Model
   {
     return array(
       'fields' => $this->FIELDS,
-      'data' => $this->options_model->get_controllable($id)
+      'data' => $this->options_model->get_row_by_id($id)
     );
   }
 
@@ -76,9 +76,10 @@ class Options_station extends PH_Model
    * 更新内容は$_POST['data']内のキーをフィールド名, 値を値として更新する
    * $_POST['data']全項目の更新を試みるが、一つでも失敗したら更新内容は全てロールバックされる
    * 全更新が成功したら200, 失敗したら400でエラーメッセージを返す
+   * @param int $id
    * @return array
    */
-  public function set()
+  public function set($id)
   {
     //更新成功可否
     $results = array('message' => array('all' => ''));
@@ -92,7 +93,8 @@ class Options_station extends PH_Model
       //そもそも定義表に無い or controlがFALSEのデータは更新させない
       if ( ! isset($this->FIELDS[$field]['control']) || ! $this->FIELDS[$field]['control'])
       {
-        $results[] = '存在しない項目のデータは更新できません';
+        $this->error = TRUE;
+        $results['message'][$field] = '存在しない項目のデータは更新できません';
         continue;
       }
 
@@ -100,9 +102,9 @@ class Options_station extends PH_Model
       $results['message'][$field] = '';
 
       //更新を試み、失敗したらエラーメッセージとモデルのステータスを変更する
-      if ( ! $this->options_model->set($field, $value))
+      if ( ! $this->options_model->set($id, $field, $value))
       {
-        $this->error = FALSE;
+        $this->error = TRUE;
         $results['message'][$field] = $this->lang->line('db_error');
       }
     }
