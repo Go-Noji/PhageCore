@@ -62,11 +62,17 @@
           {
             //ローディングアニメーションを非表示にする
             this.connecting = false;
+
+            console.log('success');
+            console.log(this.$store.getters.getData(['message']));
           })
           .catch(() =>
           {
             //ローディングアニメーションを非表示にする
             this.connecting = false;
+
+            console.log('failure');
+            console.log(this.$store.getters.getData(['message']));
           });
       }
     }

@@ -154,11 +154,14 @@ class PH_Controller extends CI_Controller
     //バリデーション対象を$_POSTから$dataへ変更
     $this->form_validation->set_data($fields);
 
+    //バリデーション設定を読み込む
+    $this->config->load('form_validation', TRUE);
+
     //$fieldsに対して必要な設定をロードしてセットする
     foreach ((array)$fields as $field => $value)
     {
       //一旦設定を変数に格納
-      $rule = $this->config->item($model.'_'.$field);
+      $rule = $this->config->item($model.'_'.$field,'form_validation');
 
       //設定が存在した場合のみバリデーション対象とする
       if ( ! isset($rule['field']) || ! isset($rule['label']) || ! isset($rule['rules']))
@@ -250,7 +253,7 @@ class PH_Controller extends CI_Controller
     }
 
     //バリデーションが失敗した場合はエラーメッセージをステータスコード400とともに返却
-    if ( ! $this->_validation($this->input->post('data'), lcfirst($model.'_station')))
+    if ( ! $this->_validation($this->input->post('data'), lcfirst($model)))
     {
       $this->_output_json(400, array('message' => array_merge(array('all' => ''), $this->validation_messages)));
     }

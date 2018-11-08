@@ -9743,10 +9743,14 @@ __webpack_require__.r(__webpack_exports__);
                 .then(function () {
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
+                console.log('success');
+                console.log(_this.$store.getters.getData(['message']));
             })
                 .catch(function () {
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
+                console.log('failure');
+                console.log(_this.$store.getters.getData(['message']));
             });
         }
     }
