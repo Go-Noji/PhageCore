@@ -9788,10 +9788,15 @@ __webpack_require__.r(__webpack_exports__);
             //loading中アイコンとダミーリストを表示する
             this.loading = true;
             //ダミーテーブルの描写
-            this.renderDummyList(10, 10);
+            //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
+            var timer = setTimeout(function () {
+                _this.renderDummyList(10, 10);
+            }, 300);
             //データの入手
             this.$store.dispatch('connectAPI', { api: this.$props.initApi, data: {} })
                 .then(function () {
+                //ダミーテーブル描写のキャンセル
+                clearTimeout(timer);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
                 //データをVuexから取得
@@ -9805,6 +9810,8 @@ __webpack_require__.r(__webpack_exports__);
                 _this.data = data.data;
             })
                 .catch(function (data) {
+                //ダミーテーブル描写のキャンセル
+                clearTimeout(timer);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
             });

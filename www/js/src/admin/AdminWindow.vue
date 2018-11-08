@@ -178,12 +178,19 @@
         this.loading = true;
 
         //ダミーテーブルの描写
-        this.renderDummyList(10, 10);
+        //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
+        const timer = setTimeout(() =>
+        {
+          this.renderDummyList(10, 10);
+        }, 300);
 
         //データの入手
         this.$store.dispatch('connectAPI', {api: this.$props.initApi, data: {}})
           .then(() =>
           {
+            //ダミーテーブル描写のキャンセル
+            clearTimeout(timer);
+
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
@@ -206,6 +213,9 @@
           })
           .catch((data: AxiosError) =>
           {
+            //ダミーテーブル描写のキャンセル
+            clearTimeout(timer);
+
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
           });
