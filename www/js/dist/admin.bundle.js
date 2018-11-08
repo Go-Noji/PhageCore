@@ -8190,7 +8190,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".list-enter-active[data-v-6bd78c1c],.list-leave-active[data-v-6bd78c1c]{transition:opacity .1s ease-in-out,top .1s ease}.list-enter[data-v-6bd78c1c],.list-leave-to[data-v-6bd78c1c]{opacity:0;top:30px}", ""]);
+exports.push([module.i, ".ph-transition-list-enter-active[data-v-6bd78c1c],.ph-transition-list-leave-active[data-v-6bd78c1c]{transition:opacity .1s ease-in-out,top .1s ease}.ph-transition-list-enter[data-v-6bd78c1c],.ph-transition-list-leave-to[data-v-6bd78c1c]{opacity:0;top:30px}", ""]);
 
 // exports
 
@@ -10391,7 +10391,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "list" } }, [
+  return _c("transition", { attrs: { name: "ph-transition-list" } }, [
     _c("section", { key: _vm.name, staticClass: "ph-adminWindow" }, [
       _c("h2", { staticClass: "ph-adminWindowTitle" }, [
         _vm._v(_vm._s(_vm.title))

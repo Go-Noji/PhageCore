@@ -1,5 +1,5 @@
 <template>
-  <transition name="list">
+  <transition name="ph-transition-list">
     <section class="ph-adminWindow" :key="name">
       <h2 class="ph-adminWindowTitle">{{title}}</h2>
       <div class="ph-outerWrapper">
@@ -231,10 +231,10 @@
 </script>
 
 <style scoped type="text/scss">
-  .list-enter-active, .list-leave-active {
+  .ph-transition-list-enter-active, .ph-transition-list-leave-active {
     transition: opacity .1s ease-in-out, top .1s ease;
   }
-  .list-enter, .list-leave-to{
+  .ph-transition-list-enter, .ph-transition-list-leave-to{
     opacity: 0;
     top: 30px;
   }
