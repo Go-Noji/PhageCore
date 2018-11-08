@@ -9,48 +9,45 @@
             <label class="ph-selectWrapper">
               <select :name="key" class="ph-select">
                 <template v-for="(optionKey, optionValue) in fields[key].options">
-                  <option v-if="optionValue === datum" :value="optionValue" selected>{{optionKey}}</option>
-                  <option v-else :value="optionValue">{{optionKey}}</option>
+                  <option v-model="data[key]" :value="optionValue">{{optionKey}}</option>
                 </template>
               </select>
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'radio'" class="ph-inputWrapper">
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
                   <p class="ph-inputHeader">{{optionKey}}</p>
-                  <input v-if="optionValue === datum" :name="key" :value="optionValue" class="ph-input" type="radio" checked>
-                  <input v-else :name="key" :value="optionValue" class="ph-input" type="radio">
+                  <input :name="key" :value="optionValue" v-model="data[key]" class="ph-input" type="radio">
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'checkbox'" class="ph-inputWrapper">
             <ul>
               <li v-for="(optionKey, optionValue) in fields[key].options">
                 <label>
                   <p class="ph-inputHeader">{{optionKey}}</p>
-                  <input v-if="optionValue === datum" :name="key" :value="optionValue" class="ph-input" type="checkbox" checked>
-                  <input v-else :name="key" :value="optionValue" class="ph-input" type="checkbox">
+                  <input :name="key" :value="optionValue" v-model="data[key]" class="ph-input" type="checkbox">
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'textarea'" class="ph-inputWrapper">
             <label>
-              <textarea :name="key" :type="fields[key].type"v-html="datum" class="ph-textarea"></textarea>
+              <textarea :name="key" :type="fields[key].type" v-model="data[key]" class="ph-textarea"></textarea>
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
           </div>
           <div v-else class="ph-inputWrapper">
             <label>
-              <input :name="key" :value="datum" :type="fields[key].type" class="ph-input">
+              <input :name="key" :type="fields[key].type" v-model="data[key]" class="ph-input">
             </label>
-            <AdminEditSubmit :fields="fields" :name="key" initApi=""></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="key" :data="data[key]" initApi=""></AdminEditSubmit>
           </div>
         </li>
       </ul>
@@ -97,7 +94,7 @@
 
         //DBから取得してきたデータ配列
         //中身はオブジェクトで、{フィールド名: データ}という形になっている
-        data: []
+        data: {}
       }
     },
     watch: {
@@ -106,7 +103,7 @@
         this.renderEdit();
       }
     },
-    mounted: function()
+    mounted: async function()
     {
       this.renderEdit();
     },
@@ -125,7 +122,7 @@
             //データをVuexから取得
             const data: {
               fields: fieldsInterface,
-              data: dataInterface[]
+              data: dataInterface
             } = this.$store.getters.getData(['fields','data']);
 
             //connectingプロパティを仕込みつつthis.fieldsに情報を追加
@@ -136,7 +133,10 @@
             }
 
             //this.dataの追加
-            this.data = data.data;
+            for (let k of Object.keys(data.data))
+            {
+              this.$set(this.data, k, data.data[k]);
+            }
           })
           .catch((data: AxiosError) =>
           {
@@ -144,6 +144,11 @@
             this.loading = false;
           });
       },
+
+      changeValue: function()
+      {
+
+      }
     }
   });
 </script>

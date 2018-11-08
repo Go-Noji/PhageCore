@@ -33,6 +33,12 @@
       name: {
         type: String,
         required: true
+      },
+
+      //このコンポーネントが送信する値
+      data: {
+        type: String,
+        required: true
       }
     },
     data () {
