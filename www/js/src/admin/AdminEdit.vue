@@ -1,5 +1,5 @@
 <template>
-  <transition name="edit">
+  <transition name="ph-transition-edit">
     <section class="ph-editWrapper">
       <ul>
         <li v-for="(datum, key) in data">
@@ -153,4 +153,12 @@
   });
 </script>
 
-<style scoped type="text/scss"></style>
+<style scoped type="text/scss">
+  .ph-transition-edit-enter-active, .ph-transition-edit-leave-active {
+    transition: opacity .15s ease-in-out, width .15s ease;
+  }
+  .ph-transition-edit-enter, .ph-transition-edit-leave-to{
+    opacity: 0;
+    width: 0;
+  }
+</style>

@@ -89,9 +89,10 @@
 }
 .ph-listWrapper{
   flex-grow: 1;
+  min-width: 10%;
 }
 .ph-editWrapper{
-  flex-grow: 9;
+  width: 90%;
   padding: 0 15px;
 }
 
