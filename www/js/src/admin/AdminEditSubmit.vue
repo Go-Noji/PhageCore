@@ -54,17 +54,16 @@
         //変更するデータの用意
         const data: {data: {[key: string]: string}, arguments: [string]} = {data: {}, arguments: [this.$route.params.id]};
         data.data[this.field] = this.data;
-        console.log(data);
 
         //サーバーサイドに変更を要請
-        this.$store.dispatch('connectAPI', {api: 'api/admin/mutation/'+this.name+'/set', data: data})
+        this.$store.dispatch('connect/connectAPI', {api: 'api/admin/mutation/'+this.name+'/set', data: data})
           .then(() =>
           {
             //ローディングアニメーションを非表示にする
             this.connecting = false;
 
             console.log('success');
-            console.log(this.$store.getters.getData(['message']));
+            console.log(this.$store.state.connect.data.message);
           })
           .catch(() =>
           {
@@ -72,7 +71,7 @@
             this.connecting = false;
 
             console.log('failure');
-            console.log(this.$store.getters.getData(['message']));
+            console.log(this.$store.state.connect.data.message);
           });
       }
     }

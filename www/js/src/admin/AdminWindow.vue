@@ -185,7 +185,7 @@
         }, 300);
 
         //データの入手
-        this.$store.dispatch('connectAPI', {api: this.$props.initApi, data: {}})
+        this.$store.dispatch('connect/connectAPI', {api: this.$props.initApi, data: {}})
           .then(() =>
           {
             //ダミーテーブル描写のキャンセル
@@ -194,27 +194,20 @@
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
-            //データをVuexから取得
-            const data: {
-              fields: {[key: string]: string},
-              id: string,
-              link: string,
-              data: dataInterface[]
-            } = this.$store.getters.getData(['fields', 'id', 'link', 'data']);
-
             //データの数だけchecksにfalseを設定する
-            this.checks = new Array(data.data.length).fill(false);
+            this.checks = new Array(this.$store.state.connect.data.data.length).fill(false);
 
             //登録
-            this.fields = data.fields;
-            this.idField = data.id;
-            this.linkField = data.link;
-            this.data = data.data;
+            this.fields = this.$store.state.connect.data.fields;
+            this.idField = this.$store.state.connect.data.id;
+            this.linkField = this.$store.state.connect.data.link;
+            this.data = this.$store.state.connect.data.data;
           })
           .catch((data: AxiosError) =>
           {
             //ダミーテーブル描写のキャンセル
             clearTimeout(timer);
+            console.log(this.$store.state)
 
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;

@@ -117,29 +117,23 @@
         //loading中アイコンとダミーリストを表示する
         this.loading = true;
 
-        this.$store.dispatch('connectAPI', {api: this.$props.initApi, data: {arguments: [this.$route.params.id]}})
+        this.$store.dispatch('connect/connectAPI', {api: this.$props.initApi, data: {arguments: [this.$route.params.id]}})
           .then(() =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
-            //データをVuexから取得
-            const data: {
-              fields: fieldsInterface,
-              data: dataInterface
-            } = this.$store.getters.getData(['fields','data']);
-
             //connectingプロパティを仕込みつつthis.fieldsに情報を追加
-            for (let k of Object.keys(data.fields))
+            for (let k of Object.keys(this.$store.state.connect.data.fields))
             {
-              this.$set(this.fields, k, data.fields[k]);
+              this.$set(this.fields, k, this.$store.state.connect.data.fields[k]);
               this.$set(this.fields[k], 'connecting', false);
             }
 
             //this.dataの追加
-            for (let k of Object.keys(data.data))
+            for (let k of Object.keys(this.$store.state.connect.data.data))
             {
-              this.$set(this.data, k, data.data[k]);
+              this.$set(this.data, k, this.$store.state.connect.data.data[k]);
             }
           })
           .catch((data: AxiosError) =>

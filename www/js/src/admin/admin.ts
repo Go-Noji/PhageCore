@@ -1,9 +1,7 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, {Module} from 'vuex';
 import VueRouter from 'vue-router';
-import axios, {
-  CancelToken,
-  AxiosPromise,
+import Axios, {
   AxiosError,
   AxiosRequestConfig,
   AxiosResponse, CancelTokenSource, CancelTokenStatic
@@ -12,12 +10,11 @@ import AdminWindow from './AdminWindow.vue';
 import AdminEdit from './AdminEdit.vue';
 import SidebarList from './SidebarList.vue';
 import {AmdinStyler} from "../AmdinStyler";
-import api from "@fortawesome/fontawesome";
 
 /**
  * Vuexのstate
  */
-interface adminState{
+interface AdminState{
   lastApi: string,
   data: {[key: string]: string},
   error: AxiosError,
@@ -32,52 +29,29 @@ interface adminState{
   const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
   const contentsClassNames: Array<string> = ['ph-js-adminSidebar', 'ph-js-adminArea'];
 
-  //Vuexストアの作成
-  Vue.use(Vuex);
-  const store = new Vuex.Store({
+  //バックエンドとの通信専用Vuexモジュール
+  const connectModule: Module<AdminState, AdminState> = {
+    namespaced: true,
     state: {
       lastApi: '',
       data: {},
-      error: {},
-      source: null
-    },
-    getters: {
-      /**
-       * バックエンドと通信した後の成功データをキーを指定して取得する
-       * キーに該当するデータが存在しない場合はundefinedが設定される
-       * @param state
-       */
-      getData: (state: adminState, target: string = 'success') => (keys: string[]) =>
-      {
-        //返却データ
-        const data: {[key: string]: string} = {};
-        Array.prototype.forEach.call(keys, (key: string) =>
-        {
-          if (state.data[key] === undefined)
-          {
-            console.log('[Phage Core]: store.getters.getDataの引数に指定されたキー「'+key+'」が見つかりません。値はundefinedがセットされました。');
-          }
-
-          data[key] = state.data[key];
-        });
-        return data;
+      error: new class implements AxiosError {
+        code: string;
+        config: AxiosRequestConfig;
+        message: string;
+        name: string;
+        request: any;
+        response: AxiosResponse;
+        stack: string;
       },
-      /**
-       * 現在通信ならtrue, そうでなければfalseが返る
-       * @param state
-       */
-      isConnect: (state: adminState) =>
-      {
-        return state.source === null ? false : true;
-      }
+      source: null
     },
     mutations: {
       /**
        * データを初期化する
        * @param state
        */
-      init (state: adminState)
-      {
+      init(state: AdminState) {
         state.data = {};
         state.error = new class implements AxiosError {
           code: string;
@@ -94,8 +68,7 @@ interface adminState{
        * @param state
        * @param token
        */
-      cancel (state: adminState, data: {token: CancelTokenStatic, api: string})
-      {
+      cancel(state: AdminState, data: { token: CancelTokenStatic, api: string }) {
         state.source = data.token.source();
         state.lastApi = data.api;
       },
@@ -104,8 +77,7 @@ interface adminState{
        * @param state
        * @param data
        */
-      success (state: adminState, data: {[key: string]: string})
-      {
+      success(state: AdminState, data: { [key: string]: string }) {
         state.data = data;
         state.source = null;
       },
@@ -114,8 +86,7 @@ interface adminState{
        * @param state
        * @param data
        */
-      failure (state: adminState, data: AxiosError)
-      {
+      failure(state: AdminState, data: AxiosError) {
         state.error = data;
         state.data = data.response.data;
         state.source = null;
@@ -128,16 +99,14 @@ interface adminState{
        * @param commit
        * @param payload
        */
-      connect({commit, state}, payload: {api: string, data: {[key: string]: string|{[key: string]: string}}})
-      {
+      connect({commit, state}, payload: { api: string, data: { [key: string]: string | { [key: string]: string } } }) {
         //もし同じAPIが通信中だったらその通信をキャンセルする
-        if (state.source !== null && state.lastApi === payload.api)
-        {
+        if (state.source !== null && state.lastApi === payload.api) {
           state.source.cancel();
         }
 
-        //axiosのキャンセルトークンを登録
-        commit('cancel', {token: axios.CancelToken, api: payload.api});
+        //Axiosのキャンセルトークンを登録
+        commit('cancel', {token: Axios.CancelToken, api: payload.api});
 
         //データの初期化を行う
         commit('init');
@@ -147,24 +116,20 @@ interface adminState{
         params.append(csrf_key, csrf_value);
 
         //追加パラメータ
-        Object.keys(payload.data).forEach((key: string) =>
-        {
-          const value: string|{[key: string]: string} = payload.data[key];
-          if (typeof value === 'string')
-          {
+        Object.keys(payload.data).forEach((key: string) => {
+          const value: string | { [key: string]: string } = payload.data[key];
+          if (typeof value === 'string') {
             params.append(key, value);
           }
-          else if (typeof value === 'object')
-          {
-            Object.keys(value).forEach((name: string) =>
-            {
-              params.append(key+'['+name+']', value[name]);
+          else if (typeof value === 'object') {
+            Object.keys(value).forEach((name: string) => {
+              params.append(key + '[' + name + ']', value[name]);
             });
           }
         });
 
         //通信を試みる
-        return axios.post(site_url+payload.api, params, {
+        return Axios.post(site_url + payload.api, params, {
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -180,23 +145,36 @@ interface adminState{
        * @param commit
        * @param payload
        */
-      connectAPI({dispatch, commit}, payload: {api: string, data: {[key: string]: string}})
-      {
-        return new Promise((resolve, reject) =>
-        {
+      connectAPI({dispatch, commit}, payload: { api: string, data: { [key: string]: string } }) {
+        return new Promise((resolve, reject) => {
           dispatch('connect', payload)
-            .then((response: {data: {[key: string]: string}}) =>
-            {
+            .then((response: { data: { [key: string]: string } }) => {
               commit('success', response.data);
               resolve();
             })
-            .catch((error: AxiosError) =>
-            {
+            .catch((error: AxiosError) => {
               commit('failure', error);
               reject();
             });
         });
       }
+    },
+    getters: {
+      /**
+       * 現在通信ならtrue, そうでなければfalseが返る
+       * @param state
+       */
+      isConnect: (state: AdminState) => {
+        return state.source === null ? false : true;
+      }
+    }
+  };
+
+  //Vuexストアの作成
+  Vue.use(Vuex);
+  const store = new Vuex.Store({
+    modules: {
+      connect: connectModule
     }
   });
 

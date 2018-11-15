@@ -588,42 +588,18 @@ __webpack_require__.r(__webpack_exports__);
     //高さを合わせたいクラス名(複数)
     var fullHeightClassNames_1 = ['ph-js-fullHeight'];
     var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
-    //Vuexストアの作成
-    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+    //バックエンドとの通信専用Vuexモジュール
+    var connectModule = {
+        namespaced: true,
         state: {
             lastApi: '',
             data: {},
-            error: {},
+            error: new /** @class */ (function () {
+                function class_1() {
+                }
+                return class_1;
+            }()),
             source: null
-        },
-        getters: {
-            /**
-             * バックエンドと通信した後の成功データをキーを指定して取得する
-             * キーに該当するデータが存在しない場合はundefinedが設定される
-             * @param state
-             */
-            getData: function (state, target) {
-                if (target === void 0) { target = 'success'; }
-                return function (keys) {
-                    //返却データ
-                    var data = {};
-                    Array.prototype.forEach.call(keys, function (key) {
-                        if (state.data[key] === undefined) {
-                            console.log('[Phage Core]: store.getters.getDataの引数に指定されたキー「' + key + '」が見つかりません。値はundefinedがセットされました。');
-                        }
-                        data[key] = state.data[key];
-                    });
-                    return data;
-                };
-            },
-            /**
-             * 現在通信ならtrue, そうでなければfalseが返る
-             * @param state
-             */
-            isConnect: function (state) {
-                return state.source === null ? false : true;
-            }
         },
         mutations: {
             /**
@@ -633,9 +609,9 @@ __webpack_require__.r(__webpack_exports__);
             init: function (state) {
                 state.data = {};
                 state.error = new /** @class */ (function () {
-                    function class_1() {
+                    function class_2() {
                     }
-                    return class_1;
+                    return class_2;
                 }());
             },
             /**
@@ -680,7 +656,7 @@ __webpack_require__.r(__webpack_exports__);
                 if (state.source !== null && state.lastApi === payload.api) {
                     state.source.cancel();
                 }
-                //axiosのキャンセルトークンを登録
+                //Axiosのキャンセルトークンを登録
                 commit('cancel', { token: axios__WEBPACK_IMPORTED_MODULE_3___default.a.CancelToken, api: payload.api });
                 //データの初期化を行う
                 commit('init');
@@ -730,6 +706,22 @@ __webpack_require__.r(__webpack_exports__);
                     });
                 });
             }
+        },
+        getters: {
+            /**
+             * 現在通信ならtrue, そうでなければfalseが返る
+             * @param state
+             */
+            isConnect: function (state) {
+                return state.source === null ? false : true;
+            }
+        }
+    };
+    //Vuexストアの作成
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+        modules: {
+            connect: connectModule
         }
     });
     //サイドバー用のルート定義
@@ -9661,22 +9653,20 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
             var _this = this;
             //loading中アイコンとダミーリストを表示する
             this.loading = true;
-            this.$store.dispatch('connectAPI', { api: this.$props.initApi, data: { arguments: [this.$route.params.id] } })
+            this.$store.dispatch('connect/connectAPI', { api: this.$props.initApi, data: { arguments: [this.$route.params.id] } })
                 .then(function () {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
-                //データをVuexから取得
-                var data = _this.$store.getters.getData(['fields', 'data']);
                 //connectingプロパティを仕込みつつthis.fieldsに情報を追加
-                for (var _i = 0, _a = Object.keys(data.fields); _i < _a.length; _i++) {
+                for (var _i = 0, _a = Object.keys(_this.$store.state.connect.data.fields); _i < _a.length; _i++) {
                     var k = _a[_i];
-                    _this.$set(_this.fields, k, data.fields[k]);
+                    _this.$set(_this.fields, k, _this.$store.state.connect.data.fields[k]);
                     _this.$set(_this.fields[k], 'connecting', false);
                 }
                 //this.dataの追加
-                for (var _b = 0, _c = Object.keys(data.data); _b < _c.length; _b++) {
+                for (var _b = 0, _c = Object.keys(_this.$store.state.connect.data.data); _b < _c.length; _b++) {
                     var k = _c[_b];
-                    _this.$set(_this.data, k, data.data[k]);
+                    _this.$set(_this.data, k, _this.$store.state.connect.data.data[k]);
                 }
             })
                 .catch(function (data) {
@@ -9740,20 +9730,19 @@ __webpack_require__.r(__webpack_exports__);
             //変更するデータの用意
             var data = { data: {}, arguments: [this.$route.params.id] };
             data.data[this.field] = this.data;
-            console.log(data);
             //サーバーサイドに変更を要請
-            this.$store.dispatch('connectAPI', { api: 'api/admin/mutation/' + this.name + '/set', data: data })
+            this.$store.dispatch('connect/connectAPI', { api: 'api/admin/mutation/' + this.name + '/set', data: data })
                 .then(function () {
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
                 console.log('success');
-                console.log(_this.$store.getters.getData(['message']));
+                console.log(_this.$store.state.connect.data.message);
             })
                 .catch(function () {
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
                 console.log('failure');
-                console.log(_this.$store.getters.getData(['message']));
+                console.log(_this.$store.state.connect.data.message);
             });
         }
     }
@@ -9879,25 +9868,24 @@ __webpack_require__.r(__webpack_exports__);
                 _this.renderDummyList(10, 10);
             }, 300);
             //データの入手
-            this.$store.dispatch('connectAPI', { api: this.$props.initApi, data: {} })
+            this.$store.dispatch('connect/connectAPI', { api: this.$props.initApi, data: {} })
                 .then(function () {
                 //ダミーテーブル描写のキャンセル
                 clearTimeout(timer);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
-                //データをVuexから取得
-                var data = _this.$store.getters.getData(['fields', 'id', 'link', 'data']);
                 //データの数だけchecksにfalseを設定する
-                _this.checks = new Array(data.data.length).fill(false);
+                _this.checks = new Array(_this.$store.state.connect.data.data.length).fill(false);
                 //登録
-                _this.fields = data.fields;
-                _this.idField = data.id;
-                _this.linkField = data.link;
-                _this.data = data.data;
+                _this.fields = _this.$store.state.connect.data.fields;
+                _this.idField = _this.$store.state.connect.data.id;
+                _this.linkField = _this.$store.state.connect.data.link;
+                _this.data = _this.$store.state.connect.data.data;
             })
                 .catch(function (data) {
                 //ダミーテーブル描写のキャンセル
                 clearTimeout(timer);
+                console.log(_this.$store.state);
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
             });
