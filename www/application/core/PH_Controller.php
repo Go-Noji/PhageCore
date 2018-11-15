@@ -176,7 +176,7 @@ class PH_Controller extends CI_Controller
       $result = $this->form_validation->run() ? $result : FALSE;
 
       //バリデーションメッセージを判定した値の添え字名で登録
-      $this->validation_messages[$field] = validation_errors();
+      $this->validation_messages = validation_errors(' ', ' ');
     }
 
     //結果を返却
@@ -234,7 +234,7 @@ class PH_Controller extends CI_Controller
     //そもそも更新データが確認できない
     if ( ! $this->input->post('data'))
     {
-      $this->_output_json(400, array('message' => array('all' => $this->lang->line('empty_data'))));
+      $this->_output_json(400, array('message' => $this->lang->line('empty_data')));
     }
 
     //モデルのロード
@@ -255,7 +255,7 @@ class PH_Controller extends CI_Controller
     //バリデーションが失敗した場合はエラーメッセージをステータスコード400とともに返却
     if ( ! $this->_validation($this->input->post('data'), lcfirst($model)))
     {
-      $this->_output_json(400, array('message' => array_merge(array('all' => ''), $this->validation_messages)));
+      $this->_output_json(400, array('message' => $this->validation_messages));
     }
 
     //$this->_call_method()から対象のモデルメソッドを叩く

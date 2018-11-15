@@ -9719,8 +9719,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     data: function () {
         return {
-            connecting: false
+            //現在通信中の場合はtrueとなる
+            connecting: false,
+            //エラーメッセージ
+            errorMessage: ''
         };
+    },
+    computed: {
+        //現在通信中でない場合のみエラーメッセージを返す
+        error: function () {
+            return this.connecting ? '' : this.errorMessage;
+        }
     },
     methods: {
         submit: function () {
@@ -9733,16 +9742,16 @@ __webpack_require__.r(__webpack_exports__);
             //サーバーサイドに変更を要請
             this.$store.dispatch('connect/connectAPI', { api: 'api/admin/mutation/' + this.name + '/set', data: data })
                 .then(function () {
+                //エラーメッセージを空文字にする
+                _this.errorMessage = '';
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
-                console.log('success');
-                console.log(_this.$store.state.connect.data.message);
             })
                 .catch(function () {
+                //エラーメッセージを表示
+                _this.errorMessage = _this.$store.state.connect.data.message;
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
-                console.log('failure');
-                console.log(_this.$store.state.connect.data.message);
             });
         }
     }
@@ -10345,7 +10354,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.connecting
-    ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [_vm._m(0)])
+    ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
+      ])
     : _c("div", [
         _c(
           "button",
@@ -10358,7 +10371,9 @@ var render = function() {
             _vm._v("更新"),
             _c("i", { staticClass: "fas fa-sync-alt ph-adjustmentMl5" })
           ]
-        )
+        ),
+        _vm._v(" "),
+        _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
       ])
 }
 var staticRenderFns = [
