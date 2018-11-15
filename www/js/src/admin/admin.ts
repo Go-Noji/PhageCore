@@ -19,7 +19,7 @@ import api from "@fortawesome/fontawesome";
  */
 interface adminState{
   lastApi: string,
-  success: {[key: string]: string},
+  data: {[key: string]: string},
   error: AxiosError,
   source: CancelTokenSource|null
 }
@@ -37,7 +37,7 @@ interface adminState{
   const store = new Vuex.Store({
     state: {
       lastApi: '',
-      success: {},
+      data: {},
       error: {},
       source: null
     },
@@ -47,17 +47,18 @@ interface adminState{
        * キーに該当するデータが存在しない場合はundefinedが設定される
        * @param state
        */
-      getData: (state: adminState) => (keys: string[]) =>
+      getData: (state: adminState, target: string = 'success') => (keys: string[]) =>
       {
+        //返却データ
         const data: {[key: string]: string} = {};
         Array.prototype.forEach.call(keys, (key: string) =>
         {
-          if (state.success[key] === undefined)
+          if (state.data[key] === undefined)
           {
             console.log('[Phage Core]: store.getters.getDataの引数に指定されたキー「'+key+'」が見つかりません。値はundefinedがセットされました。');
           }
 
-          data[key] = state.success[key];
+          data[key] = state.data[key];
         });
         return data;
       },
@@ -77,7 +78,7 @@ interface adminState{
        */
       init (state: adminState)
       {
-        state.success = {};
+        state.data = {};
         state.error = new class implements AxiosError {
           code: string;
           config: AxiosRequestConfig;
@@ -105,7 +106,7 @@ interface adminState{
        */
       success (state: adminState, data: {[key: string]: string})
       {
-        state.success = data;
+        state.data = data;
         state.source = null;
       },
       /**
@@ -116,6 +117,7 @@ interface adminState{
       failure (state: adminState, data: AxiosError)
       {
         state.error = data;
+        state.data = data.response.data;
         state.source = null;
       }
     },
@@ -190,8 +192,6 @@ interface adminState{
             })
             .catch((error: AxiosError) =>
             {
-              console.log(payload);
-              console.log(error);
               commit('failure', error);
               reject();
             });

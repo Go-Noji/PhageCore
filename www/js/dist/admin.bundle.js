@@ -593,7 +593,7 @@ __webpack_require__.r(__webpack_exports__);
     var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         state: {
             lastApi: '',
-            success: {},
+            data: {},
             error: {},
             source: null
         },
@@ -603,16 +603,20 @@ __webpack_require__.r(__webpack_exports__);
              * キーに該当するデータが存在しない場合はundefinedが設定される
              * @param state
              */
-            getData: function (state) { return function (keys) {
-                var data = {};
-                Array.prototype.forEach.call(keys, function (key) {
-                    if (state.success[key] === undefined) {
-                        console.log('[Phage Core]: store.getters.getDataの引数に指定されたキー「' + key + '」が見つかりません。値はundefinedがセットされました。');
-                    }
-                    data[key] = state.success[key];
-                });
-                return data;
-            }; },
+            getData: function (state, target) {
+                if (target === void 0) { target = 'success'; }
+                return function (keys) {
+                    //返却データ
+                    var data = {};
+                    Array.prototype.forEach.call(keys, function (key) {
+                        if (state.data[key] === undefined) {
+                            console.log('[Phage Core]: store.getters.getDataの引数に指定されたキー「' + key + '」が見つかりません。値はundefinedがセットされました。');
+                        }
+                        data[key] = state.data[key];
+                    });
+                    return data;
+                };
+            },
             /**
              * 現在通信ならtrue, そうでなければfalseが返る
              * @param state
@@ -627,7 +631,7 @@ __webpack_require__.r(__webpack_exports__);
              * @param state
              */
             init: function (state) {
-                state.success = {};
+                state.data = {};
                 state.error = new /** @class */ (function () {
                     function class_1() {
                     }
@@ -649,7 +653,7 @@ __webpack_require__.r(__webpack_exports__);
              * @param data
              */
             success: function (state, data) {
-                state.success = data;
+                state.data = data;
                 state.source = null;
             },
             /**
@@ -659,6 +663,7 @@ __webpack_require__.r(__webpack_exports__);
              */
             failure: function (state, data) {
                 state.error = data;
+                state.data = data.response.data;
                 state.source = null;
             }
         },
@@ -720,8 +725,6 @@ __webpack_require__.r(__webpack_exports__);
                         resolve();
                     })
                         .catch(function (error) {
-                        console.log(payload);
-                        console.log(error);
                         commit('failure', error);
                         reject();
                     });
