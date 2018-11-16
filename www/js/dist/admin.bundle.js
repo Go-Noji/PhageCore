@@ -8175,7 +8175,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".ph-icon[data-v-45eb77ee]{font-size:20px;margin-left:10px}.icon-fade-enter-active[data-v-45eb77ee]{transition:all .1s ease}.icon-fade-leave-active[data-v-45eb77ee]{transition:all .5s ease-in-out}.icon-fade-enter[data-v-45eb77ee],.icon-fade-leave-to[data-v-45eb77ee]{opacity:0;margin-left:-5px}", ""]);
 
 // exports
 
@@ -9722,7 +9722,9 @@ __webpack_require__.r(__webpack_exports__);
             //現在通信中の場合はtrueとなる
             connecting: false,
             //エラーメッセージ
-            errorMessage: ''
+            errorMessage: '',
+            //更新が成功した場合、一定時間trueになる
+            success: false
         };
     },
     computed: {
@@ -9746,6 +9748,11 @@ __webpack_require__.r(__webpack_exports__);
                 _this.errorMessage = '';
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
+                //一定時間successをtrueにする
+                _this.success = true;
+                setTimeout(function () {
+                    _this.success = false;
+                }, 700);
             })
                 .catch(function () {
                 //エラーメッセージを表示
@@ -10353,28 +10360,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.connecting
-    ? _c("div", { staticClass: "ph-inputSubmitWrapper" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
-      ])
-    : _c("div", [
-        _c(
-          "button",
-          {
-            staticClass: "ph-submit ph-adjustmentMl10",
-            attrs: { required: "required", type: "button" },
-            on: { click: _vm.submit }
-          },
-          [
-            _vm._v("更新"),
-            _c("i", { staticClass: "fas fa-sync-alt ph-adjustmentMl5" })
-          ]
-        ),
-        _vm._v(" "),
-        _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
-      ])
+  return _c(
+    "div",
+    [
+      _c(
+        "button",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.connecting,
+              expression: "!connecting"
+            }
+          ],
+          staticClass: "ph-submit ph-adjustmentMl10",
+          attrs: { required: "required", type: "button" },
+          on: { click: _vm.submit }
+        },
+        [
+          _vm._v("更新"),
+          _c("i", { staticClass: "fas fa-sync-alt ph-adjustmentMl5" })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.connecting,
+              expression: "connecting"
+            }
+          ],
+          staticClass: "ph-inputSubmitWrapper"
+        },
+        [_vm._m(0)]
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "icon-fade" } }, [
+        _vm.success
+          ? _c("span", [
+              _c("i", { staticClass: "ph-icon fas fa-check-circle" })
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("span", { domProps: { innerHTML: _vm._s(_vm.error) } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

@@ -1,13 +1,15 @@
 <template>
-  <div v-if="connecting" class="ph-inputSubmitWrapper">
-    <div class="ph-loaderWrap ph-inputLoaderWrapper">
-      <div class="ph-loaderBox"></div>
-      <p class="ph-loaderMessage">Connecting...</p>
+  <div>
+    <button v-show="!connecting" @click="submit" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+    <div v-show="connecting" class="ph-inputSubmitWrapper">
+      <div class="ph-loaderWrap ph-inputLoaderWrapper">
+        <div class="ph-loaderBox"></div>
+        <p class="ph-loaderMessage">Connecting...</p>
+      </div>
     </div>
-    <span v-html="error"></span>
-  </div>
-  <div v-else>
-    <button @click="submit" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+    <transition name="icon-fade">
+      <span v-if="success"><i class="ph-icon fas fa-check-circle"></i></span>
+    </transition>
     <span v-html="error"></span>
   </div>
 </template>
@@ -47,7 +49,10 @@
         connecting: false,
 
         //エラーメッセージ
-        errorMessage: ''
+        errorMessage: '',
+
+        //更新が成功した場合、一定時間trueになる
+        success: false
       }
     },
     computed: {
@@ -76,6 +81,13 @@
 
             //ローディングアニメーションを非表示にする
             this.connecting = false;
+
+            //一定時間successをtrueにする
+            this.success = true;
+            setTimeout(() =>
+            {
+              this.success = false;
+            }, 700);
           })
           .catch(() =>
           {
@@ -91,5 +103,18 @@
 </script>
 
 <style scoped>
-
+  .ph-icon{
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .icon-fade-enter-active{
+    transition: all .1s ease;
+  }
+  .icon-fade-leave-active{
+    transition: all .5s ease-in-out;
+  }
+  .icon-fade-enter, .icon-fade-leave-to{
+    opacity: 0;
+    margin-left: -5px;
+  }
 </style>
