@@ -717,11 +717,120 @@ __webpack_require__.r(__webpack_exports__);
             }
         }
     };
+    //編集画面ごとの更新用モジュール
+    var editModule = {
+        namespaced: true,
+        state: {
+            id: 0,
+            data: {}
+        },
+        mutations: {
+            /**
+             * 編集する対象のIDと各項目データをセットする
+             * @param state
+             * @param payload
+             */
+            init: function (state, payload) {
+                state.id = payload.id;
+                state.data = payload.data;
+            },
+            /**
+             * 項目の値を変更する
+             * @param state
+             * @param payload
+             */
+            change: function (state, payload) {
+                state.data[payload.key].value = payload.value;
+            },
+            /**
+             * 特定の項目を更新キューに入れる
+             * payloadのkeyが空文字だった場合は全ての項目がキューに入る
+             * @param state
+             * @param payload
+             */
+            queue: function (state, payload) {
+                //特定の項目を指定されている場合
+                if (payload.key !== '') {
+                    state.data[payload.key].connect = true;
+                    return;
+                }
+                //全ての項目をキューに入れる
+                for (var _i = 0, _a = Object.keys(state.data); _i < _a.length; _i++) {
+                    var k = _a[_i];
+                    state.data[k].connect = true;
+                }
+            },
+            /**
+             * 更新成功時に特定の項目のsuccessをtrueに、errorを空文字にする
+             * @param state
+             * @param payload
+             */
+            then: function (state, payload) {
+                state.data[payload.key].success = true;
+                state.data[payload.key].connect = false;
+            },
+            /**
+             * 更新失敗時に特定項目のsuccessをfalseにし、errorを登録する
+             * @param state
+             * @param payload
+             */
+            catch: function (state, payload) {
+                state.data[payload.key].success = false;
+                state.data[payload.key].connect = false;
+            }
+        },
+        actions: {
+            /**
+             * 現在キューに入っている項目を全てバックエンドと通信して更新する
+             * 通信は親ModuleであるAdminModuleのconnectをdispatchして行われる
+             * 成功・失敗に関係なく通信済みの項目はキューから除外される
+             * @param commit
+             * @param state
+             */
+            submit: function (_a) {
+                var _this = this;
+                var commit = _a.commit, state = _a.state, getters = _a.getters;
+                //非同期通信のためのタスク配列を用意
+                var task = [];
+                var _loop_1 = function (k) {
+                    //対象が更新対象でない場合は飛ばす
+                    if (!state.data[k].connect) {
+                        return "continue";
+                    }
+                    //非同期タスクの追加
+                    //親Moduleのconnectをdispatchする
+                    var data = { data: {}, segments: [state.id] };
+                    data.data[k] = state.data[k].value;
+                    task.push(new Promise(function (resolve, reject) {
+                        _this.dispatch('connect/connectAPI', { api: state.data[k].api, data: data }, { root: true })
+                            //更新成功
+                            .then(function () {
+                            commit('then', { key: k });
+                            resolve();
+                        })
+                            //更新失敗
+                            .catch(function () {
+                            commit('catch', { key: k });
+                            reject();
+                        });
+                    }));
+                };
+                //項目ごとに処理
+                for (var _i = 0, _b = Object.keys(state.data); _i < _b.length; _i++) {
+                    var k = _b[_i];
+                    _loop_1(k);
+                }
+                //全ての非同期タスクを実行する
+                return Promise.all(task);
+            }
+        }
+    };
     //Vuexストアの作成
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
     var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         modules: {
-            connect: connectModule
+            connect: connectModule,
+            edit: editModule
         }
     });
     //サイドバー用のルート定義
@@ -9653,28 +9762,39 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
             var _this = this;
             //loading中アイコンとダミーリストを表示する
             this.loading = true;
-            this.$store.dispatch('connect/connectAPI', { api: this.$props.initApi, data: { arguments: [this.$route.params.id] } })
+            this.$store.dispatch('connect/connectAPI', { api: this.$props.initApi, data: { segments: [this.$route.params.id] } })
                 .then(function () {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
+                //VuexのEditModuleを初期化するため各項目の情報を集める
+                var editData = {};
                 //connectingプロパティを仕込みつつthis.fieldsに情報を追加
                 for (var _i = 0, _a = Object.keys(_this.$store.state.connect.data.fields); _i < _a.length; _i++) {
                     var k = _a[_i];
+                    //描画情報をセット
                     _this.$set(_this.fields, k, _this.$store.state.connect.data.fields[k]);
                     _this.$set(_this.fields[k], 'connecting', false);
                 }
                 //this.dataの追加
                 for (var _b = 0, _c = Object.keys(_this.$store.state.connect.data.data); _b < _c.length; _b++) {
                     var k = _c[_b];
+                    //描画情報をセット
                     _this.$set(_this.data, k, _this.$store.state.connect.data.data[k]);
+                    //Vuex情報を追加
+                    editData[k] = {
+                        api: 'api/admin/mutation/' + _this.name + '/set',
+                        value: _this.$store.state.connect.data.data[k],
+                        connect: false,
+                        success: true
+                    };
                 }
+                //VuexのEditModuleを初期化
+                _this.$store.commit('edit/init', { id: _this.$route.params.id, data: editData });
             })
                 .catch(function (data) {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
             });
-        },
-        changeValue: function () {
         }
     }
 }));
@@ -9733,16 +9853,24 @@ __webpack_require__.r(__webpack_exports__);
             return this.connecting ? '' : this.errorMessage;
         }
     },
+    watch: {
+        /**
+         * 更新のためにVuexの入力項目データをアップデートする
+         * @param value
+         */
+        data: function (value) {
+            this.$store.commit('edit/change', { key: this.field, value: value });
+        }
+    },
     methods: {
         submit: function () {
             var _this = this;
             //一旦ボタンをローディングアニメーションにする
             this.connecting = true;
-            //変更するデータの用意
-            var data = { data: {}, arguments: [this.$route.params.id] };
-            data.data[this.field] = this.data;
-            //サーバーサイドに変更を要請
-            this.$store.dispatch('connect/connectAPI', { api: 'api/admin/mutation/' + this.name + '/set', data: data })
+            //Vuexに変更を要請
+            this.$store.commit('edit/queue', { key: this.field });
+            //バックエンドと通信する
+            this.$store.dispatch('edit/submit')
                 .then(function () {
                 //エラーメッセージを空文字にする
                 _this.errorMessage = '';

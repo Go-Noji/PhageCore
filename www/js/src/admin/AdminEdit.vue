@@ -72,6 +72,16 @@
     [key: string]: string|null
   }
 
+  /**
+   * EditModuleのためのInterface
+   */
+  interface EditData {
+    api: string,
+    value: string,
+    connect: boolean,
+    success: boolean
+  }
+
   export default Vue.extend({
     components: {
       AdminEditSubmit
@@ -117,15 +127,19 @@
         //loading中アイコンとダミーリストを表示する
         this.loading = true;
 
-        this.$store.dispatch('connect/connectAPI', {api: this.$props.initApi, data: {arguments: [this.$route.params.id]}})
+        this.$store.dispatch('connect/connectAPI', {api: this.$props.initApi, data: {segments: [this.$route.params.id]}})
           .then(() =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
 
+            //VuexのEditModuleを初期化するため各項目の情報を集める
+            const editData: {[key: string]: EditData} = {};
+
             //connectingプロパティを仕込みつつthis.fieldsに情報を追加
             for (let k of Object.keys(this.$store.state.connect.data.fields))
             {
+              //描画情報をセット
               this.$set(this.fields, k, this.$store.state.connect.data.fields[k]);
               this.$set(this.fields[k], 'connecting', false);
             }
@@ -133,19 +147,26 @@
             //this.dataの追加
             for (let k of Object.keys(this.$store.state.connect.data.data))
             {
+              //描画情報をセット
               this.$set(this.data, k, this.$store.state.connect.data.data[k]);
+
+              //Vuex情報を追加
+              editData[k] = {
+                api: 'api/admin/mutation/'+this.name+'/set',
+                value: this.$store.state.connect.data.data[k],
+                connect: false,
+                success: true
+              }
             }
+
+            //VuexのEditModuleを初期化
+            this.$store.commit('edit/init', {id: this.$route.params.id, data: editData});
           })
           .catch((data: AxiosError) =>
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
           });
-      },
-
-      changeValue: function()
-      {
-
       }
     }
   });

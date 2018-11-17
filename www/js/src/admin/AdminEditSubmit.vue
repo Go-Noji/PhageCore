@@ -62,18 +62,27 @@
         return this.connecting ? '' : this.errorMessage;
       }
     },
+    watch: {
+      /**
+       * 更新のためにVuexの入力項目データをアップデートする
+       * @param value
+       */
+      data(value: string)
+      {
+        this.$store.commit('edit/change', {key: this.field, value: value});
+      }
+    },
     methods: {
       submit: function()
       {
         //一旦ボタンをローディングアニメーションにする
         this.connecting = true;
 
-        //変更するデータの用意
-        const data: {data: {[key: string]: string}, arguments: [string]} = {data: {}, arguments: [this.$route.params.id]};
-        data.data[this.field] = this.data;
+        //Vuexに変更を要請
+        this.$store.commit('edit/queue', {key: this.field});
 
-        //サーバーサイドに変更を要請
-        this.$store.dispatch('connect/connectAPI', {api: 'api/admin/mutation/'+this.name+'/set', data: data})
+        //バックエンドと通信する
+        this.$store.dispatch('edit/submit')
           .then(() =>
           {
             //エラーメッセージを空文字にする

@@ -118,14 +118,14 @@ class PH_Controller extends CI_Controller
 
   /**
    * $model_nameと$methodによって指定されたstationディレクトリのクラス->メソッドを叩く
-   * メソッドの引数には$_POST['augments']を分解したものが割り当てられる
+   * メソッドの引数には$_POST['segments']を分解したものが割り当てられる
    * @param string $model_name
    * @param string $method
    */
   protected function _call_method($model_name, $method)
   {
     //呼ぶ
-    $result = call_user_func_array(array($this->$model_name, $method), (array)$this->input->post('arguments'));
+    $result = call_user_func_array(array($this->$model_name, $method), (array)$this->input->post('segments'));
 
     //JSON出力
     $this->_output_json($this->$model_name->is_error() ? 400 : 200, $result);
