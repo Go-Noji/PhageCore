@@ -568,12 +568,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AdminWindow.vue */ "./js/src/admin/AdminWindow.vue");
-/* harmony import */ var _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AdminEdit.vue */ "./js/src/admin/AdminEdit.vue");
-/* harmony import */ var _SidebarList_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SidebarList.vue */ "./js/src/admin/SidebarList.vue");
-/* harmony import */ var _AmdinStyler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../AmdinStyler */ "./js/src/AmdinStyler.ts");
+/* harmony import */ var _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AdminWindow.vue */ "./js/src/admin/AdminWindow.vue");
+/* harmony import */ var _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AdminEdit.vue */ "./js/src/admin/AdminEdit.vue");
+/* harmony import */ var _SidebarList_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SidebarList.vue */ "./js/src/admin/SidebarList.vue");
+/* harmony import */ var _AmdinStyler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../AmdinStyler */ "./js/src/AmdinStyler.ts");
+/* harmony import */ var _modules_connect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/connect */ "./js/src/admin/modules/connect.ts");
+/* harmony import */ var _modules_edit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/edit */ "./js/src/admin/modules/edit.ts");
+
 
 
 
@@ -584,253 +585,16 @@ __webpack_require__.r(__webpack_exports__);
 
 {
     //スタイル調整クラスのインスタンス化
-    var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_7__["AmdinStyler"]();
+    var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_6__["AmdinStyler"]();
     //高さを合わせたいクラス名(複数)
     var fullHeightClassNames_1 = ['ph-js-fullHeight'];
     var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
-    //バックエンドとの通信専用Vuexモジュール
-    var connectModule = {
-        namespaced: true,
-        state: {
-            lastApi: '',
-            data: {},
-            error: new /** @class */ (function () {
-                function class_1() {
-                }
-                return class_1;
-            }()),
-            source: null
-        },
-        mutations: {
-            /**
-             * データを初期化する
-             * @param state
-             */
-            init: function (state) {
-                state.data = {};
-                state.error = new /** @class */ (function () {
-                    function class_2() {
-                    }
-                    return class_2;
-                }());
-            },
-            /**
-             * Axiosのキャンセルトークンを登録する
-             * @param state
-             * @param token
-             */
-            cancel: function (state, data) {
-                state.source = data.token.source();
-                state.lastApi = data.api;
-            },
-            /**
-             * 成功データを登録する
-             * @param state
-             * @param data
-             */
-            success: function (state, data) {
-                state.data = data;
-                state.source = null;
-            },
-            /**
-             * 失敗データを登録する
-             * @param state
-             * @param data
-             */
-            failure: function (state, data) {
-                state.error = data;
-                state.data = data.response.data;
-                state.source = null;
-            }
-        },
-        actions: {
-            /**
-             * バックエンドとの通信を行い、Promiseを返す
-             * connectAPI内で使う
-             * @param commit
-             * @param payload
-             */
-            connect: function (_a, payload) {
-                var commit = _a.commit, state = _a.state;
-                //もし同じAPIが通信中だったらその通信をキャンセルする
-                if (state.source !== null && state.lastApi === payload.api) {
-                    state.source.cancel();
-                }
-                //Axiosのキャンセルトークンを登録
-                commit('cancel', { token: axios__WEBPACK_IMPORTED_MODULE_3___default.a.CancelToken, api: payload.api });
-                //データの初期化を行う
-                commit('init');
-                //POSTに渡すパラメータ
-                var params = new URLSearchParams();
-                params.append(csrf_key, csrf_value);
-                //追加パラメータ
-                Object.keys(payload.data).forEach(function (key) {
-                    var value = payload.data[key];
-                    if (typeof value === 'string') {
-                        params.append(key, value);
-                    }
-                    else if (typeof value === 'object') {
-                        Object.keys(value).forEach(function (name) {
-                            params.append(key + '[' + name + ']', value[name]);
-                        });
-                    }
-                });
-                //通信を試みる
-                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post(site_url + payload.api, params, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    cancelToken: state.source.token
-                });
-            },
-            /**
-             * バックエンドとの通信を行い、Promiseを返す
-             * 返るPromiseにデータは無く、データの取得はVuexに任せる形になる
-             * .thenで成功、.catchで失敗の点は変わらず
-             * @param dispatch
-             * @param commit
-             * @param payload
-             */
-            connectAPI: function (_a, payload) {
-                var dispatch = _a.dispatch, commit = _a.commit;
-                return new Promise(function (resolve, reject) {
-                    dispatch('connect', payload)
-                        .then(function (response) {
-                        commit('success', response.data);
-                        resolve();
-                    })
-                        .catch(function (error) {
-                        commit('failure', error);
-                        reject();
-                    });
-                });
-            }
-        },
-        getters: {
-            /**
-             * 現在通信ならtrue, そうでなければfalseが返る
-             * @param state
-             */
-            isConnect: function (state) {
-                return state.source === null ? false : true;
-            }
-        }
-    };
-    //編集画面ごとの更新用モジュール
-    var editModule = {
-        namespaced: true,
-        state: {
-            id: 0,
-            data: {}
-        },
-        mutations: {
-            /**
-             * 編集する対象のIDと各項目データをセットする
-             * @param state
-             * @param payload
-             */
-            init: function (state, payload) {
-                state.id = payload.id;
-                state.data = payload.data;
-            },
-            /**
-             * 項目の値を変更する
-             * @param state
-             * @param payload
-             */
-            change: function (state, payload) {
-                state.data[payload.key].value = payload.value;
-            },
-            /**
-             * 特定の項目を更新キューに入れる
-             * payloadのkeyが空文字だった場合は全ての項目がキューに入る
-             * @param state
-             * @param payload
-             */
-            queue: function (state, payload) {
-                //特定の項目を指定されている場合
-                if (payload.key !== '') {
-                    state.data[payload.key].connect = true;
-                    return;
-                }
-                //全ての項目をキューに入れる
-                for (var _i = 0, _a = Object.keys(state.data); _i < _a.length; _i++) {
-                    var k = _a[_i];
-                    state.data[k].connect = true;
-                }
-            },
-            /**
-             * 更新成功時に特定の項目のsuccessをtrueに、errorを空文字にする
-             * @param state
-             * @param payload
-             */
-            then: function (state, payload) {
-                state.data[payload.key].success = true;
-                state.data[payload.key].connect = false;
-            },
-            /**
-             * 更新失敗時に特定項目のsuccessをfalseにし、errorを登録する
-             * @param state
-             * @param payload
-             */
-            catch: function (state, payload) {
-                state.data[payload.key].success = false;
-                state.data[payload.key].connect = false;
-            }
-        },
-        actions: {
-            /**
-             * 現在キューに入っている項目を全てバックエンドと通信して更新する
-             * 通信は親ModuleであるAdminModuleのconnectをdispatchして行われる
-             * 成功・失敗に関係なく通信済みの項目はキューから除外される
-             * @param commit
-             * @param state
-             */
-            submit: function (_a) {
-                var _this = this;
-                var commit = _a.commit, state = _a.state, getters = _a.getters;
-                //非同期通信のためのタスク配列を用意
-                var task = [];
-                var _loop_1 = function (k) {
-                    //対象が更新対象でない場合は飛ばす
-                    if (!state.data[k].connect) {
-                        return "continue";
-                    }
-                    //非同期タスクの追加
-                    //親Moduleのconnectをdispatchする
-                    var data = { data: {}, segments: [state.id] };
-                    data.data[k] = state.data[k].value;
-                    task.push(new Promise(function (resolve, reject) {
-                        _this.dispatch('connect/connectAPI', { api: state.data[k].api, data: data }, { root: true })
-                            //更新成功
-                            .then(function () {
-                            commit('then', { key: k });
-                            resolve();
-                        })
-                            //更新失敗
-                            .catch(function () {
-                            commit('catch', { key: k });
-                            reject();
-                        });
-                    }));
-                };
-                //項目ごとに処理
-                for (var _i = 0, _b = Object.keys(state.data); _i < _b.length; _i++) {
-                    var k = _b[_i];
-                    _loop_1(k);
-                }
-                //全ての非同期タスクを実行する
-                return Promise.all(task);
-            }
-        }
-    };
     //Vuexストアの作成
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
     var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
         modules: {
-            connect: connectModule,
-            edit: editModule
+            connect: _modules_connect__WEBPACK_IMPORTED_MODULE_7__["default"],
+            edit: _modules_edit__WEBPACK_IMPORTED_MODULE_8__["default"]
         }
     });
     //サイドバー用のルート定義
@@ -840,7 +604,7 @@ __webpack_require__.r(__webpack_exports__);
             {
                 path: '/content',
                 name: 'content',
-                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
                 props: {
                     initApi: 'api/admin/call/content/multiple',
                     title: 'コンテンツ',
@@ -850,7 +614,7 @@ __webpack_require__.r(__webpack_exports__);
             {
                 path: '/options',
                 name: 'options',
-                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
                 props: {
                     initApi: 'api/admin/call/options/multiple',
                     title: '設定',
@@ -860,7 +624,7 @@ __webpack_require__.r(__webpack_exports__);
                     {
                         path: ':id',
                         name: 'options-edit',
-                        component: _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+                        component: _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
                         props: {
                             initApi: 'api/admin/call/options/get/',
                             name: 'options',
@@ -876,7 +640,7 @@ __webpack_require__.r(__webpack_exports__);
         router: router,
         store: store,
         components: {
-            'sidebar-list': _SidebarList_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+            'sidebar-list': _SidebarList_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
         }
     });
     //リサイズ
@@ -922,6 +686,274 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+/***/ }),
+
+/***/ "./js/src/admin/modules/connect.ts":
+/*!*****************************************!*\
+  !*** ./js/src/admin/modules/connect.ts ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+//バックエンドとの通信専用Vuexモジュール
+var connectModule = {
+    namespaced: true,
+    state: {
+        lastApi: '',
+        data: {},
+        error: new /** @class */ (function () {
+            function class_1() {
+            }
+            return class_1;
+        }()),
+        source: null
+    },
+    mutations: {
+        /**
+         * データを初期化する
+         * @param state
+         */
+        init: function (state) {
+            state.data = {};
+            state.error = new /** @class */ (function () {
+                function class_2() {
+                }
+                return class_2;
+            }());
+        },
+        /**
+         * Axiosのキャンセルトークンを登録する
+         * @param state
+         * @param token
+         */
+        cancel: function (state, data) {
+            state.source = data.token.source();
+            state.lastApi = data.api;
+        },
+        /**
+         * 成功データを登録する
+         * @param state
+         * @param data
+         */
+        success: function (state, data) {
+            state.data = data;
+            state.source = null;
+        },
+        /**
+         * 失敗データを登録する
+         * @param state
+         * @param data
+         */
+        failure: function (state, data) {
+            state.error = data;
+            state.data = data.response.data;
+            state.source = null;
+        }
+    },
+    actions: {
+        /**
+         * バックエンドとの通信を行い、Promiseを返す
+         * connectAPI内で使う
+         * @param commit
+         * @param payload
+         */
+        connect: function (_a, payload) {
+            var commit = _a.commit, state = _a.state;
+            //もし同じAPIが通信中だったらその通信をキャンセルする
+            if (state.source !== null && state.lastApi === payload.api) {
+                state.source.cancel();
+            }
+            //Axiosのキャンセルトークンを登録
+            commit('cancel', { token: axios__WEBPACK_IMPORTED_MODULE_0___default.a.CancelToken, api: payload.api });
+            //データの初期化を行う
+            commit('init');
+            //POSTに渡すパラメータ
+            var params = new URLSearchParams();
+            params.append(csrf_key, csrf_value);
+            //追加パラメータ
+            Object.keys(payload.data).forEach(function (key) {
+                var value = payload.data[key];
+                if (typeof value === 'string') {
+                    params.append(key, value);
+                }
+                else if (typeof value === 'object') {
+                    Object.keys(value).forEach(function (name) {
+                        params.append(key + '[' + name + ']', value[name]);
+                    });
+                }
+            });
+            //通信を試みる
+            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(site_url + payload.api, params, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                cancelToken: state.source.token
+            });
+        },
+        /**
+         * バックエンドとの通信を行い、Promiseを返す
+         * 返るPromiseにデータは無く、データの取得はVuexに任せる形になる
+         * .thenで成功、.catchで失敗の点は変わらず
+         * @param dispatch
+         * @param commit
+         * @param payload
+         */
+        connectAPI: function (_a, payload) {
+            var dispatch = _a.dispatch, commit = _a.commit;
+            return new Promise(function (resolve, reject) {
+                dispatch('connect', payload)
+                    .then(function (response) {
+                    commit('success', response.data);
+                    resolve();
+                })
+                    .catch(function (error) {
+                    commit('failure', error);
+                    reject();
+                });
+            });
+        }
+    },
+    getters: {
+        /**
+         * 現在通信ならtrue, そうでなければfalseが返る
+         * @param state
+         */
+        isConnect: function (state) {
+            return state.source === null ? false : true;
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["default"] = (connectModule);
+
+
+/***/ }),
+
+/***/ "./js/src/admin/modules/edit.ts":
+/*!**************************************!*\
+  !*** ./js/src/admin/modules/edit.ts ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//編集画面ごとの更新用モジュール
+var editModule = {
+    namespaced: true,
+    state: {
+        id: 0,
+        data: {}
+    },
+    mutations: {
+        /**
+         * 編集する対象のIDと各項目データをセットする
+         * @param state
+         * @param payload
+         */
+        init: function (state, payload) {
+            state.id = payload.id;
+            state.data = payload.data;
+        },
+        /**
+         * 項目の値を変更する
+         * @param state
+         * @param payload
+         */
+        change: function (state, payload) {
+            state.data[payload.key].value = payload.value;
+        },
+        /**
+         * 特定の項目を更新キューに入れる
+         * payloadのkeyが空文字だった場合は全ての項目がキューに入る
+         * @param state
+         * @param payload
+         */
+        queue: function (state, payload) {
+            //特定の項目を指定されている場合
+            if (payload.key !== '') {
+                state.data[payload.key].connect = true;
+                return;
+            }
+            //全ての項目をキューに入れる
+            for (var _i = 0, _a = Object.keys(state.data); _i < _a.length; _i++) {
+                var k = _a[_i];
+                state.data[k].connect = true;
+            }
+        },
+        /**
+         * 更新成功時に特定の項目のsuccessをtrueに、errorを空文字にする
+         * @param state
+         * @param payload
+         */
+        then: function (state, payload) {
+            state.data[payload.key].success = true;
+            state.data[payload.key].connect = false;
+        },
+        /**
+         * 更新失敗時に特定項目のsuccessをfalseにし、errorを登録する
+         * @param state
+         * @param payload
+         */
+        catch: function (state, payload) {
+            state.data[payload.key].success = false;
+            state.data[payload.key].connect = false;
+        }
+    },
+    actions: {
+        /**
+         * 現在キューに入っている項目を全てバックエンドと通信して更新する
+         * 通信は親ModuleであるAdminModuleのconnectをdispatchして行われる
+         * 成功・失敗に関係なく通信済みの項目はキューから除外される
+         * @param commit
+         * @param state
+         */
+        submit: function (_a) {
+            var _this = this;
+            var commit = _a.commit, state = _a.state, getters = _a.getters;
+            //非同期通信のためのタスク配列を用意
+            var task = [];
+            var _loop_1 = function (k) {
+                //対象が更新対象でない場合は飛ばす
+                if (!state.data[k].connect) {
+                    return "continue";
+                }
+                //非同期タスクの追加
+                //親Moduleのconnectをdispatchする
+                var data = { data: {}, segments: [state.id] };
+                data.data[k] = state.data[k].value;
+                task.push(new Promise(function (resolve, reject) {
+                    _this.dispatch('connect/connectAPI', { api: state.data[k].api, data: data }, { root: true })
+                        //更新成功
+                        .then(function () {
+                        commit('then', { key: k });
+                        resolve();
+                    })
+                        //更新失敗
+                        .catch(function () {
+                        commit('catch', { key: k });
+                        reject();
+                    });
+                }));
+            };
+            //項目ごとに処理
+            for (var _i = 0, _b = Object.keys(state.data); _i < _b.length; _i++) {
+                var k = _b[_i];
+                _loop_1(k);
+            }
+            //全ての非同期タスクを実行する
+            return Promise.all(task);
+        }
+    }
+};
+/* harmony default export */ __webpack_exports__["default"] = (editModule);
 
 
 /***/ }),
