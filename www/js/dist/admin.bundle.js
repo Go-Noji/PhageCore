@@ -9896,16 +9896,21 @@ __webpack_require__.r(__webpack_exports__);
         submit: function () {
             var _this = this;
             //一旦ボタンをローディングアニメーションにする
-            this.connecting = true;
+            //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
+            var timer = setTimeout(function () {
+                _this.connecting = true;
+            }, 300);
             //Vuexに変更を要請
             this.$store.commit('edit/queue', { key: this.field });
             //バックエンドと通信する
             this.$store.dispatch('edit/submit')
                 .then(function () {
-                //エラーメッセージを空文字にする
-                _this.errorMessage = '';
+                //ローディングアニメーション表示タイマーのキャンセル
+                clearTimeout(timer);
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
+                //エラーメッセージを空文字にする
+                _this.errorMessage = '';
                 //一定時間successをtrueにする
                 _this.success = true;
                 setTimeout(function () {
@@ -9913,10 +9918,12 @@ __webpack_require__.r(__webpack_exports__);
                 }, 700);
             })
                 .catch(function () {
-                //エラーメッセージを表示
-                _this.errorMessage = _this.$store.state.connect.data.message;
+                //ローディングアニメーション表示タイマーのキャンセル
+                clearTimeout(timer);
                 //ローディングアニメーションを非表示にする
                 _this.connecting = false;
+                //エラーメッセージを表示
+                _this.errorMessage = _this.$store.state.connect.data.message;
             });
         }
     }

@@ -76,7 +76,11 @@
       submit: function()
       {
         //一旦ボタンをローディングアニメーションにする
-        this.connecting = true;
+        //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
+        const timer = setTimeout(() =>
+        {
+          this.connecting = true;
+        }, 300);
 
         //Vuexに変更を要請
         this.$store.commit('edit/queue', {key: this.field});
@@ -85,11 +89,14 @@
         this.$store.dispatch('edit/submit')
           .then(() =>
           {
-            //エラーメッセージを空文字にする
-            this.errorMessage = '';
+            //ローディングアニメーション表示タイマーのキャンセル
+            clearTimeout(timer);
 
             //ローディングアニメーションを非表示にする
             this.connecting = false;
+
+            //エラーメッセージを空文字にする
+            this.errorMessage = '';
 
             //一定時間successをtrueにする
             this.success = true;
@@ -100,11 +107,14 @@
           })
           .catch(() =>
           {
-            //エラーメッセージを表示
-            this.errorMessage = this.$store.state.connect.data.message;
+            //ローディングアニメーション表示タイマーのキャンセル
+            clearTimeout(timer);
 
             //ローディングアニメーションを非表示にする
             this.connecting = false;
+
+            //エラーメッセージを表示
+            this.errorMessage = this.$store.state.connect.data.message;
           });
       }
     }
