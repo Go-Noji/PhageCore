@@ -1,15 +1,6 @@
 import {Module} from 'vuex';
-import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse, CancelTokenSource, CancelTokenStatic} from 'axios';
-
-/**
- * Vuexのstate
- */
-interface AdminState{
-  lastApi: string,
-  data: {[key: string]: string},
-  error: AxiosError,
-  source: CancelTokenSource|null
-}
+import Axios, {AxiosError, AxiosRequestConfig, AxiosResponse, CancelTokenStatic} from 'axios';
+import {AdminState} from '../interface';
 
 //バックエンドとの通信専用Vuexモジュール
 const connectModule: Module<AdminState, AdminState> = {

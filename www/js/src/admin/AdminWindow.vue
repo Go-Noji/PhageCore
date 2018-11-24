@@ -53,12 +53,6 @@
   import Vue from 'vue'
   import {AxiosError} from 'axios';
 
-  //initAPIから取得できる'data'のデータ構造
-  //キー名がDBのカラム名、値がデータそのもの
-  interface dataInterface {
-    [key: string]: string|null
-  }
-
   export default Vue.extend({
     props: {
       title: {

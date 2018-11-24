@@ -583,74 +583,72 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-{
-    //スタイル調整クラスのインスタンス化
-    var adminStyler_1 = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_6__["AmdinStyler"]();
-    //高さを合わせたいクラス名(複数)
-    var fullHeightClassNames_1 = ['ph-js-fullHeight'];
-    var contentsClassNames_1 = ['ph-js-adminSidebar', 'ph-js-adminArea'];
-    //Vuexストアの作成
-    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-        modules: {
-            connect: _modules_connect__WEBPACK_IMPORTED_MODULE_7__["default"],
-            edit: _modules_edit__WEBPACK_IMPORTED_MODULE_8__["default"]
-        }
-    });
-    //サイドバー用のルート定義
-    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
-    var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
-        routes: [
-            {
-                path: '/content',
-                name: 'content',
-                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-                props: {
-                    initApi: 'api/admin/call/content/multiple',
-                    title: 'コンテンツ',
-                    name: 'content'
-                }
-            },
-            {
-                path: '/options',
-                name: 'options',
-                component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-                props: {
-                    initApi: 'api/admin/call/options/multiple',
-                    title: '設定',
-                    name: 'options'
-                },
-                children: [
-                    {
-                        path: ':id',
-                        name: 'options-edit',
-                        component: _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-                        props: {
-                            initApi: 'api/admin/call/options/get/',
-                            name: 'options',
-                        }
-                    }
-                ]
+//スタイル調整クラスのインスタンス化
+var adminStyler = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_6__["AmdinStyler"]();
+//高さを合わせたいクラス名(複数)
+var fullHeightClassNames = ['ph-js-fullHeight'];
+var contentsClassNames = ['ph-js-adminSidebar', 'ph-js-adminArea'];
+//Vuexストアの作成
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+    modules: {
+        connect: _modules_connect__WEBPACK_IMPORTED_MODULE_7__["default"],
+        edit: _modules_edit__WEBPACK_IMPORTED_MODULE_8__["default"]
+    }
+});
+//サイドバー用のルート定義
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    routes: [
+        {
+            path: '/content',
+            name: 'content',
+            component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+            props: {
+                initApi: 'api/admin/call/content/multiple',
+                title: 'コンテンツ',
+                name: 'content'
             }
-        ]
-    });
-    //全体を括るVueインスタンスの作成
-    var admin = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-        el: '#ph-admin',
-        router: router,
-        store: store,
-        components: {
-            'sidebar-list': _SidebarList_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+        },
+        {
+            path: '/options',
+            name: 'options',
+            component: _AdminWindow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+            props: {
+                initApi: 'api/admin/call/options/multiple',
+                title: '設定',
+                name: 'options'
+            },
+            children: [
+                {
+                    path: ':id',
+                    name: 'options-edit',
+                    component: _AdminEdit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+                    props: {
+                        initApi: 'api/admin/call/options/get/',
+                        name: 'options',
+                    }
+                }
+            ]
         }
-    });
-    //リサイズ
-    var resize = function () {
-        adminStyler_1.initHeightStyle(fullHeightClassNames_1);
-        adminStyler_1.initHeightStyle(contentsClassNames_1);
-    };
-    document.addEventListener('DOMContentLoaded', resize, false);
-    window.addEventListener('resize', resize, false);
-}
+    ]
+});
+//全体を括るVueインスタンスの作成
+new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    el: '#ph-admin',
+    router: router,
+    store: store,
+    components: {
+        'sidebar-list': _SidebarList_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    }
+});
+//リサイズ
+var resize = function () {
+    adminStyler.initHeightStyle(fullHeightClassNames);
+    adminStyler.initHeightStyle(contentsClassNames);
+};
+document.addEventListener('DOMContentLoaded', resize, false);
+window.addEventListener('resize', resize, false);
 
 
 /***/ }),

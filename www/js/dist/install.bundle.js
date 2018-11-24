@@ -273,150 +273,148 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(function () {
-    //インストール用クラス
-    var adminStyler = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_2__["AmdinStyler"]();
-    //高さを合わせたいクラス名(複数)
-    var fullHeightClassNames = ['ph-js-full_height'];
-    //Vuexストアの作成
-    vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-    var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-        state: {
-            values: {}
-        },
-        getters: {
-            /**
-             * keyに入力された値を返す
-             * 未定義でも空文字を返すが、consoleにメッセージを出す
-             * @param {installStoreInterface} state
-             * @return {(key: string) => (string | string | null)}
-             */
-            getValue: function (state) { return function (key) {
-                //対象のkeyにまだ値がセットされていなかったら空文字を返す
-                if (state.values[key] === null) {
-                    console.log('installStore: values.' + key + ' not have value.');
-                    return '';
-                }
-                return state.values[key];
-            }; }
-        },
-        mutations: {
-            /**
-             * フォームのnameを登録する
-             * @param {{values: definitionValues}} state
-             * @param {definitionPayload} payload
-             */
-            definitionInput: function (state, payload) {
-                state.values[payload.key] = null;
-            },
-            /**
-             * フォームのvalueを登録する
-             * 先にdefinitionInputを使って要素を定義しておく必要がある
-             * @param {installStoreInterface} state
-             * @param {setValuePayload} payload
-             */
-            setValue: function (state, payload) {
-                //対象のkeyが見つからなかったら処理を終了させる
-                if (state.values[payload.key] === undefined) {
-                    console.log('installStore: values.' + payload.key + ' is undefined.');
-                    return;
-                }
-                state.values[payload.key] = payload.value;
+//インストール用クラス
+var adminStyler = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_2__["AmdinStyler"]();
+//高さを合わせたいクラス名(複数)
+var fullHeightClassNames = ['ph-js-full_height'];
+//Vuexストアの作成
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+    state: {
+        values: {}
+    },
+    getters: {
+        /**
+         * keyに入力された値を返す
+         * 未定義でも空文字を返すが、consoleにメッセージを出す
+         * @param {InstallStoreInterface} state
+         * @return {(key: string) => (string | string | null)}
+         */
+        getValue: function (state) { return function (key) {
+            //対象のkeyにまだ値がセットされていなかったら空文字を返す
+            if (state.values[key] === null) {
+                console.log('installStore: values.' + key + ' not have value.');
+                return '';
             }
+            return state.values[key];
+        }; }
+    },
+    mutations: {
+        /**
+         * フォームのnameを登録する
+         * @param {{values: definitionValues}} state
+         * @param {DefinitionPayload} payload
+         */
+        definitionInput: function (state, payload) {
+            state.values[payload.key] = null;
         },
-        actions: {
-            define: function (_a, payload) {
-                var commit = _a.commit;
-                commit('definitionInput', payload);
-            },
-            set: function (_a, payload) {
-                var commit = _a.commit;
-                commit('setValue', payload);
+        /**
+         * フォームのvalueを登録する
+         * 先にdefinitionInputを使って要素を定義しておく必要がある
+         * @param {InstallStoreInterface} state
+         * @param {SetValuePayload} payload
+         */
+        setValue: function (state, payload) {
+            //対象のkeyが見つからなかったら処理を終了させる
+            if (state.values[payload.key] === undefined) {
+                console.log('installStore: values.' + payload.key + ' is undefined.');
+                return;
             }
+            state.values[payload.key] = payload.value;
         }
-    });
-    //フォームを括るVueインスタンスの作成
-    var installForm = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-        el: '#installForm',
-        store: store,
-        data: {
-            dbError: '　',
-            showLoader: false
+    },
+    actions: {
+        define: function (_a, payload) {
+            var commit = _a.commit;
+            commit('definitionInput', payload);
         },
-        components: {
-            'install-input': _InstallInput_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-        },
-        methods: {
-            /**
-             * インストールを試みる
-             * @param {HTMLElementEvent<HTMLInputElement>} event
-             */
-            install: function (event) {
-                var _this = this;
-                //ローダーを表示する
-                this.toggleLoader();
-                //全ての入力情報を入手
-                var values = this.$store.state.values;
-                //POSTに渡すパラメータ
-                var params = new URLSearchParams();
-                params.append(csrf_key, csrf_value);
-                Object.keys(values).forEach(function (key) {
-                    params.append(key, values[key]);
-                });
-                //通信を試みる
-                axios__WEBPACK_IMPORTED_MODULE_4___default.a.post(site_url + 'management/install/validation/all', params, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'application/x-www-form-urlencoded'
+        set: function (_a, payload) {
+            var commit = _a.commit;
+            commit('setValue', payload);
+        }
+    }
+});
+//フォームを括るVueインスタンスの作成
+new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    el: '#installForm',
+    store: store,
+    data: {
+        dbError: '　',
+        showLoader: false
+    },
+    components: {
+        'install-input': _InstallInput_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    },
+    methods: {
+        /**
+         * インストールを試みる
+         * @param {HTMLElementEvent<HTMLInputElement>} event
+         */
+        install: function (event) {
+            var _this = this;
+            //ローダーを表示する
+            this.toggleLoader();
+            //全ての入力情報を入手
+            var values = this.$store.state.values;
+            //POSTに渡すパラメータ
+            var params = new URLSearchParams();
+            params.append(csrf_key, csrf_value);
+            Object.keys(values).forEach(function (key) {
+                params.append(key, values[key]);
+            });
+            //通信を試みる
+            axios__WEBPACK_IMPORTED_MODULE_4___default.a.post(site_url + 'management/install/validation/all', params, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(function (response) {
+                //ログイン画面にリダイレクトする
+                window.location.href = site_url + 'management/login?first=1';
+            })
+                .catch(function (error) {
+                //ローダーを非表示する
+                _this.toggleLoader(false);
+                //エラーメッセージから通常メッセージに戻すまでの秒数
+                var returnSeconds = 3000;
+                //バリデーションエラーを各コンポーネントに表示する
+                var data = error.response.data;
+                var messages = data.validation;
+                Object.keys(messages).forEach(function (key) {
+                    //DBエラー文の表示
+                    if (key === 'db_error') {
+                        _this.dbError = messages[key];
+                        setTimeout(function () {
+                            _this.dbError = '　';
+                        }, returnSeconds);
                     }
-                })
-                    .then(function (response) {
-                    //ログイン画面にリダイレクトする
-                    window.location.href = site_url + 'management/login?first=1';
-                })
-                    .catch(function (error) {
-                    //ローダーを非表示する
-                    _this.toggleLoader(false);
-                    //エラーメッセージから通常メッセージに戻すまでの秒数
-                    var returnSeconds = 3000;
-                    //バリデーションエラーを各コンポーネントに表示する
-                    var data = error.response.data;
-                    var messages = data.validation;
-                    Object.keys(messages).forEach(function (key) {
-                        //DBエラー文の表示
-                        if (key === 'db_error') {
-                            _this.dbError = messages[key];
-                            setTimeout(function () {
-                                _this.dbError = '　';
-                            }, returnSeconds);
-                        }
-                        //各コンポーネントの表示
-                        else if (_this.$refs[key] !== undefined) {
-                            _this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'ph-input ph-inputError' : 'ph-input');
-                        }
-                    });
+                    //各コンポーネントの表示
+                    else if (_this.$refs[key] !== undefined) {
+                        _this.$refs[key].renderMessage(false, messages[key] ? messages[key] : null, messages[key] ? 'ph-input ph-inputError' : 'ph-input');
+                    }
                 });
-            },
-            /**
-             * いわゆるローダーの表示・非表示を切り替える
-             * showをtrue(デフォルト)にすると表示・逆で非表示にする
-             * @param {boolean} show
-             */
-            toggleLoader: function (show) {
-                if (show === void 0) { show = true; }
-                this.showLoader = show;
-            }
+            });
+        },
+        /**
+         * いわゆるローダーの表示・非表示を切り替える
+         * showをtrue(デフォルト)にすると表示・逆で非表示にする
+         * @param {boolean} show
+         */
+        toggleLoader: function (show) {
+            if (show === void 0) { show = true; }
+            this.showLoader = show;
         }
-    });
-    window.onload = function () {
-        //height合わせ
-        adminStyler.initHeightStyle(fullHeightClassNames);
-    };
-    //画面リサイズによるheight合わせ
-    window.addEventListener('resize', function () {
-        adminStyler.initHeightStyle(fullHeightClassNames);
-    });
-})();
+    }
+});
+window.onload = function () {
+    //height合わせ
+    adminStyler.initHeightStyle(fullHeightClassNames);
+};
+//画面リサイズによるheight合わせ
+window.addEventListener('resize', function () {
+    adminStyler.initHeightStyle(fullHeightClassNames);
+});
 
 
 /***/ }),

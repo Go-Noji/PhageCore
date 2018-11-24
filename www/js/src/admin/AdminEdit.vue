@@ -59,28 +59,7 @@
   import Vue from 'vue'
   import {AxiosError} from 'axios';
   import AdminEditSubmit from './AdminEditSubmit.vue';
-
-  //initAPIから取得できる'fields'のデータ構造
-  //キー名がDBのフィールド名で値は描写に使われる人間用の名前
-  interface fieldsInterface {
-    [key: string]: {control: boolean, label: string, type: string, options: {[key: string]: string}, connecting: boolean}
-  }
-
-  //initAPIから取得できる'data'のデータ構造
-  //キー名がDBのカラム名、値がデータそのもの
-  interface dataInterface {
-    [key: string]: string|null
-  }
-
-  /**
-   * EditModuleのためのInterface
-   */
-  interface EditData {
-    api: string,
-    value: string,
-    connect: boolean,
-    success: boolean
-  }
+  import {EditData} from "./interface";
 
   export default Vue.extend({
     components: {

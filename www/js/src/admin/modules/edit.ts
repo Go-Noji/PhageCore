@@ -1,12 +1,5 @@
 import {Module} from 'vuex';
-import {AxiosError, CancelTokenSource} from 'axios';
-
-interface AdminState{
-  lastApi: string,
-  data: {[key: string]: string},
-  error: AxiosError,
-  source: CancelTokenSource|null
-}
+import {AdminState} from '../interface';
 
 /**
  * EditModuleのためのInterface
