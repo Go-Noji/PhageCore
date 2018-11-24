@@ -1,21 +1,6 @@
 import {Module} from 'vuex';
 import {AdminState} from '../interface';
-
-/**
- * EditModuleのためのInterface
- */
-interface EditData {
-  api: string,
-  value: string,
-  connect: boolean,
-  success: boolean
-}
-interface EditState {
-  id: number,
-  data: {
-    [key: string]: EditData
-  }
-}
+import {EditData, EditState} from "../interface";
 
 //編集画面ごとの更新用モジュール
 const editModule: Module<EditState, AdminState> = {
