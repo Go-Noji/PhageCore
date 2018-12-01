@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button v-show="!connecting" @click="submit" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
-    <div v-show="connecting" class="ph-inputSubmitWrapper">
+    <button v-show=" ! isConnecting" @click="submit" required="required" class="ph-submit ph-adjustmentMl10" type="button">更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+    <div v-show="isConnecting" class="ph-inputSubmitWrapper">
       <div class="ph-loaderWrap ph-inputLoaderWrapper">
         <div class="ph-loaderBox"></div>
         <p class="ph-loaderMessage">Connecting...</p>
@@ -41,6 +41,12 @@
       data: {
         type: String,
         required: true
+      },
+
+      //他全ての項目が更新中の場合にtrueとなるフラグ
+      connectAll: {
+        type: Boolean,
+        required: true
       }
     },
     data () {
@@ -48,8 +54,8 @@
         //現在通信中の場合はtrueとなる
         connecting: false,
 
-        //エラーメッセージ
-        errorMessage: '',
+        //ローディングアニメーション表示に使うSetTimeoutの返り値
+        timer: 0,
 
         //更新が成功した場合、一定時間trueになる
         success: false
@@ -59,7 +65,31 @@
       //現在通信中でない場合のみエラーメッセージを返す
       error: function(): string
       {
-        return this.connecting ? '' : this.errorMessage;
+        return ! this.connecting && ! this.$store.state.edit.data[this.field].success
+          ? this.$store.state.edit.data[this.field].error
+          : '';
+      },
+
+      //通信中だった場合は0.3秒後にローディングアニメーションを表示する関数を登録、
+      //そうでなかった場合はその関数をキャンセルする
+      isConnecting: function ()
+      {
+        this.success = false;
+        if (this.$store.state.edit.data[this.field].connect)
+        {
+          this.showLoading();
+        }
+        else if(this.timer)
+        {
+          this.hiddenLoading();
+
+          //もしエラーがなければ一定時間成功表示を出す
+          if (this.$store.state.edit.data[this.field].success)
+          {
+            this.showSuccess();
+          }
+        }
+        return this.connecting;
       }
     },
     watch: {
@@ -73,14 +103,50 @@
       }
     },
     methods: {
-      submit: function()
+      /**
+       * ローディングアニメーションを表示するためにSetTimeoutを登録する
+       */
+      showLoading: function()
       {
         //一旦ボタンをローディングアニメーションにする
         //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
-        const timer = setTimeout(() =>
+        this.timer = setTimeout(() =>
         {
           this.connecting = true;
         }, 300);
+      },
+
+      /**
+       * ローディングアニメーションを非表示にし、showLoading()のタイマーもclearTimeoutする
+       */
+      hiddenLoading: function()
+      {
+        //ローディングアニメーション表示タイマーのキャンセル
+        clearTimeout(this.timer);
+
+        //ローディングアニメーションを非表示にする
+        this.connecting = false;
+      },
+
+      /**
+       * 一定時間成功表示を出す
+       */
+      showSuccess: function()
+      {
+        this.success = true;
+        setTimeout(() =>
+        {
+          this.success = false;
+        }, 700);
+      },
+
+      /**
+       * 更新を実行する
+       */
+      submit: function()
+      {
+        //ローディングアニメーションの表示
+        this.showLoading();
 
         //Vuexに変更を要請
         this.$store.commit('edit/queue', {key: this.field});
@@ -89,32 +155,16 @@
         this.$store.dispatch('edit/submit')
           .then(() =>
           {
-            //ローディングアニメーション表示タイマーのキャンセル
-            clearTimeout(timer);
+            //ローディングアニメーションの非表示
+            this.hiddenLoading();
 
-            //ローディングアニメーションを非表示にする
-            this.connecting = false;
-
-            //エラーメッセージを空文字にする
-            this.errorMessage = '';
-
-            //一定時間successをtrueにする
-            this.success = true;
-            setTimeout(() =>
-            {
-              this.success = false;
-            }, 700);
+            //一定時間成功表示を出す
+            this.showSuccess();
           })
           .catch(() =>
           {
-            //ローディングアニメーション表示タイマーのキャンセル
-            clearTimeout(timer);
-
-            //ローディングアニメーションを非表示にする
-            this.connecting = false;
-
-            //エラーメッセージを表示
-            this.errorMessage = this.$store.state.connect.data.message;
+            //ローディングアニメーションの非表示
+            this.hiddenLoading();
           });
       }
     }

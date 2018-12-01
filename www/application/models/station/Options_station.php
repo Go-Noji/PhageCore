@@ -82,7 +82,7 @@ class Options_station extends PH_Model
   public function set($id)
   {
     //更新成功可否
-    $results = array('message' => array('all' => ''));
+    $results = array('message' => '');
 
     //トランザクションの開始
     $this->db->trans_start();
@@ -94,18 +94,15 @@ class Options_station extends PH_Model
       if ( ! isset($this->FIELDS[$field]['control']) || ! $this->FIELDS[$field]['control'])
       {
         $this->error = TRUE;
-        $results['message'][$field] = '存在しない項目のデータは更新できません';
+        $results['message'] .= "存在しない項目のデータは更新できません\r\n";
         continue;
       }
-
-      //エラーメッセージ項目の初期化
-      $results['message'][$field] = '';
 
       //更新を試み、失敗したらエラーメッセージとモデルのステータスを変更する
       if ( ! $this->options_model->set($id, $field, $value))
       {
         $this->error = TRUE;
-        $results['message'][$field] = $this->lang->line('db_error');
+        $results['message'] .= $this->lang->line('db_error')."\r\n";
       }
     }
 

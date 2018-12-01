@@ -42,6 +42,7 @@ const editModule: Module<EditState, AdminState> = {
       //特定の項目を指定されている場合
       if (payload.key !== '')
       {
+        state.data[payload.key].success = false;
         state.data[payload.key].connect = true;
         return;
       }
@@ -49,7 +50,21 @@ const editModule: Module<EditState, AdminState> = {
       //全ての項目をキューに入れる
       for(let k of Object.keys(state.data))
       {
+        state.data[k].success = false;
         state.data[k].connect = true;
+      }
+    },
+
+    /**
+     * 全てのキューを削除する
+     * @param state
+     */
+    clear(state: EditState)
+    {
+      //全ての項目をキューに入れる
+      for(let k of Object.keys(state.data))
+      {
+        state.data[k].connect = false;
       }
     },
 
@@ -60,6 +75,7 @@ const editModule: Module<EditState, AdminState> = {
      */
     then(state: EditState, payload: {key: string})
     {
+      state.data[payload.key].error = '';
       state.data[payload.key].success = true;
       state.data[payload.key].connect = false;
     },
@@ -73,6 +89,7 @@ const editModule: Module<EditState, AdminState> = {
     {
       state.data[payload.key].success = false;
       state.data[payload.key].connect = false;
+      state.data[payload.key].error = this.state.connect.data.message;
     }
   },
   actions: {
@@ -83,7 +100,7 @@ const editModule: Module<EditState, AdminState> = {
      * @param commit
      * @param state
      */
-    submit({commit, state, getters})
+    submit({commit, state})
     {
       //非同期通信のためのタスク配列を用意
       const task = [];
@@ -99,29 +116,39 @@ const editModule: Module<EditState, AdminState> = {
 
         //非同期タスクの追加
         //親Moduleのconnectをdispatchする
-        const data: {data: {[key: string]: string}, segments: Array<number>} = {data: {}, segments: [state.id]};
-        data.data[k] = state.data[k].value;
-        task.push(new Promise((resolve, reject) => {
-          this.dispatch('connect/connectAPI', {api: state.data[k].api, data: data}, {root: true})
+        task.push((): Promise<string> => {
+          return new Promise((resolve, reject) =>
+          {
+            this.dispatch('connect/connectAPI', {
+              api: state.data[k].api,
+              data: {
+                data: {
+                  [k]: state.data[k].value
+                },
+                segments: [state.id]
+              }
+            }, {root: true})
 
-          //更新成功
-            .then(() =>
-            {
-              commit('then', {key: k});
-              resolve();
-            })
+              //更新成功
+              .then(() =>
+              {
+                commit('then', {key: k});
+                resolve('resolve');
+              })
 
-            //更新失敗
-            .catch(() =>
-            {
-              commit('catch', {key: k});
-              reject();
-            });
-        }));
+              //更新失敗
+              .catch(() =>
+              {
+                commit('catch', {key: k});
+                commit('clear');
+                reject('reject');
+              })
+          })
+        });
       }
 
       //全ての非同期タスクを実行する
-      return Promise.all(task);
+      return task.reduce((m, p) => m.then(p), Promise.resolve('init'));
     }
   }
 };

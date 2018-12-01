@@ -877,13 +877,26 @@ var editModule = {
         queue: function (state, payload) {
             //特定の項目を指定されている場合
             if (payload.key !== '') {
+                state.data[payload.key].success = false;
                 state.data[payload.key].connect = true;
                 return;
             }
             //全ての項目をキューに入れる
             for (var _i = 0, _a = Object.keys(state.data); _i < _a.length; _i++) {
                 var k = _a[_i];
+                state.data[k].success = false;
                 state.data[k].connect = true;
+            }
+        },
+        /**
+         * 全てのキューを削除する
+         * @param state
+         */
+        clear: function (state) {
+            //全ての項目をキューに入れる
+            for (var _i = 0, _a = Object.keys(state.data); _i < _a.length; _i++) {
+                var k = _a[_i];
+                state.data[k].connect = false;
             }
         },
         /**
@@ -892,6 +905,7 @@ var editModule = {
          * @param payload
          */
         then: function (state, payload) {
+            state.data[payload.key].error = '';
             state.data[payload.key].success = true;
             state.data[payload.key].connect = false;
         },
@@ -903,6 +917,7 @@ var editModule = {
         catch: function (state, payload) {
             state.data[payload.key].success = false;
             state.data[payload.key].connect = false;
+            state.data[payload.key].error = this.state.connect.data.message;
         }
     },
     actions: {
@@ -915,7 +930,7 @@ var editModule = {
          */
         submit: function (_a) {
             var _this = this;
-            var commit = _a.commit, state = _a.state, getters = _a.getters;
+            var commit = _a.commit, state = _a.state;
             //非同期通信のためのタスク配列を用意
             var task = [];
             var _loop_1 = function (k) {
@@ -925,21 +940,31 @@ var editModule = {
                 }
                 //非同期タスクの追加
                 //親Moduleのconnectをdispatchする
-                var data = { data: {}, segments: [state.id] };
-                data.data[k] = state.data[k].value;
-                task.push(new Promise(function (resolve, reject) {
-                    _this.dispatch('connect/connectAPI', { api: state.data[k].api, data: data }, { root: true })
-                        //更新成功
-                        .then(function () {
-                        commit('then', { key: k });
-                        resolve();
-                    })
-                        //更新失敗
-                        .catch(function () {
-                        commit('catch', { key: k });
-                        reject();
+                task.push(function () {
+                    return new Promise(function (resolve, reject) {
+                        var _a;
+                        _this.dispatch('connect/connectAPI', {
+                            api: state.data[k].api,
+                            data: {
+                                data: (_a = {},
+                                    _a[k] = state.data[k].value,
+                                    _a),
+                                segments: [state.id]
+                            }
+                        }, { root: true })
+                            //更新成功
+                            .then(function () {
+                            commit('then', { key: k });
+                            resolve('resolve');
+                        })
+                            //更新失敗
+                            .catch(function () {
+                            commit('catch', { key: k });
+                            commit('clear');
+                            reject('reject');
+                        });
                     });
-                }));
+                });
             };
             //項目ごとに処理
             for (var _i = 0, _b = Object.keys(state.data); _i < _b.length; _i++) {
@@ -947,7 +972,7 @@ var editModule = {
                 _loop_1(k);
             }
             //全ての非同期タスクを実行する
-            return Promise.all(task);
+            return task.reduce(function (m, p) { return m.then(p); }, Promise.resolve('init'));
         }
     }
 };
@@ -9771,7 +9796,9 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
             fields: {},
             //DBから取得してきたデータ配列
             //中身はオブジェクトで、{フィールド名: データ}という形になっている
-            data: {}
+            data: {},
+            //全ての項目を更新している間のみtrueになる
+            connectAll: false
         };
     },
     watch: {
@@ -9788,6 +9815,9 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         });
     },
     methods: {
+        /**
+         * 描画する
+         */
         renderEdit: function () {
             var _this = this;
             //loading中アイコンとダミーリストを表示する
@@ -9810,12 +9840,17 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
                     var k = _c[_b];
                     //描画情報をセット
                     _this.$set(_this.data, k, _this.$store.state.connect.data.data[k]);
+                    //もし変更不可なフィールドだったらVuexに登録しない
+                    if (!_this.$store.state.connect.data.fields[k].control) {
+                        continue;
+                    }
                     //Vuex情報を追加
                     editData[k] = {
                         api: 'api/admin/mutation/' + _this.name + '/set',
                         value: _this.$store.state.connect.data.data[k],
                         connect: false,
-                        success: true
+                        success: false,
+                        error: ''
                     };
                 }
                 //VuexのEditModuleを初期化
@@ -9824,6 +9859,30 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
                 .catch(function (data) {
                 //loading中アイコンとダミーリストを非表示にする
                 _this.loading = false;
+            });
+        },
+        /**
+         * 全項目を更新する
+         */
+        submitAll: function () {
+            var _this = this;
+            //更新フラグがtrueの間は何もしない
+            if (this.connectAll) {
+                return;
+            }
+            //更新中フラグをtrueにする
+            this.connectAll = true;
+            //全ての項目を更新キューにcommitする
+            this.$store.commit('edit/queue', { key: '' });
+            //変更
+            this.$store.dispatch('edit/submit')
+                .then(function () {
+                //更新中フラグをfalseに戻す
+                _this.connectAll = false;
+            })
+                .catch(function () {
+                //更新中フラグをfalseに戻す
+                _this.connectAll = false;
             });
         }
     }
@@ -9865,14 +9924,19 @@ __webpack_require__.r(__webpack_exports__);
         data: {
             type: String,
             required: true
+        },
+        //他全ての項目が更新中の場合にtrueとなるフラグ
+        connectAll: {
+            type: Boolean,
+            required: true
         }
     },
     data: function () {
         return {
             //現在通信中の場合はtrueとなる
             connecting: false,
-            //エラーメッセージ
-            errorMessage: '',
+            //ローディングアニメーション表示に使うSetTimeoutの返り値
+            timer: 0,
             //更新が成功した場合、一定時間trueになる
             success: false
         };
@@ -9880,7 +9944,25 @@ __webpack_require__.r(__webpack_exports__);
     computed: {
         //現在通信中でない場合のみエラーメッセージを返す
         error: function () {
-            return this.connecting ? '' : this.errorMessage;
+            return !this.connecting && !this.$store.state.edit.data[this.field].success
+                ? this.$store.state.edit.data[this.field].error
+                : '';
+        },
+        //通信中だった場合は0.3秒後にローディングアニメーションを表示する関数を登録、
+        //そうでなかった場合はその関数をキャンセルする
+        isConnecting: function () {
+            this.success = false;
+            if (this.$store.state.edit.data[this.field].connect) {
+                this.showLoading();
+            }
+            else if (this.timer) {
+                this.hiddenLoading();
+                //もしエラーがなければ一定時間成功表示を出す
+                if (this.$store.state.edit.data[this.field].success) {
+                    this.showSuccess();
+                }
+            }
+            return this.connecting;
         }
     },
     watch: {
@@ -9893,37 +9975,56 @@ __webpack_require__.r(__webpack_exports__);
         }
     },
     methods: {
-        submit: function () {
+        /**
+         * ローディングアニメーションを表示するためにSetTimeoutを登録する
+         */
+        showLoading: function () {
             var _this = this;
             //一旦ボタンをローディングアニメーションにする
             //0.3秒後待ってその間にサーバーサイドから応答があったらキャンセルする
-            var timer = setTimeout(function () {
+            this.timer = setTimeout(function () {
                 _this.connecting = true;
             }, 300);
+        },
+        /**
+         * ローディングアニメーションを非表示にし、showLoading()のタイマーもclearTimeoutする
+         */
+        hiddenLoading: function () {
+            //ローディングアニメーション表示タイマーのキャンセル
+            clearTimeout(this.timer);
+            //ローディングアニメーションを非表示にする
+            this.connecting = false;
+        },
+        /**
+         * 一定時間成功表示を出す
+         */
+        showSuccess: function () {
+            var _this = this;
+            this.success = true;
+            setTimeout(function () {
+                _this.success = false;
+            }, 700);
+        },
+        /**
+         * 更新を実行する
+         */
+        submit: function () {
+            var _this = this;
+            //ローディングアニメーションの表示
+            this.showLoading();
             //Vuexに変更を要請
             this.$store.commit('edit/queue', { key: this.field });
             //バックエンドと通信する
             this.$store.dispatch('edit/submit')
                 .then(function () {
-                //ローディングアニメーション表示タイマーのキャンセル
-                clearTimeout(timer);
-                //ローディングアニメーションを非表示にする
-                _this.connecting = false;
-                //エラーメッセージを空文字にする
-                _this.errorMessage = '';
-                //一定時間successをtrueにする
-                _this.success = true;
-                setTimeout(function () {
-                    _this.success = false;
-                }, 700);
+                //ローディングアニメーションの非表示
+                _this.hiddenLoading();
+                //一定時間成功表示を出す
+                _this.showSuccess();
             })
                 .catch(function () {
-                //ローディングアニメーション表示タイマーのキャンセル
-                clearTimeout(timer);
-                //ローディングアニメーションを非表示にする
-                _this.connecting = false;
-                //エラーメッセージを表示
-                _this.errorMessage = _this.$store.state.connect.data.message;
+                //ローディングアニメーションの非表示
+                _this.hiddenLoading();
             });
         }
     }
@@ -10197,7 +10298,8 @@ var render = function() {
                           fields: _vm.fields,
                           name: _vm.name,
                           field: key,
-                          data: _vm.data[key]
+                          data: _vm.data[key],
+                          connectAll: _vm.connectAll
                         }
                       })
                     ],
@@ -10251,7 +10353,8 @@ var render = function() {
                             fields: _vm.fields,
                             name: _vm.name,
                             field: key,
-                            data: _vm.data[key]
+                            data: _vm.data[key],
+                            connectAll: _vm.connectAll
                           }
                         })
                       ],
@@ -10333,7 +10436,8 @@ var render = function() {
                               fields: _vm.fields,
                               name: _vm.name,
                               field: key,
-                              data: _vm.data[key]
+                              data: _vm.data[key],
+                              connectAll: _vm.connectAll
                             }
                           })
                         ],
@@ -10376,7 +10480,8 @@ var render = function() {
                                 fields: _vm.fields,
                                 name: _vm.name,
                                 field: key,
-                                data: _vm.data[key]
+                                data: _vm.data[key],
+                                connectAll: _vm.connectAll
                               }
                             })
                           ],
@@ -10491,7 +10596,8 @@ var render = function() {
                                 fields: _vm.fields,
                                 name: _vm.name,
                                 field: key,
-                                data: _vm.data[key]
+                                data: _vm.data[key],
+                                connectAll: _vm.connectAll
                               }
                             })
                           ],
@@ -10499,7 +10605,22 @@ var render = function() {
                         )
           ])
         })
-      )
+      ),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "ph-submit ph-adjustmentMt15",
+            attrs: { required: "required", type: "button" },
+            on: { click: _vm.submitAll }
+          },
+          [
+            _vm._v("全て更新"),
+            _c("i", { staticClass: "fas fa-sync-alt ph-adjustmentMl5" })
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -10535,8 +10656,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: !_vm.connecting,
-              expression: "!connecting"
+              value: !_vm.isConnecting,
+              expression: " ! isConnecting"
             }
           ],
           staticClass: "ph-submit ph-adjustmentMl10",
@@ -10556,8 +10677,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.connecting,
-              expression: "connecting"
+              value: _vm.isConnecting,
+              expression: "isConnecting"
             }
           ],
           staticClass: "ph-inputSubmitWrapper"

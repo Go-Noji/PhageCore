@@ -13,7 +13,7 @@
                 </template>
               </select>
             </label>
-            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]" :connectAll="connectAll"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'radio'" class="ph-inputWrapper">
             <ul>
@@ -24,7 +24,7 @@
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]" :connectAll="connectAll"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'checkbox'" class="ph-inputWrapper">
             <ul>
@@ -35,22 +35,25 @@
                 </label>
               </li>
             </ul>
-            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]" :connectAll="connectAll"></AdminEditSubmit>
           </div>
           <div v-else-if="fields[key].type === 'textarea'" class="ph-inputWrapper">
             <label>
               <textarea :name="key" :type="fields[key].type" v-model="data[key]" class="ph-textarea"></textarea>
             </label>
-            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]" :connectAll="connectAll"></AdminEditSubmit>
           </div>
           <div v-else class="ph-inputWrapper">
             <label>
               <input :name="key" :type="fields[key].type" v-model="data[key]" class="ph-input">
             </label>
-            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]"></AdminEditSubmit>
+            <AdminEditSubmit :fields="fields" :name="name" :field="key" :data="data[key]" :connectAll="connectAll"></AdminEditSubmit>
           </div>
         </li>
       </ul>
+      <div>
+        <button @click="submitAll" required="required" class="ph-submit ph-adjustmentMt15" type="button">全て更新<i class="fas fa-sync-alt ph-adjustmentMl5"></i></button>
+      </div>
     </section>
   </transition>
 </template>
@@ -87,7 +90,10 @@
 
         //DBから取得してきたデータ配列
         //中身はオブジェクトで、{フィールド名: データ}という形になっている
-        data: {}
+        data: {},
+
+        //全ての項目を更新している間のみtrueになる
+        connectAll: false
       }
     },
     watch: {
@@ -101,6 +107,9 @@
       this.renderEdit();
     },
     methods: {
+      /**
+       * 描画する
+       */
       renderEdit: function()
       {
         //loading中アイコンとダミーリストを表示する
@@ -129,12 +138,19 @@
               //描画情報をセット
               this.$set(this.data, k, this.$store.state.connect.data.data[k]);
 
+              //もし変更不可なフィールドだったらVuexに登録しない
+              if ( ! this.$store.state.connect.data.fields[k].control)
+              {
+                continue;
+              }
+
               //Vuex情報を追加
               editData[k] = {
                 api: 'api/admin/mutation/'+this.name+'/set',
                 value: this.$store.state.connect.data.data[k],
                 connect: false,
-                success: true
+                success: false,
+                error: ''
               }
             }
 
@@ -145,6 +161,37 @@
           {
             //loading中アイコンとダミーリストを非表示にする
             this.loading = false;
+          });
+      },
+
+      /**
+       * 全項目を更新する
+       */
+      submitAll: function()
+      {
+        //更新フラグがtrueの間は何もしない
+        if (this.connectAll)
+        {
+          return;
+        }
+
+        //更新中フラグをtrueにする
+        this.connectAll = true;
+
+        //全ての項目を更新キューにcommitする
+        this.$store.commit('edit/queue', {key: ''});
+
+        //変更
+        this.$store.dispatch('edit/submit')
+          .then(() =>
+          {
+            //更新中フラグをfalseに戻す
+            this.connectAll = false;
+          })
+          .catch(() =>
+          {
+            //更新中フラグをfalseに戻す
+            this.connectAll = false;
           });
       }
     }

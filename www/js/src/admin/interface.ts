@@ -13,7 +13,8 @@ export interface EditData {
   api: string,
   value: string,
   connect: boolean,
-  success: boolean
+  success: boolean,
+  error: string
 }
 export interface EditState {
   id: number,
