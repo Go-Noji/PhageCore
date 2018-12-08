@@ -13,7 +13,7 @@ const adminStyler = new AmdinStyler();
 
 //高さを合わせたいクラス名(複数)
 const fullHeightClassNames: Array<string> = ['ph-js-fullHeight'];
-const contentsClassNames: Array<string> = ['ph-js-adminSidebar', 'ph-js-adminArea'];
+const contentsClassNames: Array<string> = ['ph-js-adminSidebar', 'ph-js-adminBody'];
 
 //Vuexストアの作成
 Vue.use(Vuex);
@@ -73,10 +73,22 @@ new Vue({
 });
 
 //リサイズ
+let resizeTimer: number = 0;
 const resize = () =>
 {
-  adminStyler.initHeightStyle(fullHeightClassNames);
-  adminStyler.initHeightStyle(contentsClassNames);
+  //既にタイマーが登録されていたらキャンセルする
+  if (resizeTimer)
+  {
+    clearTimeout(resizeTimer);
+    resizeTimer = 0;
+  }
+
+  //タイマー登録
+  resizeTimer = setTimeout(() =>
+  {
+    adminStyler.initHeightStyle(fullHeightClassNames);
+    adminStyler.initHeightStyle(contentsClassNames);
+  }, 200);
 }
 document.addEventListener('DOMContentLoaded', resize, false);
 window.addEventListener('resize', resize, false);

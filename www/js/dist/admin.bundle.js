@@ -152,9 +152,7 @@ var AmdinStyler = /** @class */ (function () {
     AmdinStyler.prototype.initHeightStyle = function (targetClassNames, adjustment) {
         if (adjustment === void 0) { adjustment = 0; }
         //height値の算出
-        if (this.pageHeight === null) {
-            this._setPageHeight();
-        }
+        this._setPageHeight();
         //適用
         this._setHeight(targetClassNames, this.pageHeight + adjustment);
     };
@@ -587,7 +585,7 @@ __webpack_require__.r(__webpack_exports__);
 var adminStyler = new _AmdinStyler__WEBPACK_IMPORTED_MODULE_6__["AmdinStyler"]();
 //高さを合わせたいクラス名(複数)
 var fullHeightClassNames = ['ph-js-fullHeight'];
-var contentsClassNames = ['ph-js-adminSidebar', 'ph-js-adminArea'];
+var contentsClassNames = ['ph-js-adminSidebar', 'ph-js-adminBody'];
 //Vuexストアの作成
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
@@ -643,9 +641,18 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     }
 });
 //リサイズ
+var resizeTimer = 0;
 var resize = function () {
-    adminStyler.initHeightStyle(fullHeightClassNames);
-    adminStyler.initHeightStyle(contentsClassNames);
+    //既にタイマーが登録されていたらキャンセルする
+    if (resizeTimer) {
+        clearTimeout(resizeTimer);
+        resizeTimer = 0;
+    }
+    //タイマー登録
+    resizeTimer = setTimeout(function () {
+        adminStyler.initHeightStyle(fullHeightClassNames);
+        adminStyler.initHeightStyle(contentsClassNames);
+    }, 200);
 };
 document.addEventListener('DOMContentLoaded', resize, false);
 window.addEventListener('resize', resize, false);

@@ -78,10 +78,7 @@ export class AmdinStyler{
   public initHeightStyle(targetClassNames: Array<string>, adjustment: number = 0)
   {
     //height値の算出
-    if (this.pageHeight === null)
-    {
-      this._setPageHeight();
-    }
+    this._setPageHeight();
 
     //適用
     this._setHeight(targetClassNames, this.pageHeight + adjustment);

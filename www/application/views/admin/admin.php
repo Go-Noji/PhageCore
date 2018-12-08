@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         icon="fa-cog"></sidebar-list>
     </ul>
   </nav>
-  <div class="ph-adminBody">
+  <div class="ph-adminBody ph-js-adminBody">
     <header class="ph-adminHeader ph-js-adminHeader">
       <nav class="ph-adminHeaderNav">
         <ul class="ph-adminHeaderNavBox"></ul>
@@ -81,7 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul id="ph-adminHeaderTabBox" class="ph-adminHeaderTabBox"></ul>
       </nav>
     </header>
-    <div class="ph-adminArea ph-js-adminArea">
+    <div class="ph-adminArea">
       <div id="ph-adminTrashArea" class="ph-adminTrashArea">削除する</div>
       <main role="main">
         <div id="ph-adminDesktop" class="ph-adminDesktop">

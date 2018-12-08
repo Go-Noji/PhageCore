@@ -152,9 +152,7 @@ var AmdinStyler = /** @class */ (function () {
     AmdinStyler.prototype.initHeightStyle = function (targetClassNames, adjustment) {
         if (adjustment === void 0) { adjustment = 0; }
         //height値の算出
-        if (this.pageHeight === null) {
-            this._setPageHeight();
-        }
+        this._setPageHeight();
         //適用
         this._setHeight(targetClassNames, this.pageHeight + adjustment);
     };
