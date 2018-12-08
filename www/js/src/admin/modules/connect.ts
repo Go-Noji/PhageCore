@@ -24,7 +24,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * データを初期化する
      * @param state
      */
-    init(state: AdminState) {
+    init(state: AdminState)
+    {
       state.data = {};
       state.error = new class implements AxiosError {
         code: string;
@@ -41,7 +42,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * @param state
      * @param token
      */
-    cancel(state: AdminState, data: { token: CancelTokenStatic, api: string }) {
+    cancel(state: AdminState, data: {token: CancelTokenStatic, api: string})
+    {
       state.source = data.token.source();
       state.lastApi = data.api;
     },
@@ -50,7 +52,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * @param state
      * @param data
      */
-    success(state: AdminState, data: { [key: string]: string }) {
+    success(state: AdminState, data: {[key: string]: string})
+    {
       state.data = data;
       state.source = null;
     },
@@ -59,7 +62,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * @param state
      * @param data
      */
-    failure(state: AdminState, data: AxiosError) {
+    failure(state: AdminState, data: AxiosError)
+    {
       state.error = data;
       state.data = data.response.data;
       state.source = null;
@@ -72,7 +76,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * @param commit
      * @param payload
      */
-    connect({commit, state}, payload: { api: string, data: { [key: string]: string | { [key: string]: string } } }) {
+    connect({commit, state}, payload: {api: string, data: {[key: string]: string | {[key: string]: string}}})
+    {
       //もし同じAPIが通信中だったらその通信をキャンセルする
       if (state.source !== null && state.lastApi === payload.api) {
         state.source.cancel();
@@ -89,13 +94,15 @@ const connectModule: Module<AdminState, AdminState> = {
       params.append(csrf_key, csrf_value);
 
       //追加パラメータ
-      Object.keys(payload.data).forEach((key: string) => {
-        const value: string | { [key: string]: string } = payload.data[key];
+      Object.keys(payload.data).forEach((key: string) =>
+      {
+        const value: string | {[key: string]: string} = payload.data[key];
         if (typeof value === 'string') {
           params.append(key, value);
         }
         else if (typeof value === 'object') {
-          Object.keys(value).forEach((name: string) => {
+          Object.keys(value).forEach((name: string) =>
+          {
             params.append(key + '[' + name + ']', value[name]);
           });
         }
@@ -118,14 +125,18 @@ const connectModule: Module<AdminState, AdminState> = {
      * @param commit
      * @param payload
      */
-    connectAPI({dispatch, commit}, payload: { api: string, data: { [key: string]: string } }) {
-      return new Promise((resolve, reject) => {
+    connectAPI({dispatch, commit}, payload: {api: string, data: {[key: string]: string}})
+    {
+      return new Promise((resolve, reject) =>
+      {
         dispatch('connect', payload)
-          .then((response: { data: { [key: string]: string } }) => {
+          .then((response: {data: {[key: string]: string}}) =>
+          {
             commit('success', response.data);
             resolve();
           })
-          .catch((error: AxiosError) => {
+          .catch((error: AxiosError) =>
+          {
             commit('failure', error);
             reject();
           });
@@ -137,7 +148,8 @@ const connectModule: Module<AdminState, AdminState> = {
      * 現在通信ならtrue, そうでなければfalseが返る
      * @param state
      */
-    isConnect: (state: AdminState) => {
+    isConnect: (state: AdminState) =>
+    {
       return state.source === null ? false : true;
     }
   }
