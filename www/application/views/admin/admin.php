@@ -14,6 +14,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <title id="metaTitle"><?php echo html_escape($site_name); ?></title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" sizes="180x180">
+  <?php if (file_exists(APPPATH.'../css/'.$this->config->item('admin_customize_css_directory'))): ?>
+    <?php foreach (scandir(APPPATH.'../css/'.$this->config->item('admin_customize_css_directory')) as $path): ?>
+      <?php if (pathinfo($path, PATHINFO_EXTENSION) === 'css'): ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo site_url('css/'.$this->config->item('admin_customize_css_directory').'/'.$path); ?>">
+      <?php endif; ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png">
   <meta name="theme-color" content="<?php echo $theme_color; ?>">
